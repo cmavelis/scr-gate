@@ -13,6 +13,6 @@ describe('CreateGame component', () => {
   });
 
   it('should render a <NameEntry />', () => {
-    expect(wrapper.find('NameEntry').length).toEqual(1);
+    expect(wrapper.find('NameEntry').length).toEqual(4);
   });
 });
