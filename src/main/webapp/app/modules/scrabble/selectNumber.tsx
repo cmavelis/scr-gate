@@ -1,6 +1,7 @@
 import './scrabble.scss';
 
 import React from 'react';
+import { Button } from 'reactstrap';
 
 export default class SelectNumber extends React.Component {
   submitNumber = e => {
@@ -12,9 +13,9 @@ export default class SelectNumber extends React.Component {
       <div>
         Select number of players
         <form onSubmit={this.submitNumber}>
-          <button className="bigButton">2</button>
-          <button className="bigButton">3</button>
-          <button className="bigButton">4</button>
+          <Button className="bigButton">2</Button>
+          <Button className="bigButton">3</Button>
+          <Button className="bigButton">4</Button>
         </form>
       </div>
     );
