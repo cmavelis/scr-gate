@@ -31,13 +31,17 @@ export class Home extends React.Component<IHomeProp> {
     );
   }
 }
+
 const mapStateToProps = storeState => ({
   account: storeState.authentication.account,
   isAuthenticated: storeState.authentication.isAuthenticated
 });
+
 const mapDispatchToProps = { getSession };
+
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
+
 export default connect(
   mapStateToProps,
   mapDispatchToProps
