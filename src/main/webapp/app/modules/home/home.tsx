@@ -9,7 +9,6 @@ import { Row, Col, Alert } from 'reactstrap';
 // do not delete IRootState here
 import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import { CreateGame } from '../create-game/create-game';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
@@ -50,7 +49,9 @@ export class Home extends React.Component<IHomeProp> {
               </Alert>
             </div>
           )}
-          <CreateGame />
+          <Link to="/game/new" className="alert-link">
+            Create Game Page
+          </Link>
 
           <p>
             If you like JHipster, do not forget to give us a star on{' '}
