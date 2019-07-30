@@ -7,7 +7,7 @@ import WordCalculation from './wordCalculation';
 export default class Scrabble extends React.Component {
   render() {
     return (
-      <div>
+      <div className="main">
         Something, not nothing!
         <SelectNumber />
         <WordCalculation />
