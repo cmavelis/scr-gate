@@ -6,20 +6,27 @@ import { connect } from 'react-redux';
 import { Row, Col, Alert } from 'reactstrap';
 // import { IRootState } from 'app/shared/reducers';
 import { getSession } from 'app/shared/reducers/authentication';
-import SelectNumber from './selectNumber';
 
-export interface IScrabbleProp extends StateProps, DispatchProps {}
+export interface ISelectNumberProp extends StateProps, DispatchProps {}
 
-export class Scrabble extends React.Component<IScrabbleProp> {
+export class SelectNumber extends React.Component<ISelectNumberProp> {
   // componentDidMount() {
   //   this.props.getSession();
   // }
 
+  submitNumber = e => {
+    e.preventDefault();
+  };
+
   render() {
     return (
       <div>
-        Something, not nothing!
-        <SelectNumber />
+        Select number of players
+        <form onSubmit={this.submitNumber}>
+          <button className="bigButton">2</button>
+          <button className="bigButton">3</button>
+          <button className="bigButton">4</button>
+        </form>
       </div>
     );
   }
@@ -38,4 +45,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Scrabble);
+)(SelectNumber);
