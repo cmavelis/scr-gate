@@ -10,6 +10,7 @@ import PasswordResetFinish from 'app/modules/account/password-reset/finish/passw
 import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
 import Scrabble from 'app/modules/scrabble/scrabble';
+import CreateGame from 'app/modules/create-game/create-game';
 import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
@@ -42,6 +43,7 @@ const Routes = () => (
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/scrabble" component={Scrabble} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <ErrorBoundaryRoute path="/" exact component={Home} />
+      <ErrorBoundaryRoute path="/game/new" exact component={CreateGame} />
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>
