@@ -1,17 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
-import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
 
 export class StartScreen extends React.Component<IHomeProp> {
-  // componentDidMount() {
-  // this.props.getSession();
-  // }
-
   render() {
-    // const { account } = this.props;
     return (
       <Row>
         <Col md="9">
