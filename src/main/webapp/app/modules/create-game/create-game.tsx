@@ -60,7 +60,9 @@ export class CreateGame extends React.Component<INameProps, INameState> {
             deactivated={n > 1 && !CreateGame.shouldInputActivate(n, playerNames)}
           />
         ))}
-        <Button color="primary">Create New Game</Button>
+        <Button color="primary" onSubmit={this.handleSubmit}>
+          Create New Game
+        </Button>
       </div>
     );
   }
