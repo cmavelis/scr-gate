@@ -29,7 +29,6 @@ describe('CreateGame component', () => {
     expect(wrapper.find({ playerNumber: 3 }).prop('deactivated')).toBeTruthy();
   });
 
-  // TODO: write these tests
   it('should not allow more than 12 characters in a name', () => {
     wrapper = mount(<CreateGame />);
     wrapper.setState({
@@ -48,3 +47,5 @@ describe('CreateGame component', () => {
     expect(wrapper.state().playerNames[0]).toEqual('abcdefghijkl');
   });
 });
+
+// TODO: write test for ShouldInputActivate
