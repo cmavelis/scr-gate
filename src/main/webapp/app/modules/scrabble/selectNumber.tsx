@@ -1,19 +1,8 @@
 import './scrabble.scss';
 
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { Row, Col, Alert } from 'reactstrap';
-// import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
 
-export interface ISelectNumberProp extends StateProps, DispatchProps {}
-
-export class SelectNumber extends React.Component<ISelectNumberProp> {
-  // componentDidMount() {
-  //   this.props.getSession();
-  // }
-
+export default class SelectNumber extends React.Component {
   submitNumber = e => {
     e.preventDefault();
   };
@@ -31,18 +20,3 @@ export class SelectNumber extends React.Component<ISelectNumberProp> {
     );
   }
 }
-
-const mapStateToProps = storeState => ({
-  account: storeState.authentication.account,
-  isAuthenticated: storeState.authentication.isAuthenticated
-});
-
-const mapDispatchToProps = { getSession };
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SelectNumber);
