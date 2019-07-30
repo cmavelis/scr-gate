@@ -1,7 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
-import StartScreen from 'app/modules/scrabble/StartScreen';
+import StartScreen from 'app/modules/startscreen/StartScreen';
 import Login from 'app/modules/login/login';
 import Register from 'app/modules/account/register/register';
 import Activate from 'app/modules/account/activate/activate';
