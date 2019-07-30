@@ -15,4 +15,13 @@ describe('CreateGame component', () => {
   it('should render a <NameEntry />', () => {
     expect(wrapper.find('NameEntry').length).toEqual(4);
   });
+
+  // TODO: write these tests
+  // it('should not allow more than 12 characters in a name', () => {
+  //   expect
+  // })
+
+  // it('should activate the 3rd field when the first 2 are filled', () => {
+  //   expect
+  // })
 });

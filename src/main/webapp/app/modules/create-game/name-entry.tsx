@@ -22,17 +22,16 @@ export class NameEntry extends React.Component<INameProps> {
   }
 
   render() {
-    const classes = `${this.props.deactivated ? 'deactivated' : ''}`;
+    const classes = `input-hack ${this.props.deactivated ? 'deactivated' : ''}`;
     return (
-      <div className={classes}>
+      <fieldset className={classes} disabled={this.props.deactivated}>
         <InputGroup>
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Player {this.props.playerNumber + 1}</InputGroupText>
           </InputGroupAddon>
-          <Input value={this.props.playerName} onChange={this.handleChange} />
+          <Input value={this.props.playerName} onChange={this.handleChange} placeholder="1-12 Characters" />
         </InputGroup>
-        <br />
-      </div>
+      </fieldset>
     );
   }
 }

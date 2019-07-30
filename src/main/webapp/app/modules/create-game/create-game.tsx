@@ -2,18 +2,20 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import NameEntry from 'app/modules/create-game/name-entry';
+import { Button } from 'reactstrap';
 
 export interface INameProps extends StateProps, DispatchProps {}
 export interface INameState {
   playerNames: {
-    0: string;
-    1: string;
-    2: string;
-    3: string;
+    [key: number]: string;
   };
 }
 
 export class CreateGame extends React.Component<INameProps, INameState> {
+  static shouldInputActivate(index, object) {
+    const inputsFilled = Object.values(object).filter((n: string) => n.length > 0);
+    return inputsFilled.length >= index;
+  }
   constructor(props) {
     super(props);
     this.state = {
@@ -33,7 +35,7 @@ export class CreateGame extends React.Component<INameProps, INameState> {
     this.setState(prevState => ({
       playerNames: {
         ...prevState.playerNames,
-        [index]: value
+        [index]: value.slice(0, 12) // TODO: look up more proper validation method
       }
     }));
   }
@@ -47,21 +49,24 @@ export class CreateGame extends React.Component<INameProps, INameState> {
     const { playerNames } = this.state;
     return (
       <div>
+        <h2>New Game</h2>
+        <h5>Enter Player Names</h5>
         {[0, 1, 2, 3].map(n => (
           <NameEntry
             key={`player-${n}`}
             playerNumber={n}
             playerName={playerNames[n]}
             onChange={this.handleChange}
-            deactivated={n > 1 && !playerNames[n - 1]}
+            deactivated={n > 1 && !CreateGame.shouldInputActivate(n, playerNames)}
           />
         ))}
+        <Button color="primary">Create New Game</Button>
       </div>
     );
   }
 }
 
-const mapStateToProps = storeState => ({});
+const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {};
 
