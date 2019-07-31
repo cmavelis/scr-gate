@@ -7,6 +7,7 @@ import { string } from 'prop-types';
 interface ILetterInputElementProps {
   num: string;
   setLetter: function;
+  calculate: function;
 }
 
 interface ILetterInputElementState {
@@ -28,46 +29,89 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
       blankA: false
     };
   }
+
   textChangeHandler = e => {
-    this.setState({ letter: e.target.value });
-    this.props.setLetter(`L${this.props.num}`, `${e.target.value}-${this.state.radio}`);
+    const target = e.target as HTMLTextAreaElement;
+    this.setState(function() {
+      return { letter: target.value };
+    }, this.updateUp);
+  };
+
+  updateUp = () => {
+    this.props.setLetter(`L${this.props.num}`, `${this.state.letter}-${this.state.radio}`);
   };
 
   toggleActiveTwo = () => {
     if (!this.state.twoA && !this.state.threeA) {
-      this.setState({ twoA: true } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: '2x' });
+      this.setState(function() {
+        return { twoA: true };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: '2x' };
+      }, this.updateUp);
     } else if (!this.state.twoA && this.state.threeA) {
-      this.setState({ twoA: true } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ threeA: false } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: '2x' });
+      this.setState(function() {
+        return { twoA: true };
+      }, this.updateUp);
+      this.setState(function() {
+        return { threeA: false };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: '2x' };
+      }, this.updateUp);
     } else {
-      this.setState({ twoA: false } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: 'no' });
+      this.setState(function() {
+        return { twoA: false };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: 'no' };
+      }, this.updateUp);
     }
   };
 
   toggleActiveThree = () => {
     if (!this.state.twoA && !this.state.threeA) {
-      this.setState({ threeA: true } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: '3x' });
+      this.setState(function() {
+        return { threeA: true };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: '3x' };
+      }, this.updateUp);
     } else if (!this.state.threeA && this.state.twoA) {
-      this.setState({ threeA: true } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ twoA: false } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: '3x' });
+      this.setState(function() {
+        return { threeA: true };
+      }, this.updateUp);
+      this.setState(function() {
+        return { twoA: false };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: '3x' };
+      }, this.updateUp);
     } else {
-      this.setState({ threeA: false } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: 'no' });
+      this.setState(function() {
+        return { threeA: false };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: 'no' };
+      }, this.updateUp);
     }
   };
 
   toggleActiveBlank = () => {
     if (!this.state.blankA) {
-      this.setState({ blankA: true } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: '0x' });
+      this.setState(function() {
+        return { blankA: true };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: '0x' };
+      }, this.updateUp);
     } else {
-      this.setState({ blankA: false } as Pick<ILetterInputElementState, keyof ILetterInputElementState>);
-      this.setState({ radio: 'no' });
+      this.setState(function() {
+        return { blankA: false };
+      }, this.updateUp);
+      this.setState(function() {
+        return { radio: 'no' };
+      }, this.updateUp);
     }
   };
 
