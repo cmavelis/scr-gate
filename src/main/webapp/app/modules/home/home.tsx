@@ -5,8 +5,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Button, Row, Col } from 'reactstrap';
 
-
-
 import { getSession } from 'app/shared/reducers/authentication';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
@@ -21,7 +19,6 @@ export class Home extends React.Component<IHomeProp> {
     return (
       <Row>
         <Col md="9">
-
           <h2>Scrabble Companion</h2>
           <Row className="justify-content-md-center">
             <Link to="/startscreen">
