@@ -9,24 +9,26 @@
 }
 
 .bigInput {
-  width: 100px;
-  height: 100px;
+  width: 75px;
+  height: 75px;
   color: green;
   text-align: center;
   font-size: 60px;
   border: 3px solid black;
   border-radius: 5px;
-  margin: 10px;
+  margin: 0px;
+  margin-left: 5px;
+  margin-bottom: 10px;
 }
 
-.wordColumn {
+.wordRow {
   display: flex;
-  flex-flow: column nowrap;
+  flex-flow: row nowrap;
 }
 
 .boxAndGroup {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
 }
 
 .smallBtn {
@@ -34,5 +36,10 @@
 }
 
 .radioGroup {
-  margin-top: 50px;
+  margin-top: 0px;
+  margin-left: 10px;
+}
+
+.modifierGroup {
+  margin-right: 20px;
 }

@@ -8,7 +8,6 @@ export default class Scrabble extends React.Component {
   render() {
     return (
       <div className="main">
-        Something, not nothing!
         <SelectNumber />
         <WordCalculation />
       </div>

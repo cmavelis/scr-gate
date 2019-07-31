@@ -1,271 +1,136 @@
 import './scrabble.scss';
 
 import React from 'react';
+import LetterInputElement from './letterInputElement';
 
-export default class WordCalculation extends React.Component {
+interface IWordCalculationState {
+  word: string;
+  L1: string;
+  L2: string;
+  L3: string;
+  L4: string;
+  L5: string;
+  L6: string;
+  L7: string;
+  L8: string;
+  L9: string;
+  L10: string;
+  L11: string;
+  L12: string;
+  L13: string;
+  L14: string;
+  L15: string;
+  score: number;
+  letterDict: object;
+}
+
+export default class WordCalculation extends React.Component<{}, IWordCalculationState> {
   constructor(props) {
     super(props);
     this.state = {
-      1: '',
-      2: '',
-      3: '',
-      4: '',
-      5: '',
-      6: '',
-      7: '',
-      8: '',
-      9: '',
-      10: '',
-      11: '',
-      12: '',
-      13: '',
-      14: '',
-      15: ''
+      word: '',
+      L1: '',
+      L2: '',
+      L3: '',
+      L4: '',
+      L5: '',
+      L6: '',
+      L7: '',
+      L8: '',
+      L9: '',
+      L10: '',
+      L11: '',
+      L12: '',
+      L13: '',
+      L14: '',
+      L15: '',
+      score: 0,
+      letterDict: {
+        A: 1,
+        B: 1,
+        C: 1,
+        D: 1,
+        E: 1,
+        F: 1,
+        G: 1,
+        H: 1,
+        I: 1,
+        J: 1,
+        K: 1,
+        L: 1,
+        M: 1,
+        N: 1,
+        O: 1,
+        P: 1,
+        Q: 1,
+        R: 1,
+        S: 1,
+        T: 1,
+        U: 1,
+        V: 1,
+        W: 1,
+        X: 1,
+        Y: 1,
+        Z: 1
+      }
     };
   }
 
-  submitNumber = e => {
-    e.preventDefault();
+  calculateNumber = () => {
+    this.setState({ score: this.getScore() });
   };
 
-  changeHandler = e => {
-    this.setState({ [e.target.name]: e.target.value });
+  setLetter = (letter, changes) => {
+    this.setState({ [letter]: changes } as any);
+  };
+
+  getScore = () => {
+    let score = 0;
+    let arr = [
+      this.state.L1,
+      this.state.L2,
+      this.state.L3,
+      this.state.L4,
+      this.state.L5,
+      this.state.L6,
+      this.state.L7,
+      this.state.L8,
+      this.state.L9,
+      this.state.L10,
+      this.state.L11,
+      this.state.L12,
+      this.state.L13,
+      this.state.L14,
+      this.state.L15
+    ];
+
+    return score;
   };
 
   render() {
     return (
       <div>
         Input a word
-        <form onSubmit={this.submitNumber} className="wordColumn">
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="1" placeholder="1" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="1m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="1m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="1m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="1m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="1m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="2" placeholder="2" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="2m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="2m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="2m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="2m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="2m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="3" placeholder="3" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="3m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="3m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="3m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="3m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="3m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="4" placeholder="4" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="4m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="4m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="4m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="4m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="4m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="5" placeholder="5" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="5m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="5m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="5m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="5m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="5m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="6" placeholder="6" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="6m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="6m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="6m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="6m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="6m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="7" placeholder="7" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="7m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="7m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="7m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="7m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="7m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="8" placeholder="8" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="8m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="8m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="8m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="8m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="8m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="9" placeholder="9" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="9m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="9m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="9m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="9m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="9m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="10" placeholder="10" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="10m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="10m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="10m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="10m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="10m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="11" placeholder="11" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="11m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="11m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="11m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="11m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="11m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="12" placeholder="12" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="12m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="12m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="12m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="12m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="12m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="13" placeholder="13" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="13m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="13m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="13m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="13m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="13m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="14" placeholder="14" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="14m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="14m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="14m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="14m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="14m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <div className="boxAndGroup">
-            <input className="bigInput" type="text" name="15" placeholder="15" onChange={this.changeHandler} />
-            <div className="radioGroup">
-              <input type="radio" name="15m" value="no" checked />
-              &nbsp;&nbsp;No modifier&nbsp;&nbsp;
-              <input type="radio" name="15m" value="2l" />
-              &nbsp;&nbsp;2x letter&nbsp;&nbsp;
-              <input type="radio" name="15m" value="2w" />
-              &nbsp;&nbsp;2x word&nbsp;&nbsp;
-              <input type="radio" name="15m" value="3l" />
-              &nbsp;&nbsp;3x letter&nbsp;&nbsp;
-              <input type="radio" name="15m" value="3w" />
-              &nbsp;&nbsp;3x word
-            </div>
-          </div>
-          <button type="submit" className="smallBtn">
-            Submit
-          </button>
+        <form onChange={this.calculateNumber} className="wordRow">
+          <LetterInputElement num="1" setLetter={this.setLetter} />
+          <LetterInputElement num="2" setLetter={this.setLetter} />
+          <LetterInputElement num="3" setLetter={this.setLetter} />
+          <LetterInputElement num="4" setLetter={this.setLetter} />
+          <LetterInputElement num="5" setLetter={this.setLetter} />
+          <LetterInputElement num="6" setLetter={this.setLetter} />
+          <LetterInputElement num="7" setLetter={this.setLetter} />
+          <LetterInputElement num="8" setLetter={this.setLetter} />
+          <LetterInputElement num="9" setLetter={this.setLetter} />
+          <LetterInputElement num="10" setLetter={this.setLetter} />
+          <LetterInputElement num="11" setLetter={this.setLetter} />
+          <LetterInputElement num="12" setLetter={this.setLetter} />
+          <LetterInputElement num="13" setLetter={this.setLetter} />
+          <LetterInputElement num="14" setLetter={this.setLetter} />
+          <LetterInputElement num="15" setLetter={this.setLetter} />
         </form>
+        <div>Double Word</div>
+        <div>Triple Word</div>
+        Score: {this.state.score}
       </div>
     );
   }
