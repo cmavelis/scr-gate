@@ -11,8 +11,8 @@ describe('WordEntry component', () => {
     expect(wrapper.find('div').length).toEqual(1);
   });
 
-  it('should render one <LetterEntry /> initially', () => {
-    expect(wrapper.find('LetterEntry').length).toEqual(1);
+  it('should render one <Input /> initially', () => {
+    expect(wrapper.find('Input').length).toBeGreaterThan(0);
   });
 
   it('should activate the next letter block in the word', () => {});
