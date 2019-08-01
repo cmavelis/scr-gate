@@ -23,12 +23,14 @@
 
 .wordRow {
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: row wrap;
 }
 
 .boxAndGroup {
   display: flex;
   flex-flow: column nowrap;
+  width: 80px;
+  margin-right: 0;
 }
 
 .smallBtn {
@@ -38,6 +40,7 @@
 .radioGroup {
   margin-top: 0px;
   margin-left: 10px;
+  margin-bottom: 10px;
 }
 
 .modifierGroup {

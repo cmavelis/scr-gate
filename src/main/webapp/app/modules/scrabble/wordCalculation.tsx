@@ -55,12 +55,11 @@ export default class WordCalculation extends React.Component<{}, IWordCalculatio
     };
   }
 
-  calculateNumber = () => {
-    const score = this.getScore();
+  updateScore = () => {
+    const score = this.calculateNewScore();
     this.setState(function() {
-      return { score: this.getScore() };
+      return { score };
     });
-    return score;
   };
 
   setLetter = (letter, changes) => {
@@ -70,7 +69,7 @@ export default class WordCalculation extends React.Component<{}, IWordCalculatio
           [letter]: changes
         };
       } as any,
-      this.calculateNumber
+      this.updateScore
     );
   };
 
@@ -81,11 +80,11 @@ export default class WordCalculation extends React.Component<{}, IWordCalculatio
           [modifier]: changes
         };
       } as any,
-      this.calculateNumber
+      this.updateScore
     );
   };
 
-  getScore = () => {
+  calculateNewScore = () => {
     let score = 0;
     const arr = [
       this.state.L1,
@@ -160,7 +159,7 @@ export default class WordCalculation extends React.Component<{}, IWordCalculatio
     return (
       <div>
         Enter your letters:
-        <form onChange={this.calculateNumber}>
+        <form onChange={this.updateScore}>
           <div className="wordRow">
             <LetterInputElement num="1" setLetter={this.setLetter} />
             <LetterInputElement num="2" setLetter={this.setLetter} />
