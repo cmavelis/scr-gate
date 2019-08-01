@@ -7,7 +7,6 @@ import { string } from 'prop-types';
 interface ILetterInputElementProps {
   num: string;
   setLetter: function;
-  calculate: function;
 }
 
 interface ILetterInputElementState {
