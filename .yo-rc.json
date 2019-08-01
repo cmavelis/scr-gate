@@ -1,7 +1,8 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.bookerdimaio.scrabble"
+      "packageName": "com.bookerdimaio.scrabble",
+      "microservicePath": "../scrabble-companion-game-microservice"
     },
     "jhipsterVersion": "6.1.2",
     "applicationType": "gateway",
@@ -27,7 +28,9 @@
     "clientFramework": "react",
     "clientTheme": "none",
     "clientThemeVariant": "",
-    "testFrameworks": ["gatling"],
+    "testFrameworks": [
+      "gatling"
+    ],
     "jhiPrefix": "jhi",
     "entitySuffix": "",
     "dtoSuffix": "DTO",
