@@ -10,6 +10,6 @@ describe('ScoresInput', () => {
 
   it('it should render a Button, <Button />', () => {
     const wrapper = shallow(<ScoresInput />);
-    expect(wrapper.find('Button').length).toBe(2);
+    expect(wrapper.find('Button').length).toBe(1);
   });
 });
