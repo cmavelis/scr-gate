@@ -43,27 +43,15 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
   toggleActiveTwo = () => {
     if (!this.state.twoA && !this.state.threeA) {
       this.setState(function() {
-        return { twoA: true };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: '2x' };
+        return { twoA: true, radio: '2x' };
       }, this.updateUp);
     } else if (!this.state.twoA && this.state.threeA) {
       this.setState(function() {
-        return { twoA: true };
-      }, this.updateUp);
-      this.setState(function() {
-        return { threeA: false };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: '2x' };
+        return { twoA: true, threeA: false, radio: '2x' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { twoA: false };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: 'no' };
+        return { twoA: false, radio: 'no' };
       }, this.updateUp);
     }
   };
@@ -71,27 +59,15 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
   toggleActiveThree = () => {
     if (!this.state.twoA && !this.state.threeA) {
       this.setState(function() {
-        return { threeA: true };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: '3x' };
+        return { threeA: true, radio: '3x' };
       }, this.updateUp);
     } else if (!this.state.threeA && this.state.twoA) {
       this.setState(function() {
-        return { threeA: true };
-      }, this.updateUp);
-      this.setState(function() {
-        return { twoA: false };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: '3x' };
+        return { threeA: true, twoA: false, radio: '3x' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { threeA: false };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: 'no' };
+        return { threeA: false, radio: 'no' };
       }, this.updateUp);
     }
   };
@@ -99,17 +75,11 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
   toggleActiveBlank = () => {
     if (!this.state.blankA) {
       this.setState(function() {
-        return { blankA: true };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: '0x' };
+        return { blankA: true, radio: '0x' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { blankA: false };
-      }, this.updateUp);
-      this.setState(function() {
-        return { radio: 'no' };
+        return { blankA: false, radio: 'no' };
       }, this.updateUp);
     }
   };
