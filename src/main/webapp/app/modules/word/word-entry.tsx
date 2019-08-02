@@ -48,7 +48,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     );
   }
 
-  handleDelete(event, index) {
+  handleDeleteKeyPress(event, index) {
     if (event.keyCode === 8) {
       this.switchInputSelected(index - 1);
     }
@@ -72,8 +72,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
   }
 
   // TODO: add validation to handle a blank space in middle?
-  // TODO: try to force only input on the last open block
-  // TODO: move focus automatically to previous
 
   render() {
     const { word } = this.state;
@@ -86,17 +84,13 @@ export class WordEntry extends React.Component<{}, IWordState> {
               {range(15).map(index => (
                 <Input
                   key={`letter-${index}`}
-                  // tslint:disable-next-line:jsx-no-lambda
                   innerRef={this.inputRefs[index]}
                   className="letter-input"
-                  // tslint:disable-next-line:jsx-no-lambda
-                  onChange={e => this.handleChange(e, index)} // TODO: try this.handleChange.apply()
                   value={word[index]}
                   disabled={index > 0 && !this.shouldInputActivate(index)}
                   input="text"
-                  // tslint:disable-next-line:jsx-no-lambda
-                  onKeyDown={e => this.handleDelete(e, index)}
-                  // tslint:disable-next-line
+                  onChange={e => this.handleChange(e, index)} // TODO: try this.handleChange.apply()
+                  onKeyDown={e => this.handleDeleteKeyPress(e, index)}
                   onClick={() => this.handleClick()}
                 />
               ))}

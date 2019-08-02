@@ -164,7 +164,8 @@
 
     "jsx-boolean-value": [true, "never"],
     "jsx-no-multiline-js": false,
-    "jsx-alignment": true
+    "jsx-alignment": true,
+    "jsx-no-lambda": false
   },
   "rulesDirectory": []
 }
