@@ -47,10 +47,9 @@ export class WordEntry extends React.Component<{}, IWordState> {
           ...prevState.word,
           [index]: value.toUpperCase()
         }
-      }) // ,
-      // () => (this.switchCursorFocus(index - 1))
+      }),
+      () => this.switchCursorFocus(index + 1)
     );
-    this.switchCursorFocus(index + 1);
   }
 
   getFullWord() {
@@ -83,7 +82,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
                   key={`letter-${index}`}
                   // ref={this.inputRefs[index]}
                   // tslint:disable-next-line:jsx-no-lambda
-                  innerRef={input => (this.inputRefs[index] = input)}
+                  innerRef={this.inputRefs[index]}
                   className="letter-input"
                   // tslint:disable-next-line:jsx-no-lambda
                   onChange={e => this.handleChange(e, index)} // TODO: try this.handleChange.apply()
