@@ -7,10 +7,12 @@ describe('WordCalculation', () => {
     const wrapper = mount(<WordCalculation />);
     expect(wrapper.find('div').length).toEqual(39);
   });
+
   it('should render 51 buttons', () => {
     const wrapper = mount(<WordCalculation />);
     expect(wrapper.find('Button').length).toEqual(51);
   });
+
   it('should accurately calculate the score for the theoretical highest-scoring word', () => {
     const wrapper = mount(<WordCalculation />);
     wrapper.setState({
@@ -37,5 +39,31 @@ describe('WordCalculation', () => {
       .at(0)
       .simulate('change', event);
     expect(wrapper.state().score).toEqual(1458);
+  });
+
+  it('should accurately calculate the score for a blank letter', () => {
+    const wrapper = mount(<WordCalculation />);
+    wrapper.setState({
+      L1: 'o-0x'
+    });
+    const event = { target: { name: 1, value: 'o-0x' } };
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', event);
+    expect(wrapper.state().score).toEqual(0);
+  });
+
+  it('should accurately calculate the score for a tripled letter', () => {
+    const wrapper = mount(<WordCalculation />);
+    wrapper.setState({
+      L1: 'o-3x'
+    });
+    const event = { target: { name: 1, value: 'o-3x' } };
+    wrapper
+      .find('input')
+      .at(0)
+      .simulate('change', event);
+    expect(wrapper.state().score).toEqual(3);
   });
 });

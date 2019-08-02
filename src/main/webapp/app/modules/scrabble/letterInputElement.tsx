@@ -12,9 +12,9 @@ interface ILetterInputElementProps {
 interface ILetterInputElementState {
   letter: string;
   radio: string;
-  twoA: boolean;
-  threeA: boolean;
-  blankA: boolean;
+  twoActive: boolean;
+  threeActive: boolean;
+  blankActive: boolean;
 }
 
 export default class LetterInputElement extends React.Component<ILetterInputElementProps, ILetterInputElementState> {
@@ -23,9 +23,9 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
     this.state = {
       letter: '',
       radio: 'no',
-      twoA: false,
-      threeA: false,
-      blankA: false
+      twoActive: false,
+      threeActive: false,
+      blankActive: false
     };
   }
 
@@ -41,45 +41,45 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
   };
 
   toggleActiveTwo = () => {
-    if (!this.state.twoA && !this.state.threeA) {
+    if (!this.state.twoActive && !this.state.threeActive) {
       this.setState(function() {
-        return { twoA: true, radio: '2x' };
+        return { twoActive: true, radio: '2x' };
       }, this.updateUp);
-    } else if (!this.state.twoA && this.state.threeA) {
+    } else if (!this.state.twoActive && this.state.threeActive) {
       this.setState(function() {
-        return { twoA: true, threeA: false, radio: '2x' };
+        return { twoActive: true, threeActive: false, radio: '2x' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { twoA: false, radio: 'no' };
+        return { twoActive: false, radio: 'no' };
       }, this.updateUp);
     }
   };
 
   toggleActiveThree = () => {
-    if (!this.state.twoA && !this.state.threeA) {
+    if (!this.state.twoActive && !this.state.threeActive) {
       this.setState(function() {
-        return { threeA: true, radio: '3x' };
+        return { threeActive: true, radio: '3x' };
       }, this.updateUp);
-    } else if (!this.state.threeA && this.state.twoA) {
+    } else if (!this.state.threeActive && this.state.twoActive) {
       this.setState(function() {
-        return { threeA: true, twoA: false, radio: '3x' };
+        return { threeActive: true, twoActive: false, radio: '3x' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { threeA: false, radio: 'no' };
+        return { threeActive: false, radio: 'no' };
       }, this.updateUp);
     }
   };
 
   toggleActiveBlank = () => {
-    if (!this.state.blankA) {
+    if (!this.state.blankActive) {
       this.setState(function() {
-        return { blankA: true, radio: '0x' };
+        return { blankActive: true, radio: '0x' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { blankA: false, radio: 'no' };
+        return { blankActive: false, radio: 'no' };
       }, this.updateUp);
     }
   };
@@ -97,13 +97,13 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
           maxLength={1}
         />
         <div className="radioGroup">
-          <Button onClick={this.toggleActiveTwo} active={this.state.twoA} size="sm">
+          <Button onClick={this.toggleActiveTwo} active={this.state.twoActive} size="sm">
             2x
           </Button>
-          <Button onClick={this.toggleActiveThree} active={this.state.threeA} size="sm">
+          <Button onClick={this.toggleActiveThree} active={this.state.threeActive} size="sm">
             3x
           </Button>
-          <Button onClick={this.toggleActiveBlank} active={this.state.blankA}>
+          <Button onClick={this.toggleActiveBlank} active={this.state.blankActive}>
             Blank
           </Button>
         </div>

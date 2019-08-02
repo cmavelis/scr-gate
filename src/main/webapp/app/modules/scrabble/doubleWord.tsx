@@ -2,8 +2,8 @@ import React from 'react';
 import { Button } from 'reactstrap';
 
 interface IDoubleWordState {
-  oneA: boolean;
-  twoA: boolean;
+  oneActive: boolean;
+  twoActive: boolean;
   radio: string;
 }
 
@@ -15,8 +15,8 @@ export default class DoubleWord extends React.Component<IDoubleWordProps, IDoubl
   constructor(props) {
     super(props);
     this.state = {
-      oneA: false,
-      twoA: false,
+      oneActive: false,
+      twoActive: false,
       radio: '1w'
     };
   }
@@ -26,33 +26,33 @@ export default class DoubleWord extends React.Component<IDoubleWordProps, IDoubl
   };
 
   toggleActiveOne = () => {
-    if (!this.state.oneA && !this.state.twoA) {
+    if (!this.state.oneActive && !this.state.twoActive) {
       this.setState(function() {
-        return { oneA: true, radio: '2w' };
+        return { oneActive: true, radio: '2w' };
       }, this.updateUp);
-    } else if (!this.state.oneA && this.state.twoA) {
+    } else if (!this.state.oneActive && this.state.twoActive) {
       this.setState(function() {
-        return { oneA: true, twoA: false, radio: '2w' };
+        return { oneActive: true, twoActive: false, radio: '2w' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { oneA: false, radio: '1w' };
+        return { oneActive: false, radio: '1w' };
       }, this.updateUp);
     }
   };
 
   toggleActiveTwo = () => {
-    if (!this.state.oneA && !this.state.twoA) {
+    if (!this.state.oneActive && !this.state.twoActive) {
       this.setState(function() {
-        return { twoA: true, radio: '4w' };
+        return { twoActive: true, radio: '4w' };
       }, this.updateUp);
-    } else if (!this.state.twoA && this.state.oneA) {
+    } else if (!this.state.twoActive && this.state.oneActive) {
       this.setState(function() {
-        return { twoA: true, oneA: false, radio: '4w' };
+        return { twoActive: true, oneActive: false, radio: '4w' };
       }, this.updateUp);
     } else {
       this.setState(function() {
-        return { twoA: false, radio: '1w' };
+        return { twoActive: false, radio: '1w' };
       }, this.updateUp);
     }
   };
@@ -60,10 +60,10 @@ export default class DoubleWord extends React.Component<IDoubleWordProps, IDoubl
   render() {
     return (
       <div>
-        <Button onClick={this.toggleActiveOne} active={this.state.oneA} size="sm">
+        <Button onClick={this.toggleActiveOne} active={this.state.oneActive} size="sm">
           1
         </Button>
-        <Button onClick={this.toggleActiveTwo} active={this.state.twoA} size="sm">
+        <Button onClick={this.toggleActiveTwo} active={this.state.twoActive} size="sm">
           2
         </Button>
       </div>
