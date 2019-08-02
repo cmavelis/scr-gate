@@ -13,30 +13,39 @@ export interface IWordState {
 
 export class WordEntry extends React.Component<{}, IWordState> {
   private readonly inputRefs;
+  private readonly maxLetters = 15;
   constructor(props) {
     super(props);
     this.state = {
       word: {
-        ...range(15).map(() => '')
+        ...range(this.maxLetters).map(() => '')
       }
     };
 
     this.inputRefs = {
-      ...range(15).map(() => React.createRef())
+      ...range(this.maxLetters).map(() => React.createRef())
     };
 
     this.handleChange = this.handleChange.bind(this);
   }
 
   switchInputSelected(index) {
-    this.inputRefs[index].current.select();
+    const wordLength = this.getFullWord().length;
+    if (wordLength < this.maxLetters) {
+      this.inputRefs[index].current.select();
+    } else {
+      this.inputRefs[this.maxLetters - 1].current.select();
+    }
   }
 
   handleChange(event, index) {
     const { value } = event.target;
+    // only allow single characters, may be redundant
     if (value.length > 1) {
       return;
     }
+
+    const nextLetter = index < this.maxLetters - 1 ? index + 1 : this.maxLetters - 1;
     this.setState(
       prevState => ({
         word: {
@@ -44,18 +53,24 @@ export class WordEntry extends React.Component<{}, IWordState> {
           [index]: value.toUpperCase()
         }
       }),
-      () => this.switchInputSelected(index + 1)
+      () => this.switchInputSelected(nextLetter)
     );
   }
 
   handleDeleteKeyPress(event, index) {
-    if (event.keyCode === 8) {
+    if (event.keyCode === 8 || event.keyCode === 46) {
       this.switchInputSelected(index - 1);
     }
   }
 
-  handleClick() {
-    this.switchInputSelected(this.getFullWord().length);
+  handleClick(e) {
+    e.preventDefault();
+    const wordLength = this.getFullWord().length;
+    if (wordLength === this.maxLetters) {
+      this.switchInputSelected(wordLength - 1);
+    } else {
+      this.switchInputSelected(wordLength);
+    }
   }
 
   getFullWord() {
@@ -71,8 +86,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
     return this.getFullWord().length >= index;
   }
 
-  // TODO: add validation to handle a blank space in middle?
-
   render() {
     const { word } = this.state;
     return (
@@ -80,8 +93,8 @@ export class WordEntry extends React.Component<{}, IWordState> {
         <Button color="info">All 7 tiles played</Button>
         <Container>
           <Row className="justify-content-start no-gutters">
-            <InputGroup word={Object.values(word)}>
-              {range(15).map(index => (
+            <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleClick(e)}>
+              {range(this.maxLetters).map(index => (
                 <Input
                   key={`letter-${index}`}
                   innerRef={this.inputRefs[index]}
@@ -91,13 +104,11 @@ export class WordEntry extends React.Component<{}, IWordState> {
                   input="text"
                   onChange={e => this.handleChange(e, index)} // TODO: try this.handleChange.apply()
                   onKeyDown={e => this.handleDeleteKeyPress(e, index)}
-                  onClick={() => this.handleClick()}
                 />
               ))}
             </InputGroup>
           </Row>
           <Row>
-            {/* tslint:disable-next-line:jsx-no-lambda */}
             <Button onClick={() => this.switchInputSelected(3)} />
           </Row>
           <Row>{this.getFullWord()}</Row>
