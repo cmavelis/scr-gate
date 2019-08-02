@@ -2,9 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button } from 'reactstrap';
 import './scores.scss';
-export interface ILetterInputElementProps extends StateProps, DispatchProps {}
+export interface IScoresInputProps extends StateProps, DispatchProps {}
 
-export class ScoresInput extends React.Component<ILetterInputElementProps> {
+interface IScoresInputState {
+  newScore: number;
+}
+
+export class ScoresInput extends React.Component<IScoresInputProps, IScoresInputState> {
+  constructor(props) {
+    super(props);
+    this.state = {
+      newScore: 0
+    };
+  }
+
+  handleChange = e => {
+    this.setState({ [e.target.name]: Number(e.target.value) } as Pick<IScoresInputState, keyof IScoresInputState>);
+  };
+
   render() {
     return (
       <div>
@@ -19,7 +34,7 @@ export class ScoresInput extends React.Component<ILetterInputElementProps> {
             <h3 className="ps">{this.props.playerScore}</h3>
           </div>
           <span className="plus">&#43;</span>
-          <Input className="col-md-1" type="name" />
+          <Input className="col-md-1" type="text" name="newScore" value={this.state.newScore} onChange={this.handleChange} />
           <Button className="button" color="primary">
             Submit Score
           </Button>
