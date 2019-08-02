@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Container, Input, Button, Row, Col } from 'reactstrap';
+import { Input, Button } from 'reactstrap';
 import './scores.scss';
 export interface ILetterInputElementProps extends StateProps, DispatchProps {}
 
@@ -8,32 +8,22 @@ export class ScoresInput extends React.Component<ILetterInputElementProps> {
   render() {
     return (
       <div>
-        <Container>
-          <Row>
-            <h2>{this.props.gameName}</h2>
-          </Row>
-          <Row>
-            <Col sm="2">
-              <p>Player</p>
-              <h3>{this.props.playerName}</h3>
-            </Col>
-            <Col sm="2">
-              <p className="score">Score</p>
-              <h3>{this.props.playerScore}</h3>
-            </Col>
-            <Col sm="2">
-              <span className="plus">&#43;</span>
-            </Col>
-            <Col sm="2">
-              <Input className="col-lg-7" type="name" />
-            </Col>
-            <Col sm="">
-              <Button className="button" color="primary">
-                Submit Score
-              </Button>
-            </Col>
-          </Row>
-        </Container>
+        <h2>{this.props.gameName}</h2>
+        <div className="display-row">
+          <div className="level-1">
+            <p className="player">Player</p>
+            <h3>{this.props.playerName}</h3>
+          </div>
+          <div className="level-1">
+            <p className="score">Score</p>
+            <h3 className="ps">{this.props.playerScore}</h3>
+          </div>
+          <span className="plus">&#43;</span>
+          <Input className="col-md-1" type="name" />
+          <Button className="button" color="primary">
+            Submit Score
+          </Button>
+        </div>
       </div>
     );
   }
