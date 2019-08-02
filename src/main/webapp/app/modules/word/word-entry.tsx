@@ -108,10 +108,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
               ))}
             </InputGroup>
           </Row>
-          <Row>
-            <Button onClick={() => this.switchInputSelected(3)} />
-          </Row>
-          <Row>{this.getFullWord()}</Row>
+          <Row>Your word: {this.getFullWord()}</Row>
         </Container>
       </div>
     );
