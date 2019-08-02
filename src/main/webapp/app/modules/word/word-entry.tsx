@@ -28,8 +28,8 @@ export class WordEntry extends React.Component<{}, IWordState> {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  switchCursorFocus(index) {
-    this.inputRefs[index].current.focus();
+  switchInputSelected(index) {
+    this.inputRefs[index].current.select();
   }
 
   handleChange(event, index) {
@@ -44,8 +44,18 @@ export class WordEntry extends React.Component<{}, IWordState> {
           [index]: value.toUpperCase()
         }
       }),
-      () => this.switchCursorFocus(index + 1)
+      () => this.switchInputSelected(index + 1)
     );
+  }
+
+  handleDelete(event, index) {
+    if (event.keyCode === 8) {
+      this.switchInputSelected(index - 1);
+    }
+  }
+
+  handleClick() {
+    this.switchInputSelected(this.getFullWord().length);
   }
 
   getFullWord() {
@@ -76,7 +86,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
               {range(15).map(index => (
                 <Input
                   key={`letter-${index}`}
-                  // ref={this.inputRefs[index]}
                   // tslint:disable-next-line:jsx-no-lambda
                   innerRef={this.inputRefs[index]}
                   className="letter-input"
@@ -85,13 +94,17 @@ export class WordEntry extends React.Component<{}, IWordState> {
                   value={word[index]}
                   disabled={index > 0 && !this.shouldInputActivate(index)}
                   input="text"
+                  // tslint:disable-next-line:jsx-no-lambda
+                  onKeyDown={e => this.handleDelete(e, index)}
+                  // tslint:disable-next-line
+                  onClick={() => this.handleClick()}
                 />
               ))}
             </InputGroup>
           </Row>
           <Row>
             {/* tslint:disable-next-line:jsx-no-lambda */}
-            <Button onClick={() => this.switchCursorFocus(3)} />
+            <Button onClick={() => this.switchInputSelected(3)} />
           </Row>
           <Row>{this.getFullWord()}</Row>
         </Container>
