@@ -25,8 +25,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
     this.inputRefs = {
       ...range(this.maxLetters).map(() => React.createRef())
     };
-
-    this.handleChange = this.handleChange.bind(this);
   }
 
   switchInputSelected(index) {
@@ -38,32 +36,61 @@ export class WordEntry extends React.Component<{}, IWordState> {
     }
   }
 
-  handleChange(event, index) {
-    const { value } = event.target;
-    // only allow single characters, may be redundant
-    if (value.length > 1) {
+  handleInputKeyPress(event, index) {
+    event.preventDefault();
+    const key = event.keyCode;
+    let nextLetterSelected = index;
+    let editLetter;
+    let changedLetterValue;
+    // DELETE/BACKSPACE
+    if (key === 8 || key === 46) {
+      // go backwards and delete when delete is pressed
+      if (index < this.maxLetters - 1 && index > 0) {
+        nextLetterSelected = index - 1;
+        editLetter = nextLetterSelected;
+      } else if (index === this.maxLetters - 1) {
+        // things get a little funny on the final letter
+        if (this.getFullWord().length === this.maxLetters) {
+          nextLetterSelected = index;
+          editLetter = index;
+        } else {
+          nextLetterSelected = index - 1;
+          editLetter = index - 1;
+        }
+      } else if (index === 0) {
+        nextLetterSelected = 0;
+        editLetter = nextLetterSelected;
+      } else {
+        return;
+      }
+      changedLetterValue = '';
+      // ALPHABET KEYS
+    } else if (key >= 65 && key <= 90) {
+      // go forwards and add letter when letter is pressed
+      nextLetterSelected = index < this.maxLetters - 1 ? index + 1 : this.maxLetters - 1;
+      editLetter = index;
+      changedLetterValue = event.key;
+    } else {
       return;
     }
-
-    const nextLetter = index < this.maxLetters - 1 ? index + 1 : this.maxLetters - 1;
+    // tslint:disable-next-line:no-console
+    console.log(index);
+    // tslint:disable-next-line:no-console
+    console.log(editLetter);
+    // tslint:disable-next-line:no-console
+    console.log(nextLetterSelected);
     this.setState(
       prevState => ({
         word: {
           ...prevState.word,
-          [index]: value.toUpperCase()
+          [editLetter]: changedLetterValue.toUpperCase()
         }
       }),
-      () => this.switchInputSelected(nextLetter)
+      () => this.switchInputSelected(nextLetterSelected)
     );
   }
 
-  handleDeleteKeyPress(event, index) {
-    if (event.keyCode === 8 || event.keyCode === 46) {
-      this.switchInputSelected(index - 1);
-    }
-  }
-
-  handleClick(e) {
+  handleMouseDown(e) {
     e.preventDefault();
     const wordLength = this.getFullWord().length;
     if (wordLength === this.maxLetters) {
@@ -93,7 +120,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
         <Button color="info">All 7 tiles played</Button>
         <Container>
           <Row className="justify-content-start no-gutters">
-            <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleClick(e)}>
+            <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleMouseDown(e)}>
               {range(this.maxLetters).map(index => (
                 <Input
                   key={`letter-${index}`}
@@ -102,8 +129,8 @@ export class WordEntry extends React.Component<{}, IWordState> {
                   value={word[index]}
                   disabled={index > 0 && !this.shouldInputActivate(index)}
                   input="text"
-                  onChange={e => this.handleChange(e, index)} // TODO: try this.handleChange.apply()
-                  onKeyDown={e => this.handleDeleteKeyPress(e, index)}
+                  // onChange={e => this.handleChange(e, index)}
+                  onKeyDown={e => this.handleInputKeyPress(e, index)}
                 />
               ))}
             </InputGroup>

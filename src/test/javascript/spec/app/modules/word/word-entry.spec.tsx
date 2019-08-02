@@ -17,7 +17,6 @@ describe('WordEntry component', () => {
 
   it('should activate the next letter block in the word', () => {});
 
-  // validate <15 letters
-  // validate alpha string only
+  // validate alpha changes only
   // validate against the scrabble dictionary
 });
