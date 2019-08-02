@@ -12,6 +12,7 @@ export interface IWordState {
 }
 
 export class WordEntry extends React.Component<{}, IWordState> {
+  private readonly inputRefs;
   constructor(props) {
     super(props);
     this.state = {
@@ -20,7 +21,19 @@ export class WordEntry extends React.Component<{}, IWordState> {
       }
     };
 
+    this.inputRefs = {
+      ...range(15).map(() => React.createRef())
+    };
+
     this.handleChange = this.handleChange.bind(this);
+  }
+
+  switchCursorFocus(index) {
+    // tslint:disable-next-line:no-console
+    console.log(index);
+    // tslint:disable-next-line:no-console
+    console.log(this.inputRefs);
+    this.inputRefs[index].current.focus();
   }
 
   handleChange(event, index) {
@@ -34,14 +47,15 @@ export class WordEntry extends React.Component<{}, IWordState> {
           ...prevState.word,
           [index]: value.toUpperCase()
         }
-      }),
-      this.getFullWord
+      }) // ,
+      // () => (this.switchCursorFocus(index - 1))
     );
+    this.switchCursorFocus(index + 1);
   }
 
   getFullWord() {
     const word = this.state.word;
-    // fill word with spaces to evaluate
+    // fill word with spaces instead of unused boxes to evaluate
     const wordWithSpaces = Object.values(word)
       .map(letter => (letter === '' ? ' ' : letter))
       .join('');
@@ -67,15 +81,22 @@ export class WordEntry extends React.Component<{}, IWordState> {
               {range(15).map(index => (
                 <Input
                   key={`letter-${index}`}
+                  // ref={this.inputRefs[index]}
+                  // tslint:disable-next-line:jsx-no-lambda
+                  innerRef={input => (this.inputRefs[index] = input)}
                   className="letter-input"
                   // tslint:disable-next-line:jsx-no-lambda
-                  onChange={e => this.handleChange(e, index)}
+                  onChange={e => this.handleChange(e, index)} // TODO: try this.handleChange.apply()
                   value={word[index]}
                   disabled={index > 0 && !this.shouldInputActivate(index)}
                   input="text"
                 />
               ))}
             </InputGroup>
+          </Row>
+          <Row>
+            {/* tslint:disable-next-line:jsx-no-lambda */}
+            <Button onClick={() => this.switchCursorFocus(3)} />
           </Row>
           <Row>{this.getFullWord()}</Row>
         </Container>
