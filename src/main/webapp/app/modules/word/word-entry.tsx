@@ -3,7 +3,7 @@ import './word-entry.scss'; // TODO: remove local stylesheet
 import React from 'react';
 import { range } from 'lodash';
 
-import { Button, Col, Container, Input, InputGroup, Row } from 'reactstrap';
+import { Button, Container, Input, InputGroup, Row } from 'reactstrap';
 
 export interface IWordState {
   word: {
@@ -11,14 +11,12 @@ export interface IWordState {
   };
 }
 
-const fifteen = range(15).map(n => '');
-
 export class WordEntry extends React.Component<{}, IWordState> {
   constructor(props) {
     super(props);
     this.state = {
       word: {
-        ...fifteen
+        ...range(15).map(() => '')
       }
     };
 
@@ -27,12 +25,33 @@ export class WordEntry extends React.Component<{}, IWordState> {
 
   handleChange(event, index) {
     const { value } = event.target;
-    this.setState(prevState => ({
-      word: {
-        ...prevState.word,
-        [index]: value
-      }
-    }));
+    if (value.length > 1) {
+      return;
+    }
+    this.setState(
+      prevState => ({
+        word: {
+          ...prevState.word,
+          [index]: value
+        }
+      }),
+      this.getFullWord
+    );
+  }
+
+  getFullWord() {
+    const word = this.state.word;
+    // fill word with spaces to evaluate
+    const wordWithSpaces = Object.values(word)
+      .map(letter => (letter === '' ? ' ' : letter))
+      .join('');
+    // tslint:disable-next-line:no-console
+    console.log(wordWithSpaces.trim());
+    return wordWithSpaces.trim();
+  }
+
+  shouldInputActivate(index) {
+    return this.getFullWord().length >= index;
   }
 
   render() {
@@ -43,21 +62,20 @@ export class WordEntry extends React.Component<{}, IWordState> {
         <Container>
           <Row className="justify-content-start no-gutters">
             <InputGroup word={Object.values(word)}>
-              {'123456789012345'.split('').map((letter, index) => (
+              {range(15).map(index => (
                 <Input
-                  key={`letter-${letter}`}
+                  key={`letter-${index}`}
                   className="letter-input"
                   // tslint:disable-next-line:jsx-no-lambda
                   onChange={e => this.handleChange(e, index)}
                   value={word[index]}
-                  disabled={index > 1 && word[index - 1] === ''}
-                >
-                  {letter}
-                </Input>
+                  disabled={index > 0 && !this.shouldInputActivate(index)}
+                  input="text"
+                />
               ))}
             </InputGroup>
           </Row>
-          <Row>{Object.values(this.state.word)}</Row>
+          <Row>{this.getFullWord()}</Row>
         </Container>
       </div>
     );
