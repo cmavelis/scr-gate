@@ -29,10 +29,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
   }
 
   switchCursorFocus(index) {
-    // tslint:disable-next-line:no-console
-    console.log(index);
-    // tslint:disable-next-line:no-console
-    console.log(this.inputRefs);
     this.inputRefs[index].current.focus();
   }
 
@@ -65,9 +61,9 @@ export class WordEntry extends React.Component<{}, IWordState> {
     return this.getFullWord().length >= index;
   }
 
-  // TODO: add validation to handle a blank space in middle
+  // TODO: add validation to handle a blank space in middle?
   // TODO: try to force only input on the last open block
-  // TODO: move focus automatically to next / previous
+  // TODO: move focus automatically to previous
 
   render() {
     const { word } = this.state;
