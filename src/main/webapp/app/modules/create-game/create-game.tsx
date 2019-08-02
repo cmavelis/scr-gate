@@ -55,6 +55,11 @@ export class CreateGame extends React.Component<INameProps, INameState> {
         <Container>
           <Row>
             <Col>
+              <WordEntry />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
               <h2>New Game</h2>
               <h5>Enter Player Names</h5>
               {[0, 1, 2, 3].map(n => (
@@ -69,9 +74,6 @@ export class CreateGame extends React.Component<INameProps, INameState> {
               <Button color="primary" onSubmit={this.handleSubmit}>
                 Create New Game
               </Button>
-            </Col>
-            <Col>
-              <WordEntry />
             </Col>
           </Row>
         </Container>

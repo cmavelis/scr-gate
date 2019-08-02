@@ -32,7 +32,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
       prevState => ({
         word: {
           ...prevState.word,
-          [index]: value
+          [index]: value.toUpperCase()
         }
       }),
       this.getFullWord
@@ -45,14 +45,16 @@ export class WordEntry extends React.Component<{}, IWordState> {
     const wordWithSpaces = Object.values(word)
       .map(letter => (letter === '' ? ' ' : letter))
       .join('');
-    // tslint:disable-next-line:no-console
-    console.log(wordWithSpaces.trim());
     return wordWithSpaces.trim();
   }
 
   shouldInputActivate(index) {
     return this.getFullWord().length >= index;
   }
+
+  // TODO: add validation to handle a blank space in middle
+  // TODO: try to force only input on the last open block
+  // TODO: move focus automatically to next / previous
 
   render() {
     const { word } = this.state;
