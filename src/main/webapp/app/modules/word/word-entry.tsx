@@ -45,6 +45,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     // DELETE/BACKSPACE
     if (key === 8 || key === 46) {
       // go backwards and delete when delete is pressed
+      // TODO: move all this logic into separate component?
       if (index < this.maxLetters - 1 && index > 0) {
         nextLetterSelected = index - 1;
         editLetter = nextLetterSelected;
@@ -73,12 +74,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
     } else {
       return;
     }
-    // tslint:disable-next-line:no-console
-    console.log(index);
-    // tslint:disable-next-line:no-console
-    console.log(editLetter);
-    // tslint:disable-next-line:no-console
-    console.log(nextLetterSelected);
     this.setState(
       prevState => ({
         word: {
@@ -129,7 +124,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
                   value={word[index]}
                   disabled={index > 0 && !this.shouldInputActivate(index)}
                   input="text"
-                  // onChange={e => this.handleChange(e, index)}
                   onKeyDown={e => this.handleInputKeyPress(e, index)}
                 />
               ))}
