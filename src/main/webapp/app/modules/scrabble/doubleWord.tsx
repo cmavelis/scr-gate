@@ -21,27 +21,27 @@ export default class DoubleWord extends React.Component<IDoubleWordProps, IDoubl
     };
   }
 
-  updateUp = () => {
+  updateUpToParent = () => {
     this.props.setWord('doubleWord', this.state.radio);
   };
 
   toggleActiveOne = () => {
     if (!this.state.oneActive && !this.state.twoActive) {
-      this.setState({ oneActive: true, radio: '2w' }, this.updateUp);
+      this.setState({ oneActive: true, radio: '2w' }, this.updateUpToParent);
     } else if (!this.state.oneActive && this.state.twoActive) {
-      this.setState({ oneActive: true, twoActive: false, radio: '2w' }, this.updateUp);
+      this.setState({ oneActive: true, twoActive: false, radio: '2w' }, this.updateUpToParent);
     } else {
-      this.setState({ oneActive: false, radio: '1w' }, this.updateUp);
+      this.setState({ oneActive: false, radio: '1w' }, this.updateUpToParent);
     }
   };
 
   toggleActiveTwo = () => {
     if (!this.state.oneActive && !this.state.twoActive) {
-      this.setState({ twoActive: true, radio: '4w' }, this.updateUp);
+      this.setState({ twoActive: true, radio: '4w' }, this.updateUpToParent);
     } else if (!this.state.twoActive && this.state.oneActive) {
-      this.setState({ twoActive: true, oneActive: false, radio: '4w' }, this.updateUp);
+      this.setState({ twoActive: true, oneActive: false, radio: '4w' }, this.updateUpToParent);
     } else {
-      this.setState({ twoActive: false, radio: '1w' }, this.updateUp);
+      this.setState({ twoActive: false, radio: '1w' }, this.updateUpToParent);
     }
   };
 

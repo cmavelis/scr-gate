@@ -30,38 +30,38 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
 
   textChangeHandler = e => {
     const target = e.target as HTMLTextAreaElement;
-    this.setState({ letter: target.value }, this.updateUp);
+    this.setState({ letter: target.value }, this.updateUpToParent);
   };
 
-  updateUp = () => {
+  updateUpToParent = () => {
     this.props.setLetter(`L${this.props.num}`, `${this.state.letter}-${this.state.radio}`);
   };
 
   toggleActiveTwo = () => {
     if (!this.state.twoActive && !this.state.threeActive) {
-      this.setState({ twoActive: true, radio: '2x' }, this.updateUp);
+      this.setState({ twoActive: true, radio: '2x' }, this.updateUpToParent);
     } else if (!this.state.twoActive && this.state.threeActive) {
-      this.setState({ twoActive: true, threeActive: false, radio: '2x' }, this.updateUp);
+      this.setState({ twoActive: true, threeActive: false, radio: '2x' }, this.updateUpToParent);
     } else {
-      this.setState({ twoActive: false, radio: 'no' }, this.updateUp);
+      this.setState({ twoActive: false, radio: 'no' }, this.updateUpToParent);
     }
   };
 
   toggleActiveThree = () => {
     if (!this.state.twoActive && !this.state.threeActive) {
-      this.setState({ threeActive: true, radio: '3x' }, this.updateUp);
+      this.setState({ threeActive: true, radio: '3x' }, this.updateUpToParent);
     } else if (!this.state.threeActive && this.state.twoActive) {
-      this.setState({ threeActive: true, twoActive: false, radio: '3x' }, this.updateUp);
+      this.setState({ threeActive: true, twoActive: false, radio: '3x' }, this.updateUpToParent);
     } else {
-      this.setState({ threeActive: false, radio: 'no' }, this.updateUp);
+      this.setState({ threeActive: false, radio: 'no' }, this.updateUpToParent);
     }
   };
 
   toggleActiveBlank = () => {
     if (!this.state.blankActive) {
-      this.setState({ blankActive: true, radio: '0x' }, this.updateUp);
+      this.setState({ blankActive: true, radio: '0x' }, this.updateUpToParent);
     } else {
-      this.setState({ blankActive: false, radio: 'no' }, this.updateUp);
+      this.setState({ blankActive: false, radio: 'no' }, this.updateUpToParent);
     }
   };
 

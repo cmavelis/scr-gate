@@ -17,7 +17,7 @@ export default class UsedAllTiles extends React.Component<IUsedAllTilesProps, IU
     };
   }
 
-  updateUp = () => {
+  updateUpToParent = () => {
     if (this.state.usedAllA) {
       this.props.setWord('usedAll', 50);
     } else {
@@ -27,9 +27,9 @@ export default class UsedAllTiles extends React.Component<IUsedAllTilesProps, IU
 
   toggleActiveUsedAll = () => {
     if (!this.state.usedAllA) {
-      this.setState({ usedAllA: true }, this.updateUp);
+      this.setState({ usedAllA: true }, this.updateUpToParent);
     } else {
-      this.setState({ usedAllA: false }, this.updateUp);
+      this.setState({ usedAllA: false }, this.updateUpToParent);
     }
   };
 

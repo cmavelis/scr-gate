@@ -23,43 +23,43 @@ export default class TripleWord extends React.Component<ITripleWordProps, ITripl
     };
   }
 
-  updateUp = () => {
+  updateUpToParent = () => {
     this.props.setWord('tripleWord', this.state.radio);
   };
 
   toggleActiveOne = () => {
     if (!this.state.oneActive && !this.state.twoActive && !this.state.threeActive) {
-      this.setState({ oneActive: true, radio: '3w' }, this.updateUp);
+      this.setState({ oneActive: true, radio: '3w' }, this.updateUpToParent);
     } else if (!this.state.oneActive && this.state.twoActive) {
-      this.setState({ oneActive: true, twoActive: false, radio: '3w' }, this.updateUp);
+      this.setState({ oneActive: true, twoActive: false, radio: '3w' }, this.updateUpToParent);
     } else if (!this.state.oneActive && this.state.threeActive) {
-      this.setState({ oneActive: true, threeActive: false, radio: '3w' }, this.updateUp);
+      this.setState({ oneActive: true, threeActive: false, radio: '3w' }, this.updateUpToParent);
     } else {
-      this.setState({ oneActive: false, radio: '1w' }, this.updateUp);
+      this.setState({ oneActive: false, radio: '1w' }, this.updateUpToParent);
     }
   };
 
   toggleActiveTwo = () => {
     if (!this.state.oneActive && !this.state.twoActive && !this.state.threeActive) {
-      this.setState({ twoActive: true, radio: '9w' }, this.updateUp);
+      this.setState({ twoActive: true, radio: '9w' }, this.updateUpToParent);
     } else if (!this.state.twoActive && this.state.oneActive) {
-      this.setState({ twoActive: true, oneActive: false, radio: '9w' }, this.updateUp);
+      this.setState({ twoActive: true, oneActive: false, radio: '9w' }, this.updateUpToParent);
     } else if (!this.state.twoActive && this.state.threeActive) {
-      this.setState({ twoActive: true, threeActive: false, radio: '9w' }, this.updateUp);
+      this.setState({ twoActive: true, threeActive: false, radio: '9w' }, this.updateUpToParent);
     } else {
-      this.setState({ twoActive: false, radio: '1w' }, this.updateUp);
+      this.setState({ twoActive: false, radio: '1w' }, this.updateUpToParent);
     }
   };
 
   toggleActiveThree = () => {
     if (!this.state.oneActive && !this.state.twoActive && !this.state.threeActive) {
-      this.setState({ threeActive: true, radio: '27w' }, this.updateUp);
+      this.setState({ threeActive: true, radio: '27w' }, this.updateUpToParent);
     } else if (!this.state.threeActive && this.state.twoActive) {
-      this.setState({ threeActive: true, twoActive: false, radio: '27w' }, this.updateUp);
+      this.setState({ threeActive: true, twoActive: false, radio: '27w' }, this.updateUpToParent);
     } else if (!this.state.threeActive && this.state.oneActive) {
-      this.setState({ threeActive: true, oneActive: false, radio: '27w' }, this.updateUp);
+      this.setState({ threeActive: true, oneActive: false, radio: '27w' }, this.updateUpToParent);
     } else {
-      this.setState({ threeActive: false, radio: '1w' }, this.updateUp);
+      this.setState({ threeActive: false, radio: '1w' }, this.updateUpToParent);
     }
   };
 
