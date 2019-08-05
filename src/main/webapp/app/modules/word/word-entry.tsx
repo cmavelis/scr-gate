@@ -125,6 +125,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
                   disabled={index > 0 && !this.shouldInputActivate(index)}
                   input="text"
                   onKeyDown={e => this.handleInputKeyPress(e, index)}
+                  onChange={() => {}}
                 />
               ))}
             </InputGroup>
