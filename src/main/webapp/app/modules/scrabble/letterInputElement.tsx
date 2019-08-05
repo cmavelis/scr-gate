@@ -2,11 +2,10 @@ import './scrabble.scss';
 
 import React from 'react';
 import { Button } from 'reactstrap';
-import { string } from 'prop-types';
 
 interface ILetterInputElementProps {
   num: string;
-  setLetter: function;
+  setLetter: Function;
 }
 
 interface ILetterInputElementState {
@@ -31,9 +30,7 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
 
   textChangeHandler = e => {
     const target = e.target as HTMLTextAreaElement;
-    this.setState(function() {
-      return { letter: target.value };
-    }, this.updateUp);
+    this.setState({ letter: target.value }, this.updateUp);
   };
 
   updateUp = () => {
@@ -42,45 +39,29 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
 
   toggleActiveTwo = () => {
     if (!this.state.twoActive && !this.state.threeActive) {
-      this.setState(function() {
-        return { twoActive: true, radio: '2x' };
-      }, this.updateUp);
+      this.setState({ twoActive: true, radio: '2x' }, this.updateUp);
     } else if (!this.state.twoActive && this.state.threeActive) {
-      this.setState(function() {
-        return { twoActive: true, threeActive: false, radio: '2x' };
-      }, this.updateUp);
+      this.setState({ twoActive: true, threeActive: false, radio: '2x' }, this.updateUp);
     } else {
-      this.setState(function() {
-        return { twoActive: false, radio: 'no' };
-      }, this.updateUp);
+      this.setState({ twoActive: false, radio: 'no' }, this.updateUp);
     }
   };
 
   toggleActiveThree = () => {
     if (!this.state.twoActive && !this.state.threeActive) {
-      this.setState(function() {
-        return { threeActive: true, radio: '3x' };
-      }, this.updateUp);
+      this.setState({ threeActive: true, radio: '3x' }, this.updateUp);
     } else if (!this.state.threeActive && this.state.twoActive) {
-      this.setState(function() {
-        return { threeActive: true, twoActive: false, radio: '3x' };
-      }, this.updateUp);
+      this.setState({ threeActive: true, twoActive: false, radio: '3x' }, this.updateUp);
     } else {
-      this.setState(function() {
-        return { threeActive: false, radio: 'no' };
-      }, this.updateUp);
+      this.setState({ threeActive: false, radio: 'no' }, this.updateUp);
     }
   };
 
   toggleActiveBlank = () => {
     if (!this.state.blankActive) {
-      this.setState(function() {
-        return { blankActive: true, radio: '0x' };
-      }, this.updateUp);
+      this.setState({ blankActive: true, radio: '0x' }, this.updateUp);
     } else {
-      this.setState(function() {
-        return { blankActive: false, radio: 'no' };
-      }, this.updateUp);
+      this.setState({ blankActive: false, radio: 'no' }, this.updateUp);
     }
   };
 
@@ -97,13 +78,13 @@ export default class LetterInputElement extends React.Component<ILetterInputElem
           maxLength={1}
         />
         <div className="radioGroup">
-          <Button onClick={this.toggleActiveTwo} active={this.state.twoActive} size="sm">
+          <Button onClick={this.toggleActiveTwo} active={this.state.twoActive} size="sm" color="danger">
             2x
           </Button>
-          <Button onClick={this.toggleActiveThree} active={this.state.threeActive} size="sm">
+          <Button onClick={this.toggleActiveThree} active={this.state.threeActive} size="sm" color="secondary" className="makeItWhite">
             3x
           </Button>
-          <Button onClick={this.toggleActiveBlank} active={this.state.blankActive}>
+          <Button onClick={this.toggleActiveBlank} active={this.state.blankActive} color="primary">
             Blank
           </Button>
         </div>

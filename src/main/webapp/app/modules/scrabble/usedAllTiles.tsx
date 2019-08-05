@@ -6,7 +6,7 @@ interface IUsedAllTilesState {
 }
 
 interface IUsedAllTilesProps {
-  setWord: function;
+  setWord: Function;
 }
 
 export default class UsedAllTiles extends React.Component<IUsedAllTilesProps, IUsedAllTilesState> {
@@ -27,20 +27,16 @@ export default class UsedAllTiles extends React.Component<IUsedAllTilesProps, IU
 
   toggleActiveUsedAll = () => {
     if (!this.state.usedAllA) {
-      this.setState(function() {
-        return { usedAllA: true };
-      }, this.updateUp);
+      this.setState({ usedAllA: true }, this.updateUp);
     } else {
-      this.setState(function() {
-        return { usedAllA: false };
-      }, this.updateUp);
+      this.setState({ usedAllA: false }, this.updateUp);
     }
   };
 
   render() {
     return (
       <div>
-        <Button onClick={this.toggleActiveUsedAll} active={this.state.usedAllA} size="sm">
+        <Button onClick={this.toggleActiveUsedAll} active={this.state.usedAllA} size="sm" color="danger">
           Yes!
         </Button>
       </div>

@@ -57,31 +57,15 @@ export default class WordCalculation extends React.Component<{}, IWordCalculatio
 
   updateScore = () => {
     const score = this.calculateNewScore();
-    this.setState(function() {
-      return { score };
-    });
+    this.setState({ score });
   };
 
   setLetter = (letter, changes) => {
-    this.setState(
-      function() {
-        return {
-          [letter]: changes
-        };
-      } as any,
-      this.updateScore
-    );
+    this.setState({ [letter]: changes } as any, this.updateScore);
   };
 
   setWord = (modifier, changes) => {
-    this.setState(
-      function() {
-        return {
-          [modifier]: changes
-        };
-      } as any,
-      this.updateScore
-    );
+    this.setState({ [modifier]: changes } as any, this.updateScore);
   };
 
   calculateNewScore = () => {

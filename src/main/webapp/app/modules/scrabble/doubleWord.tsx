@@ -8,7 +8,7 @@ interface IDoubleWordState {
 }
 
 interface IDoubleWordProps {
-  setWord: function;
+  setWord: Function;
 }
 
 export default class DoubleWord extends React.Component<IDoubleWordProps, IDoubleWordState> {
@@ -27,43 +27,31 @@ export default class DoubleWord extends React.Component<IDoubleWordProps, IDoubl
 
   toggleActiveOne = () => {
     if (!this.state.oneActive && !this.state.twoActive) {
-      this.setState(function() {
-        return { oneActive: true, radio: '2w' };
-      }, this.updateUp);
+      this.setState({ oneActive: true, radio: '2w' }, this.updateUp);
     } else if (!this.state.oneActive && this.state.twoActive) {
-      this.setState(function() {
-        return { oneActive: true, twoActive: false, radio: '2w' };
-      }, this.updateUp);
+      this.setState({ oneActive: true, twoActive: false, radio: '2w' }, this.updateUp);
     } else {
-      this.setState(function() {
-        return { oneActive: false, radio: '1w' };
-      }, this.updateUp);
+      this.setState({ oneActive: false, radio: '1w' }, this.updateUp);
     }
   };
 
   toggleActiveTwo = () => {
     if (!this.state.oneActive && !this.state.twoActive) {
-      this.setState(function() {
-        return { twoActive: true, radio: '4w' };
-      }, this.updateUp);
+      this.setState({ twoActive: true, radio: '4w' }, this.updateUp);
     } else if (!this.state.twoActive && this.state.oneActive) {
-      this.setState(function() {
-        return { twoActive: true, oneActive: false, radio: '4w' };
-      }, this.updateUp);
+      this.setState({ twoActive: true, oneActive: false, radio: '4w' }, this.updateUp);
     } else {
-      this.setState(function() {
-        return { twoActive: false, radio: '1w' };
-      }, this.updateUp);
+      this.setState({ twoActive: false, radio: '1w' }, this.updateUp);
     }
   };
 
   render() {
     return (
       <div>
-        <Button onClick={this.toggleActiveOne} active={this.state.oneActive} size="sm">
+        <Button onClick={this.toggleActiveOne} active={this.state.oneActive} size="sm" color="danger">
           1
         </Button>
-        <Button onClick={this.toggleActiveTwo} active={this.state.twoActive} size="sm">
+        <Button onClick={this.toggleActiveTwo} active={this.state.twoActive} size="sm" color="secondary" className="makeItWhite">
           2
         </Button>
       </div>

@@ -31,7 +31,8 @@ describe('WordCalculation', () => {
       L13: 'o-no',
       L14: 'n-no',
       L15: 'e-no',
-      tripleWord: '27w'
+      tripleWord: '27w',
+      score: 0
     });
     const event = { target: { name: 1, value: 'o' } };
     wrapper
@@ -44,7 +45,8 @@ describe('WordCalculation', () => {
   it('should accurately calculate the score for a blank letter', () => {
     const wrapper = mount(<WordCalculation />);
     wrapper.setState({
-      L1: 'o-0x'
+      L1: 'o-0x',
+      score: 0
     });
     const event = { target: { name: 1, value: 'o-0x' } };
     wrapper
@@ -57,7 +59,8 @@ describe('WordCalculation', () => {
   it('should accurately calculate the score for a tripled letter', () => {
     const wrapper = mount(<WordCalculation />);
     wrapper.setState({
-      L1: 'o-3x'
+      L1: 'o-3x',
+      score: 0
     });
     const event = { target: { name: 1, value: 'o-3x' } };
     wrapper
