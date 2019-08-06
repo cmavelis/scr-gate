@@ -4,8 +4,8 @@ import { Switch } from 'react-router-dom';
 // tslint:disable-next-line:no-unused-variable
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 
-import Game from './game/game';
 import Player from './game/player';
+import Game from './scrabbledev/game';
 /* jhipster-needle-add-route-import - JHipster will add routes here */
 
 const Routes = ({ match }) => (
