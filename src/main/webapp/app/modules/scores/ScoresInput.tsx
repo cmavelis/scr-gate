@@ -87,62 +87,136 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
   };
 
   updateScore = num => {
+    // tslint:disable-next-line:no-console
+    console.log(num);
     const headers = {
       headers: {
         Authorization: `Bearer ${this.state.idToken}`
       }
     };
+    console.log(num, typeof num);
     switch (num) {
       case 1:
-        this.setState({ score1: this.state.score1 + this.state.playerOneScore });
-        axios.put(
-          'http://localhost:8080/services/scrabbledev/api/games',
-          {
-            id: 1,
-            name: this.state.name,
-            game_start: this.state.game_start,
-            player1: this.state.player1,
-            player2: this.state.player2,
-            player3: this.state.player3,
-            player4: this.state.player4,
-            score1: this.state.score1,
-            score2: this.state.score2,
-            score3: this.state.score3,
-            score4: this.state.score3,
-            nextPlayer: this.state.nextPlayer
-          },
-          headers
-        );
+        axios
+          .put(
+            'http://localhost:8080/services/scrabbledev/api/games',
+            {
+              id: 1,
+              name: this.state.name,
+              game_start: this.state.game_start,
+              player1: this.state.player1,
+              player2: this.state.player2,
+              player3: this.state.player3,
+              player4: this.state.player4,
+              score1: (Number(this.state.score1) + Number(this.state.playerOneScore)).toString(),
+              score2: this.state.score2,
+              score3: this.state.score3,
+              score4: this.state.score4,
+              nextPlayer: this.state.nextPlayer
+            },
+            headers
+          )
+          .then(res => {
+            // tslint:disable-next-line:no-console
+            console.log(res);
+            this.setState({ score1: res.data.score1 });
+          })
+          .catch(err => {
+            // tslint:disable-next-line:no-console
+            console.log(err);
+          });
         break;
       case 2:
-        this.setState({ score2: this.state.score2 + this.state.playerTwoScore });
-        axios.put(
-          'http://localhost:8080/services/scrabbledev/api/games/',
-          {
-            player2: this.state.player2
-          },
-          headers
-        );
+        axios
+          .put(
+            'http://localhost:8080/services/scrabbledev/api/games/',
+            {
+              id: 1,
+              name: this.state.name,
+              game_start: this.state.game_start,
+              player1: this.state.player1,
+              player2: this.state.player2,
+              player3: this.state.player3,
+              player4: this.state.player4,
+              score1: this.state.score1,
+              score2: (Number(this.state.score2) + Number(this.state.playerTwoScore)).toString(),
+              score3: this.state.score3,
+              score4: this.state.score4,
+              nextPlayer: this.state.nextPlayer
+            },
+            headers
+          )
+          .then(res => {
+            // tslint:disable-next-line:no-console
+            console.log(res);
+            this.setState({ score2: res.data.score2 });
+          })
+          .catch(err => {
+            // tslint:disable-next-line:no-console
+            console.log(err);
+          });
         break;
+
       case 3:
-        this.setState({ score3: this.state.score3 + this.state.playerThreeScore });
-        axios.put(
-          'http://localhost:8080/services/scrabbledev/api/games/',
-          {
-            player3: this.state.player3
-          },
-          headers
-        );
+        axios
+          .put(
+            'http://localhost:8080/services/scrabbledev/api/games/',
+            {
+              id: 1,
+              name: this.state.name,
+              game_start: this.state.game_start,
+              player1: this.state.player1,
+              player2: this.state.player2,
+              player3: this.state.player3,
+              player4: this.state.player4,
+              score1: this.state.score1,
+              score2: this.state.score2,
+              score3: (Number(this.state.score3) + Number(this.state.playerThreeScore)).toString(),
+              score4: this.state.score4,
+              nextPlayer: this.state.nextPlayer
+            },
+            headers
+          )
+          .then(res => {
+            // tslint:disable-next-line:no-console
+            console.log(res);
+            this.setState({ score3: res.data.score3 });
+          })
+          .catch(err => {
+            // tslint:disable-next-line:no-console
+            console.log(err);
+          });
         break;
       case 4:
         this.setState({ score4: this.state.score4 + this.state.playerFourScore });
-        axios.put(
-          'http://localhost:8080/services/scrabbledev/api/games/',
-          {
-            player4: this.state.player4
-          },
-          headers
-        );
+        axios
+          .put(
+            'http://localhost:8080/services/scrabbledev/api/games/',
+            {
+              id: 1,
+              name: this.state.name,
+              game_start: this.state.game_start,
+              player1: this.state.player1,
+              player2: this.state.player2,
+              player3: this.state.player3,
+              player4: this.state.player4,
+              score1: this.state.score1,
+              score2: this.state.score2,
+              score3: this.state.score3,
+              score4: (Number(this.state.score4) + Number(this.state.playerFourScore)).toString(),
+              nextPlayer: this.state.nextPlayer
+            },
+            headers
+          )
+          .then(res => {
+            // tslint:disable-next-line:no-console
+            console.log(res);
+            this.setState({ score4: res.data.score4 });
+          })
+          .catch(err => {
+            // tslint:disable-next-line:no-console
+            console.log(err);
+          });
         break;
       default:
         break;
@@ -159,7 +233,7 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             <h3 className="ps">{this.state.score1}</h3>
             <span className="plus">&#43;</span>
             <Input type="text" name="playerOneScore" value={this.state.playerOneScore} onChange={this.handleChange} />
-            <Button className="button" color="primary" onSubmit={() => this.updateScore(1)}>
+            <Button className="button" color="primary" onClick={() => this.updateScore(1)}>
               Submit Score
             </Button>
           </div>
@@ -168,7 +242,7 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             <h3 className="ps">{this.state.score2}</h3>
             <span className="plus">&#43;</span>
             <Input type="text" name="playerTwoScore" value={this.state.playerTwoScore} onChange={this.handleChange} />
-            <Button className="button" color="primary" onSubmit={() => this.updateScore(2)}>
+            <Button className="button" color="primary" onClick={() => this.updateScore(2)}>
               Submit Score
             </Button>
           </div>
@@ -177,7 +251,7 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             <h3 className="ps">{this.state.score3}</h3>
             <span className="plus">&#43;</span>
             <Input type="text" name="playerThreeScore" value={this.state.playerThreeScore} onChange={this.handleChange} />
-            <Button className="button" color="primary" onSubmit={() => this.updateScore(3)}>
+            <Button className="button" color="primary" onClick={() => this.updateScore(3)}>
               Submit Score
             </Button>
           </div>
@@ -186,7 +260,7 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             <h3 className="ps">{this.state.score4}</h3>
             <span className="plus">&#43;</span>
             <Input type="text" name="playerFourScore" value={this.state.playerFourScore} onChange={this.handleChange} />
-            <Button className="button" color="primary" onSubmit={() => this.updateScore(4)}>
+            <Button className="button" color="primary" onClick={() => this.updateScore(4)}>
               Submit Score
             </Button>
           </div>
@@ -196,25 +270,4 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
   }
 }
 
-// const mapStateToProps = () => ({
-//   id: 0,
-//   name: '',
-//   player1: '',
-//   player2: '',
-//   player3: '',
-//   player4: '',
-//   score1: 0,
-//   score2: 0,
-//   score3: 0,
-//   score4: 0,
-//   nextPlayer: 0
-// });
-
-// const mapDispatchToProps = {};
-
-// type StateProps = ReturnType<typeof mapStateToProps>;
-// type DispatchProps = typeof mapDispatchToProps;
-
 export default connect()(ScoresInput);
-// mapStateToProps,
-// mapDispatchToProps
