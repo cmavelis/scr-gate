@@ -12,6 +12,7 @@ import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
 import Scrabble from 'app/modules/scrabble/scrabble';
 import CreateGame from 'app/modules/create-game/create-game';
+import JoinGame from 'app/modules/join-game/join-game';
 import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
@@ -39,13 +40,14 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
       <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />
       <ErrorBoundaryRoute path="/reset/finish/:key?" component={PasswordResetFinish} />
-      <ErrorBoundaryRoute path="/startscreen" component={StartScreen} />
+      <PrivateRoute path="/startscreen" component={StartScreen} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <PrivateRoute path="/scrabble" component={Scrabble} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <ErrorBoundaryRoute path="/" exact component={Home} />
       <ErrorBoundaryRoute path="/game/new" exact component={CreateGame} />
+      <ErrorBoundaryRoute path="/games" exact component={JoinGame} />
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>

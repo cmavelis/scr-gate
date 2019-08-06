@@ -95,7 +95,7 @@ export default (state: GameState = initialState, action): GameState => {
   }
 };
 
-const apiUrl = 'services/game/api/games';
+const apiUrl = 'services/scrabbledev/api/games';
 
 // Actions
 
