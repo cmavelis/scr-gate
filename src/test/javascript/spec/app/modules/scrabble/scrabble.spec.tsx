@@ -1,4 +1,4 @@
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import Scrabble from 'app/modules/scrabble/scrabble';
 import React from 'react';
 
