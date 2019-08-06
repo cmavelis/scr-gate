@@ -1,8 +1,11 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+import { IGame } from 'app/shared/model/scrabbledev/game.model';
 
-export interface INameProp extends StateProps, DispatchProps {}
+export interface INameProp extends StateProps, DispatchProps {
+  games: IGame;
+}
 
 export class JoinGame extends React.Component<INameProp> {
   render() {

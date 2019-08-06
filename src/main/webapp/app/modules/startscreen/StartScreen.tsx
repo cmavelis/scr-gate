@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
-import { getEntities } from 'app/entities/game/game/game.reducer';
+import { getEntities } from 'app/entities/scrabbledev/game/game.reducer';
 import { Link } from 'react-router-dom';
 
 export interface IHomeProp extends StateProps, DispatchProps {}
