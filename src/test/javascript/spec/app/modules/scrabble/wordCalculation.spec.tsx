@@ -34,7 +34,7 @@ describe('WordCalculation', () => {
       tripleWord: '27w',
       score: 0
     });
-    const event = { target: { name: 1, value: 'o' } };
+    const event = { target: { name: 1, value: 'o-no' } };
     wrapper
       .find('input')
       .at(0)

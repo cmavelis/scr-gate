@@ -10,7 +10,6 @@ export default class Scrabble extends React.Component {
     return (
       <div className="main">
         <SelectNumber />
-        <TurnStatus />
         <WordCalculation />
       </div>
     );
