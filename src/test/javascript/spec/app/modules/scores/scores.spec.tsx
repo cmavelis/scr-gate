@@ -1,15 +1,15 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { ScoresInput } from 'app/modules/scores/ScoresInput';
 
 describe('ScoresInput', () => {
-  it('it should render a Input,<Input />', () => {
+  it('it should render 4 Inputs,<Input />', () => {
     const wrapper = shallow(<ScoresInput />);
-    expect(wrapper.find('Input').length).toBe(1);
+    expect(wrapper.find('Input').length).toBe(4);
   });
 
-  it('it should render a Button, <Button />', () => {
+  it('it should render 4 Buttons, <Button />', () => {
     const wrapper = shallow(<ScoresInput />);
-    expect(wrapper.find('Button').length).toBe(1);
+    expect(wrapper.find('Button').length).toBe(4);
   });
 });

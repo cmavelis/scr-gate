@@ -47,6 +47,7 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
       score4: 0,
       nextPlayer: 0
     };
+    this.updateScore = this.updateScore.bind(this);
   }
 
   componentDidMount() {
@@ -70,7 +71,7 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             player1: res.data.player1,
             player2: res.data.player2,
             player3: res.data.player3,
-            player4: res.data.player3,
+            player4: res.data.player4,
             score1: res.data.score1,
             score2: res.data.score2,
             score3: res.data.score3,
@@ -86,7 +87,7 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
     this.setState({ [target.name]: target.value } as any);
   };
 
-  updateScore = num => {
+  updateScore(num) {
     // tslint:disable-next-line:no-console
     console.log(num);
     const headers = {
@@ -188,7 +189,6 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
           });
         break;
       case 4:
-        this.setState({ score4: this.state.score4 + this.state.playerFourScore });
         axios
           .put(
             'http://localhost:8080/services/scrabbledev/api/games/',
@@ -221,45 +221,45 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
       default:
         break;
     }
-  };
+  }
 
   render() {
     return (
       <div>
         <h2>{this.state.name}</h2>
         <div className="display-row">
-          <div>
+          <div className="player-score">
             <h3>{this.state.player1}</h3>
             <h3 className="ps">{this.state.score1}</h3>
             <span className="plus">&#43;</span>
-            <Input type="text" name="playerOneScore" value={this.state.playerOneScore} onChange={this.handleChange} />
+            <Input className="input" type="text" name="playerOneScore" value={this.state.playerOneScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(1)}>
               Submit Score
             </Button>
           </div>
-          <div>
+          <div className="player-score">
             <h3>{this.state.player2}</h3>
             <h3 className="ps">{this.state.score2}</h3>
             <span className="plus">&#43;</span>
-            <Input type="text" name="playerTwoScore" value={this.state.playerTwoScore} onChange={this.handleChange} />
+            <Input className="input" type="text" name="playerTwoScore" value={this.state.playerTwoScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(2)}>
               Submit Score
             </Button>
           </div>
-          <div>
+          <div className="player-score">
             <h3>{this.state.player3}</h3>
             <h3 className="ps">{this.state.score3}</h3>
             <span className="plus">&#43;</span>
-            <Input type="text" name="playerThreeScore" value={this.state.playerThreeScore} onChange={this.handleChange} />
+            <Input className="input" type="text" name="playerThreeScore" value={this.state.playerThreeScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(3)}>
               Submit Score
             </Button>
           </div>
-          <div>
+          <div className="player-score">
             <h3>{this.state.player4}</h3>
             <h3 className="ps">{this.state.score4}</h3>
             <span className="plus">&#43;</span>
-            <Input type="text" name="playerFourScore" value={this.state.playerFourScore} onChange={this.handleChange} />
+            <Input className="input" type="text" name="playerFourScore" value={this.state.playerFourScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(4)}>
               Submit Score
             </Button>
