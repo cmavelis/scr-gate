@@ -4,10 +4,14 @@ import React from 'react';
 import { range } from 'lodash';
 
 import { Button, Container, Input, InputGroup, Row } from 'reactstrap';
+import BonusGroup from 'app/modules/scrabble/bonusGroup';
 
 export interface IWordState {
   word: {
-    [key: number]: string;
+    [key: number]: {
+      letter: string;
+      bonus: number;
+    };
   };
 }
 
@@ -18,7 +22,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     super(props);
     this.state = {
       word: {
-        ...range(this.maxLetters).map(() => '')
+        ...range(this.maxLetters).map(() => ({ letter: '', bonus: 1 }))
       }
     };
 
@@ -78,12 +82,27 @@ export class WordEntry extends React.Component<{}, IWordState> {
       prevState => ({
         word: {
           ...prevState.word,
-          [editLetter]: changedLetterValue.toUpperCase()
+          [editLetter]: {
+            ...prevState.word[editLetter],
+            letter: changedLetterValue.toUpperCase()
+          }
         }
       }),
       () => this.switchInputSelected(nextLetterSelected)
     );
   }
+
+  handleBonusChange = (index, bonus) => {
+    this.setState(prevState => ({
+      word: {
+        ...prevState.word,
+        [index]: {
+          ...prevState.word[index],
+          bonus
+        }
+      }
+    }));
+  };
 
   handleMouseDown(e) {
     e.preventDefault();
@@ -99,6 +118,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     const word = this.state.word;
     // fill word with spaces instead of unused boxes to evaluate
     const wordWithSpaces = Object.values(word)
+      .map(entry => entry.letter)
       .map(letter => (letter === '' ? ' ' : letter))
       .join('');
     return wordWithSpaces.trim();
@@ -116,18 +136,23 @@ export class WordEntry extends React.Component<{}, IWordState> {
         <Container>
           <Row className="justify-content-start no-gutters">
             <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleMouseDown(e)}>
-              {range(this.maxLetters).map(index => (
-                <Input
-                  key={`letter-${index}`}
-                  innerRef={this.inputRefs[index]}
-                  className="letter-input"
-                  value={word[index]}
-                  disabled={index > 0 && !this.shouldInputActivate(index)}
-                  input="text"
-                  onKeyDown={e => this.handleInputKeyPress(e, index)}
-                  onChange={() => {}}
-                />
-              ))}
+              {range(this.maxLetters).map(index => {
+                const disabled = index > 0 && !this.shouldInputActivate(index);
+                return (
+                  <div key={`letter-box-${index}`}>
+                    <Input
+                      innerRef={this.inputRefs[index]}
+                      className="letter-input"
+                      value={word[index].letter}
+                      disabled={disabled}
+                      input="text"
+                      onKeyDown={e => this.handleInputKeyPress(e, index)}
+                      onChange={() => {}}
+                    />
+                    <BonusGroup setLetterBonus={this.handleBonusChange} bonus={word[index].bonus} disabled={disabled} />
+                  </div>
+                );
+              })}
             </InputGroup>
           </Row>
           <Row>Your word: {this.getFullWord()}</Row>

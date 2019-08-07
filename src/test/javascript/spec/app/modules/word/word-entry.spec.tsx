@@ -29,7 +29,7 @@ describe('WordEntry component', () => {
       .find('Input')
       .at(0)
       .simulate('keydown', { key: 'a', keyCode: 65 });
-    expect(wrapper.state().word[0]).toEqual('A');
+    expect(wrapper.state().word[0].letter).toEqual('A');
     expect(
       wrapper
         .find('InputGroup')

@@ -1,11 +1,11 @@
 import './scrabble.scss';
 
 import React from 'react';
-import LetterInputElement from './letterInputElement';
+import BonusGroup from './bonusGroup';
 import DoubleWord from './doubleWord';
 import TripleWord from './tripleWord';
 import UsedAllTiles from './usedAllTiles';
-import { LETTER_TILE_VALUES } from '../../shared/util/scrabble.constants';
+import { LETTER_TILE_VALUES } from 'app/shared/util/scrabble.constants';
 
 interface IWordCalculationState {
   L1: string;
@@ -145,21 +145,21 @@ export default class WordCalculation extends React.Component<{}, IWordCalculatio
         Enter your letters:
         <form onChange={this.updateScore}>
           <div className="wordRow">
-            <LetterInputElement num="1" setLetter={this.setLetter} />
-            <LetterInputElement num="2" setLetter={this.setLetter} />
-            <LetterInputElement num="3" setLetter={this.setLetter} />
-            <LetterInputElement num="4" setLetter={this.setLetter} />
-            <LetterInputElement num="5" setLetter={this.setLetter} />
-            <LetterInputElement num="6" setLetter={this.setLetter} />
-            <LetterInputElement num="7" setLetter={this.setLetter} />
-            <LetterInputElement num="8" setLetter={this.setLetter} />
-            <LetterInputElement num="9" setLetter={this.setLetter} />
-            <LetterInputElement num="10" setLetter={this.setLetter} />
-            <LetterInputElement num="11" setLetter={this.setLetter} />
-            <LetterInputElement num="12" setLetter={this.setLetter} />
-            <LetterInputElement num="13" setLetter={this.setLetter} />
-            <LetterInputElement num="14" setLetter={this.setLetter} />
-            <LetterInputElement num="15" setLetter={this.setLetter} />
+            <BonusGroup num="1" setLetterBonus={this.setLetter} />
+            <BonusGroup num="2" setLetterBonus={this.setLetter} />
+            <BonusGroup num="3" setLetterBonus={this.setLetter} />
+            <BonusGroup num="4" setLetterBonus={this.setLetter} />
+            <BonusGroup num="5" setLetterBonus={this.setLetter} />
+            <BonusGroup num="6" setLetterBonus={this.setLetter} />
+            <BonusGroup num="7" setLetterBonus={this.setLetter} />
+            <BonusGroup num="8" setLetterBonus={this.setLetter} />
+            <BonusGroup num="9" setLetterBonus={this.setLetter} />
+            <BonusGroup num="10" setLetterBonus={this.setLetter} />
+            <BonusGroup num="11" setLetterBonus={this.setLetter} />
+            <BonusGroup num="12" setLetterBonus={this.setLetter} />
+            <BonusGroup num="13" setLetterBonus={this.setLetter} />
+            <BonusGroup num="14" setLetterBonus={this.setLetter} />
+            <BonusGroup num="15" setLetterBonus={this.setLetter} />
           </div>
           <div className="wordRow">
             <div className="wordMod">
