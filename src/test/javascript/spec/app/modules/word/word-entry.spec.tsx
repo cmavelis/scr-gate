@@ -8,7 +8,7 @@ describe('WordEntry component', () => {
   wrapper = shallow(<WordEntry />);
 
   it('should render a <div />', () => {
-    expect(wrapper.find('div').length).toEqual(1);
+    expect(wrapper.find('div').length).toBeGreaterThan(0);
   });
 
   it('should render one <Input /> initially', () => {

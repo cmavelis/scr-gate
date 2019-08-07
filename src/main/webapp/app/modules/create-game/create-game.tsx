@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Button, Col, Container, Row } from 'reactstrap';
 
 import NameEntry from 'app/modules/create-game/name-entry';
-import WordEntry from 'app/modules/word/word-entry';
 
 export interface INameProps extends StateProps, DispatchProps {}
 export interface INameState {
@@ -53,11 +52,6 @@ export class CreateGame extends React.Component<INameProps, INameState> {
     return (
       <div>
         <Container>
-          <Row>
-            <Col>
-              <WordEntry />
-            </Col>
-          </Row>
           <Row>
             <Col>
               <h2>New Game</h2>

@@ -1,14 +1,14 @@
-import { mount } from 'enzyme';
-import BonusGroup from 'app/modules/scrabble/bonusGroup';
+import { shallow } from 'enzyme';
+import LetterBonusGroup from 'app/modules/scrabble/letterBonusGroup';
 import React from 'react';
 
-describe('LetterInputElement', () => {
-  it('should render two divs', () => {
-    const wrapper = mount(<BonusGroup />);
-    expect(wrapper.find('div').length).toEqual(2);
+describe('<LetterBonusGroup>', () => {
+  const wrapper = shallow(<LetterBonusGroup bonus={0} disabled={false} setLetterBonus={() => {}} />);
+
+  it('should render at least one div', () => {
+    expect(wrapper.find('div').length).toBeGreaterThan(0);
   });
   it('should render three buttons', () => {
-    const wrapper = mount(<BonusGroup />);
     expect(wrapper.find('Button').length).toEqual(3);
   });
 });

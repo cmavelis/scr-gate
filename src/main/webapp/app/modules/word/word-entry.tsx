@@ -3,8 +3,9 @@ import './word-entry.scss'; // TODO: remove local stylesheet
 import React from 'react';
 import { range } from 'lodash';
 
-import { Button, Container, Input, InputGroup, Row } from 'reactstrap';
-import BonusGroup from 'app/modules/scrabble/bonusGroup';
+import { Button, Col, Container, Input, InputGroup, Row } from 'reactstrap';
+import LetterBonusGroup from 'app/modules/scrabble/letterBonusGroup';
+import WordBonusGroup from 'app/modules/scrabble/word-bonus-group';
 
 export interface IWordState {
   word: {
@@ -12,7 +13,9 @@ export interface IWordState {
       letter: string;
       bonus: number;
     };
+    bonus: number;
   };
+  usedAll: boolean;
 }
 
 export class WordEntry extends React.Component<{}, IWordState> {
@@ -22,13 +25,17 @@ export class WordEntry extends React.Component<{}, IWordState> {
     super(props);
     this.state = {
       word: {
-        ...range(this.maxLetters).map(() => ({ letter: '', bonus: 1 }))
-      }
+        ...range(this.maxLetters).map(() => ({ letter: '', bonus: 1 })),
+        bonus: 1
+      },
+      usedAll: false
     };
 
     this.inputRefs = {
       ...range(this.maxLetters).map(() => React.createRef())
     };
+
+    this.handleWordBonusChange = this.handleWordBonusChange.bind(this);
   }
 
   switchInputSelected(index) {
@@ -92,7 +99,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     );
   }
 
-  handleBonusChange = (index, bonus) => {
+  handleLetterBonusChange = (index, bonus) => {
     this.setState(prevState => ({
       word: {
         ...prevState.word,
@@ -100,6 +107,15 @@ export class WordEntry extends React.Component<{}, IWordState> {
           ...prevState.word[index],
           bonus
         }
+      }
+    }));
+  };
+
+  handleWordBonusChange = bonus => {
+    this.setState(prevState => ({
+      word: {
+        ...prevState.word,
+        bonus
       }
     }));
   };
@@ -129,34 +145,37 @@ export class WordEntry extends React.Component<{}, IWordState> {
   }
 
   render() {
-    const { word } = this.state;
+    const { word, usedAll } = this.state;
     return (
       <div>
         <Button color="info">All 7 tiles played</Button>
         <Container>
-          <Row className="justify-content-start no-gutters">
-            <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleMouseDown(e)}>
-              {range(this.maxLetters).map(index => {
-                const disabled = index > 0 && !this.shouldInputActivate(index);
-                const indexBoundBonusChange = this.handleBonusChange.bind(null, index);
-                return (
-                  <div key={`letter-box-${index}`}>
-                    <Input
-                      innerRef={this.inputRefs[index]}
-                      className="letter-input"
-                      value={word[index].letter}
-                      disabled={disabled}
-                      input="text"
-                      onKeyDown={e => this.handleInputKeyPress(e, index)}
-                      onChange={() => {}}
-                    />
-                    <BonusGroup setLetterBonus={indexBoundBonusChange} bonus={word[index].bonus} disabled={disabled} />
-                  </div>
-                );
-              })}
-            </InputGroup>
-          </Row>
-          <Row>Your word: {this.getFullWord()}</Row>
+          <Col>
+            <Row className="justify-content-start no-gutters">
+              <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleMouseDown(e)}>
+                {range(this.maxLetters).map(index => {
+                  const disabled = index > 0 && !this.shouldInputActivate(index);
+                  const indexBoundBonusChange = this.handleLetterBonusChange.bind(null, index);
+                  return (
+                    <div key={`letter-box-${index}`}>
+                      <Input
+                        innerRef={this.inputRefs[index]}
+                        className="letter-input"
+                        value={word[index].letter}
+                        disabled={disabled}
+                        input="text"
+                        onKeyDown={e => this.handleInputKeyPress(e, index)}
+                        onChange={() => {}}
+                      />
+                      <LetterBonusGroup setLetterBonus={indexBoundBonusChange} bonus={word[index].bonus} disabled={disabled} />
+                    </div>
+                  );
+                })}
+              </InputGroup>
+            </Row>
+            <Row>Your word: {this.getFullWord()}</Row>
+            <WordBonusGroup wordBonus={word.bonus} usedAll={usedAll} setWordBonus={this.handleWordBonusChange} />
+          </Col>
         </Container>
       </div>
     );
