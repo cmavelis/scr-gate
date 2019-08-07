@@ -1,0 +1,38 @@
+.bigButton {
+  width: 100px;
+  height: 100px;
+  border: 3px solid black;
+  color: #cccccc;
+  border-radius: 5px;
+  font-size: 60px;
+  margin: 10px;
+}
+
+.bigInput {
+  width: 100px;
+  height: 100px;
+  color: green;
+  text-align: center;
+  font-size: 60px;
+  border: 3px solid black;
+  border-radius: 5px;
+  margin: 10px;
+}
+
+.wordColumn {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.boxAndGroup {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+.smallBtn {
+  width: 150px;
+}
+
+.radioGroup {
+  margin-top: 50px;
+}
