@@ -3,9 +3,9 @@ import './word-entry.scss'; // TODO: remove local stylesheet
 import React from 'react';
 import { range } from 'lodash';
 
-import { Button, Col, Container, Input, InputGroup, Row } from 'reactstrap';
-import LetterBonusGroup from 'app/modules/scrabble/letterBonusGroup';
-import WordBonusGroup from 'app/modules/scrabble/word-bonus-group';
+import { Col, Container, Input, InputGroup, Row } from 'reactstrap';
+import LetterBonusGroup from 'app/modules/word/letter-bonus/letterBonusGroup';
+import WordBonusGroup from 'app/modules/word/word-bonus-group';
 
 export interface IWordState {
   word: {
@@ -78,6 +78,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
       changedLetterValue = '';
       // ALPHABET KEYS
     } else if (key >= 65 && key <= 90) {
+      // TODO: use regex to validate as well
       // go forwards and add letter when letter is pressed
       nextLetterSelected = index < this.maxLetters - 1 ? index + 1 : this.maxLetters - 1;
       editLetter = index;
@@ -148,7 +149,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
     const { word, usedAll } = this.state;
     return (
       <div>
-        <Button color="info">All 7 tiles played</Button>
         <Container>
           <Col>
             <Row className="justify-content-start no-gutters">

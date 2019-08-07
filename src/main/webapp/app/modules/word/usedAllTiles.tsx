@@ -36,7 +36,7 @@ export default class UsedAllTiles extends React.Component<IUsedAllTilesProps, IU
   render() {
     return (
       <div>
-        <Button onClick={this.toggleActiveUsedAll} active={this.state.usedAllA} size="sm" color="danger">
+        <Button onClick={this.toggleActiveUsedAll} active={this.state.usedAllA} size="sm" color="info">
           Yes!
         </Button>
       </div>

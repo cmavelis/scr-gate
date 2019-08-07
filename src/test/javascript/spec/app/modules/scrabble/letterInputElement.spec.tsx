@@ -1,5 +1,5 @@
 import { shallow } from 'enzyme';
-import LetterBonusGroup from 'app/modules/scrabble/letterBonusGroup';
+import LetterBonusGroup from 'app/modules/word/letter-bonus/letterBonusGroup';
 import React from 'react';
 
 describe('<LetterBonusGroup>', () => {
