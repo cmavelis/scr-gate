@@ -113,18 +113,18 @@ export class WordEntry extends React.Component<{}, IWordState> {
     }));
   };
 
-  handleWordBonusChange = bonus => {
+  handleWordBonusChange(bonus) {
     this.setState(prevState => ({
       word: {
         ...prevState.word,
         bonus
       }
     }));
-  };
+  }
 
-  handleUsedAllChange = usedAll => {
+  handleUsedAllChange(usedAll) {
     this.setState({ usedAll });
-  };
+  }
 
   handleMouseDown(e) {
     e.preventDefault();
