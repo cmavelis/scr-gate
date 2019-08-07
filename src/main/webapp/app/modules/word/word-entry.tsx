@@ -128,6 +128,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     return this.getFullWord().length >= index;
   }
 
+  // TODO: allow previous buttons to be clickable
   render() {
     const { word } = this.state;
     return (
