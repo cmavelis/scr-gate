@@ -1,85 +1,31 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button } from 'reactstrap';
-import axios from 'axios';
+import { getEntity, updateEntity } from 'app/entities/scrabbledev/game/game.reducer';
 import './scores.scss';
-// export interface IScoresInputProps extends StateProps, DispatchProps {
+export interface IScoresInputProps extends StateProps, DispatchProps {}
 
 interface IScoresInputState {
   playerOneScore: number;
   playerTwoScore: number;
   playerThreeScore: number;
   playerFourScore: number;
-  idToken: number;
-  game_start: string;
-  id: number;
-  name: string;
-  player1: string;
-  player2: string;
-  player3: string;
-  player4: string;
-  score1: number;
-  score2: number;
-  score3: number;
-  score4: number;
-  nextPlayer: number;
 }
 
-export class ScoresInput extends React.Component<{}, IScoresInputState> {
+export class ScoresInput extends React.Component<IScoresInputProps, IScoresInputState> {
   constructor(props) {
     super(props);
     this.state = {
       playerOneScore: 0,
       playerTwoScore: 0,
       playerThreeScore: 0,
-      playerFourScore: 0,
-      idToken: 0,
-      id: 0,
-      name: '',
-      game_start: '',
-      player1: '',
-      player2: '',
-      player3: '',
-      player4: '',
-      score1: 0,
-      score2: 0,
-      score3: 0,
-      score4: 0,
-      nextPlayer: 0
+      playerFourScore: 0
     };
     this.updateScore = this.updateScore.bind(this);
   }
 
   componentDidMount() {
-    axios
-      .post(`http://localhost:8080/api/authenticate`, {
-        password: 'admin',
-        username: 'admin'
-      })
-      .then(response => {
-        this.setState({ idToken: response.data.id_token });
-        const headers = {
-          headers: {
-            Authorization: `Bearer ${this.state.idToken}`
-          }
-        };
-        axios.get(`http://localhost:8080/services/scrabbledev/api/games/1`, headers).then(res => {
-          this.setState({
-            id: res.data.id,
-            name: res.data.name,
-            game_start: res.data.game_start,
-            player1: res.data.player1,
-            player2: res.data.player2,
-            player3: res.data.player3,
-            player4: res.data.player4,
-            score1: res.data.score1,
-            score2: res.data.score2,
-            score3: res.data.score3,
-            score4: res.data.score4,
-            nextPlayer: res.data.nextPlayer
-          });
-        });
-      });
+    this.props.getEntity(1);
   }
 
   handleChange = e => {
@@ -90,133 +36,73 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
   updateScore(num) {
     // tslint:disable-next-line:no-console
     console.log(num);
-    const headers = {
-      headers: {
-        Authorization: `Bearer ${this.state.idToken}`
-      }
-    };
+
     console.log(num, typeof num);
     switch (num) {
       case 1:
-        axios
-          .put(
-            'http://localhost:8080/services/scrabbledev/api/games',
-            {
-              id: 1,
-              name: this.state.name,
-              game_start: this.state.game_start,
-              player1: this.state.player1,
-              player2: this.state.player2,
-              player3: this.state.player3,
-              player4: this.state.player4,
-              score1: (Number(this.state.score1) + Number(this.state.playerOneScore)).toString(),
-              score2: this.state.score2,
-              score3: this.state.score3,
-              score4: this.state.score4,
-              nextPlayer: this.state.nextPlayer
-            },
-            headers
-          )
-          .then(res => {
-            // tslint:disable-next-line:no-console
-            console.log(res);
-            this.setState({ score1: res.data.score1 });
-          })
-          .catch(err => {
-            // tslint:disable-next-line:no-console
-            console.log(err);
-          });
+        this.props.updateEntity({
+          id: 1,
+          name: this.props.game.name,
+          game_start: this.props.game.game_start,
+          player1: this.props.game.player1,
+          player2: this.props.game.player2,
+          player3: this.props.game.player3,
+          player4: this.props.game.player4,
+          score1: Number(this.props.game.score1) + Number(this.state.playerOneScore),
+          score2: this.props.game.score2,
+          score3: this.props.game.score3,
+          score4: this.props.game.score4,
+          nextPlayer: this.props.game.nextPlayer
+        });
         break;
       case 2:
-        axios
-          .put(
-            'http://localhost:8080/services/scrabbledev/api/games/',
-            {
-              id: 1,
-              name: this.state.name,
-              game_start: this.state.game_start,
-              player1: this.state.player1,
-              player2: this.state.player2,
-              player3: this.state.player3,
-              player4: this.state.player4,
-              score1: this.state.score1,
-              score2: (Number(this.state.score2) + Number(this.state.playerTwoScore)).toString(),
-              score3: this.state.score3,
-              score4: this.state.score4,
-              nextPlayer: this.state.nextPlayer
-            },
-            headers
-          )
-          .then(res => {
-            // tslint:disable-next-line:no-console
-            console.log(res);
-            this.setState({ score2: res.data.score2 });
-          })
-          .catch(err => {
-            // tslint:disable-next-line:no-console
-            console.log(err);
-          });
+        this.props.updateEntity({
+          id: 1,
+          name: this.props.game.name,
+          game_start: this.props.game.game_start,
+          player1: this.props.game.player1,
+          player2: this.props.game.player2,
+          player3: this.props.game.player3,
+          player4: this.props.game.player4,
+          score1: this.props.game.score1,
+          score2: Number(this.props.game.score2) + Number(this.state.playerTwoScore),
+          score3: this.props.game.score3,
+          score4: this.props.game.score4,
+          nextPlayer: this.props.game.nextPlayer
+        });
         break;
 
       case 3:
-        axios
-          .put(
-            'http://localhost:8080/services/scrabbledev/api/games/',
-            {
-              id: 1,
-              name: this.state.name,
-              game_start: this.state.game_start,
-              player1: this.state.player1,
-              player2: this.state.player2,
-              player3: this.state.player3,
-              player4: this.state.player4,
-              score1: this.state.score1,
-              score2: this.state.score2,
-              score3: (Number(this.state.score3) + Number(this.state.playerThreeScore)).toString(),
-              score4: this.state.score4,
-              nextPlayer: this.state.nextPlayer
-            },
-            headers
-          )
-          .then(res => {
-            // tslint:disable-next-line:no-console
-            console.log(res);
-            this.setState({ score3: res.data.score3 });
-          })
-          .catch(err => {
-            // tslint:disable-next-line:no-console
-            console.log(err);
-          });
+        this.props.updateEntity({
+          id: 1,
+          name: this.props.game.name,
+          game_start: this.props.game.game_start,
+          player1: this.props.game.player1,
+          player2: this.props.game.player2,
+          player3: this.props.game.player3,
+          player4: this.props.game.player4,
+          score1: this.props.game.score1,
+          score2: this.props.game.score2,
+          score3: Number(this.props.game.score3) + Number(this.state.playerThreeScore),
+          score4: this.props.game.score4,
+          nextPlayer: this.props.game.nextPlayer
+        });
         break;
       case 4:
-        axios
-          .put(
-            'http://localhost:8080/services/scrabbledev/api/games/',
-            {
-              id: 1,
-              name: this.state.name,
-              game_start: this.state.game_start,
-              player1: this.state.player1,
-              player2: this.state.player2,
-              player3: this.state.player3,
-              player4: this.state.player4,
-              score1: this.state.score1,
-              score2: this.state.score2,
-              score3: this.state.score3,
-              score4: (Number(this.state.score4) + Number(this.state.playerFourScore)).toString(),
-              nextPlayer: this.state.nextPlayer
-            },
-            headers
-          )
-          .then(res => {
-            // tslint:disable-next-line:no-console
-            console.log(res);
-            this.setState({ score4: res.data.score4 });
-          })
-          .catch(err => {
-            // tslint:disable-next-line:no-console
-            console.log(err);
-          });
+        this.props.updateEntity({
+          id: 1,
+          name: this.props.game.name,
+          game_start: this.props.game.game_start,
+          player1: this.props.game.player1,
+          player2: this.props.game.player2,
+          player3: this.props.game.player3,
+          player4: this.props.game.player4,
+          score1: this.props.game.score1,
+          score2: this.props.game.score2,
+          score3: this.props.game.score3,
+          score4: Number(this.props.game.score4) + Number(this.state.playerFourScore),
+          nextPlayer: this.props.game.nextPlayer
+        });
         break;
       default:
         break;
@@ -224,13 +110,14 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
   }
 
   render() {
+    const { game } = this.props;
     return (
       <div>
-        <h2>{this.state.name}</h2>
+        <h2>{game.name}</h2>
         <div className="display-row">
           <div className="player-score">
-            <h3>{this.state.player1}</h3>
-            <h3 className="ps">{this.state.score1}</h3>
+            <h3>{game.player1}</h3>
+            <h3 className="ps">{game.score1}</h3>
             <span className="plus">&#43;</span>
             <Input className="input" type="text" name="playerOneScore" value={this.state.playerOneScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(1)}>
@@ -238,8 +125,8 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             </Button>
           </div>
           <div className="player-score">
-            <h3>{this.state.player2}</h3>
-            <h3 className="ps">{this.state.score2}</h3>
+            <h3>{game.player2}</h3>
+            <h3 className="ps">{game.score2}</h3>
             <span className="plus">&#43;</span>
             <Input className="input" type="text" name="playerTwoScore" value={this.state.playerTwoScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(2)}>
@@ -247,8 +134,8 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             </Button>
           </div>
           <div className="player-score">
-            <h3>{this.state.player3}</h3>
-            <h3 className="ps">{this.state.score3}</h3>
+            <h3>{game.player3}</h3>
+            <h3 className="ps">{game.score3}</h3>
             <span className="plus">&#43;</span>
             <Input className="input" type="text" name="playerThreeScore" value={this.state.playerThreeScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(3)}>
@@ -256,8 +143,8 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
             </Button>
           </div>
           <div className="player-score">
-            <h3>{this.state.player4}</h3>
-            <h3 className="ps">{this.state.score4}</h3>
+            <h3>{game.player4}</h3>
+            <h3 className="ps">{game.score4}</h3>
             <span className="plus">&#43;</span>
             <Input className="input" type="text" name="playerFourScore" value={this.state.playerFourScore} onChange={this.handleChange} />
             <Button className="button" color="primary" onClick={() => this.updateScore(4)}>
@@ -269,5 +156,16 @@ export class ScoresInput extends React.Component<{}, IScoresInputState> {
     );
   }
 }
+const mapStateToProps = storeState => ({
+  game: storeState.game.entity
+});
 
-export default connect()(ScoresInput);
+const mapDispatchToProps = { getEntity, updateEntity };
+
+type StateProps = ReturnType<typeof mapStateToProps>;
+type DispatchProps = typeof mapDispatchToProps;
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ScoresInput);
