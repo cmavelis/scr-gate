@@ -128,7 +128,6 @@ export class WordEntry extends React.Component<{}, IWordState> {
     return this.getFullWord().length >= index;
   }
 
-  // TODO: allow previous buttons to be clickable
   render() {
     const { word } = this.state;
     return (
@@ -139,6 +138,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
             <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleMouseDown(e)}>
               {range(this.maxLetters).map(index => {
                 const disabled = index > 0 && !this.shouldInputActivate(index);
+                const indexBoundBonusChange = this.handleBonusChange.bind(null, index);
                 return (
                   <div key={`letter-box-${index}`}>
                     <Input
@@ -150,7 +150,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
                       onKeyDown={e => this.handleInputKeyPress(e, index)}
                       onChange={() => {}}
                     />
-                    <BonusGroup setLetterBonus={this.handleBonusChange} bonus={word[index].bonus} disabled={disabled} />
+                    <BonusGroup setLetterBonus={indexBoundBonusChange} bonus={word[index].bonus} disabled={disabled} />
                   </div>
                 );
               })}
