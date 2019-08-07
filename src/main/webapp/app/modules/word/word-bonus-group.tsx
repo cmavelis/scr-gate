@@ -9,15 +9,12 @@ interface IWordBonusGroupProps {
   wordBonus: number;
   usedAll: boolean;
   setWordBonus: Function;
+  setUsedAll: Function;
 }
 
 export default class WordBonusGroup extends React.Component<IWordBonusGroupProps, {}> {
   constructor(props) {
     super(props);
-    this.state = {
-      wordBonus: 1,
-      usedAll: false
-    };
     this.handleWordBonus = this.handleWordBonus.bind(this);
   }
 
@@ -30,7 +27,7 @@ export default class WordBonusGroup extends React.Component<IWordBonusGroupProps
   }
 
   render() {
-    const { wordBonus } = this.props;
+    const { wordBonus, usedAll } = this.props;
     return (
       <div>
         Enter your letters:
@@ -46,7 +43,7 @@ export default class WordBonusGroup extends React.Component<IWordBonusGroupProps
             </div>
             <div className="wordMod">
               Used all tiles
-              <UsedAllTiles setWord={this.handleWordBonus} />
+              <UsedAllTiles usedAll={usedAll} setUsedAll={this.props.setUsedAll} />
             </div>
           </div>
         </form>

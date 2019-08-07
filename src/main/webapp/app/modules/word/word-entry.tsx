@@ -36,6 +36,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     };
 
     this.handleWordBonusChange = this.handleWordBonusChange.bind(this);
+    this.handleUsedAllChange = this.handleUsedAllChange.bind(this);
   }
 
   switchInputSelected(index) {
@@ -121,6 +122,10 @@ export class WordEntry extends React.Component<{}, IWordState> {
     }));
   };
 
+  handleUsedAllChange = usedAll => {
+    this.setState({ usedAll });
+  };
+
   handleMouseDown(e) {
     e.preventDefault();
     const wordLength = this.getFullWord().length;
@@ -174,7 +179,12 @@ export class WordEntry extends React.Component<{}, IWordState> {
               </InputGroup>
             </Row>
             <Row>Your word: {this.getFullWord()}</Row>
-            <WordBonusGroup wordBonus={word.bonus} usedAll={usedAll} setWordBonus={this.handleWordBonusChange} />
+            <WordBonusGroup
+              wordBonus={word.bonus}
+              setWordBonus={this.handleWordBonusChange}
+              usedAll={usedAll}
+              setUsedAll={this.handleUsedAllChange}
+            />
           </Col>
         </Container>
       </div>
