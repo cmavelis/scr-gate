@@ -31,7 +31,6 @@ export class CreateGame extends React.Component<INameProps, INameState> {
     };
 
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleChange(value, index) {
@@ -41,11 +40,6 @@ export class CreateGame extends React.Component<INameProps, INameState> {
         [index]: value.slice(0, 12) // TODO: look up more proper validation method
       }
     }));
-  }
-
-  handleSubmit(event) {
-    alert('A name was submitted: ' + this.state);
-    event.preventDefault();
   }
 
   render() {
@@ -66,14 +60,6 @@ export class CreateGame extends React.Component<INameProps, INameState> {
                   deactivated={n > 1 && !CreateGame.shouldInputActivate(n, playerNames)}
                 />
               ))}
-              <Link to="/game/1">
-                <Button color="primary" onSubmit={this.handleSubmit}>
-                  Start Game
-                </Button>
-              </Link>
-              <Link to="/game">
-                <Button>Back to Games</Button>
-              </Link>
             </Col>
           </Row>
         </Container>
