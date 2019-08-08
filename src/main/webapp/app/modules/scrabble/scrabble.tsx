@@ -1,5 +1,3 @@
-import './scrabble.scss';
-
 import React from 'react';
 import SelectNumber from './selectNumber';
 

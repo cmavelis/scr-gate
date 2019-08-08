@@ -1,4 +1,4 @@
-import './scrabble.scss';
+// import './scrabble.scss';
 
 import React from 'react';
 import { Button } from 'reactstrap';
