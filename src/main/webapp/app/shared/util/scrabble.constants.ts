@@ -24,5 +24,6 @@ export const LETTER_TILE_VALUES = {
   W: 4,
   X: 8,
   Y: 4,
-  Z: 10
+  Z: 10,
+  '': 0
 };

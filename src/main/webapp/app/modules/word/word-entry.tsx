@@ -7,11 +7,15 @@ import { Col, Container, Input, InputGroup, Row } from 'reactstrap';
 import LetterBonusGroup from 'app/modules/word/letter-bonus/letterBonusGroup';
 import WordBonusGroup from 'app/modules/word/word-bonus-group';
 
+import { LETTER_TILE_VALUES } from 'app/shared/util/scrabble.constants';
+
 export interface IWordState {
   word: {
-    [key: number]: {
-      letter: string;
-      bonus: number;
+    letters: {
+      [key: number]: {
+        letter: string;
+        bonus: number;
+      };
     };
     bonus: number;
   };
@@ -25,7 +29,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     super(props);
     this.state = {
       word: {
-        ...range(this.maxLetters).map(() => ({ letter: '', bonus: 1 })),
+        letters: { ...range(this.maxLetters).map(() => ({ letter: '', bonus: 1 })) },
         bonus: 1
       },
       usedAll: false
@@ -91,9 +95,12 @@ export class WordEntry extends React.Component<{}, IWordState> {
       prevState => ({
         word: {
           ...prevState.word,
-          [editLetter]: {
-            ...prevState.word[editLetter],
-            letter: changedLetterValue.toUpperCase()
+          letters: {
+            ...prevState.word.letters,
+            [editLetter]: {
+              ...prevState.word.letters[editLetter],
+              letter: changedLetterValue.toUpperCase()
+            }
           }
         }
       }),
@@ -105,9 +112,12 @@ export class WordEntry extends React.Component<{}, IWordState> {
     this.setState(prevState => ({
       word: {
         ...prevState.word,
-        [index]: {
-          ...prevState.word[index],
-          bonus
+        letters: {
+          ...prevState.word.letters,
+          [index]: {
+            ...prevState.word.letters[index],
+            bonus
+          }
         }
       }
     }));
@@ -139,11 +149,18 @@ export class WordEntry extends React.Component<{}, IWordState> {
   getFullWord() {
     const word = this.state.word;
     // fill word with spaces instead of unused boxes to evaluate
-    const wordWithSpaces = Object.values(word)
+    const wordWithSpaces = Object.values(word.letters)
       .map(entry => entry.letter)
       .map(letter => (letter === '' ? ' ' : letter))
       .join('');
     return wordWithSpaces.trim();
+  }
+
+  getTotalScore() {
+    const { word, usedAll } = this.state;
+    const lettersScoreArray = Object.values(word.letters).map(entry => LETTER_TILE_VALUES[entry.letter] * entry.bonus);
+    const wordScore = lettersScoreArray.reduce((a, b) => a + b) * word.bonus;
+    return usedAll ? wordScore + 50 : wordScore;
   }
 
   shouldInputActivate(index) {
@@ -166,19 +183,20 @@ export class WordEntry extends React.Component<{}, IWordState> {
                       <Input
                         innerRef={this.inputRefs[index]}
                         className="letter-input"
-                        value={word[index].letter}
+                        value={word.letters[index].letter}
                         disabled={disabled}
                         input="text"
                         onKeyDown={e => this.handleInputKeyPress(e, index)}
                         onChange={() => {}}
                       />
-                      <LetterBonusGroup setLetterBonus={indexBoundBonusChange} bonus={word[index].bonus} disabled={disabled} />
+                      <LetterBonusGroup setLetterBonus={indexBoundBonusChange} bonus={word.letters[index].bonus} disabled={disabled} />
                     </div>
                   );
                 })}
               </InputGroup>
             </Row>
             <Row>Your word: {this.getFullWord()}</Row>
+            <Row>Your score: {this.getTotalScore()}</Row>
             <WordBonusGroup
               wordBonus={word.bonus}
               setWordBonus={this.handleWordBonusChange}
