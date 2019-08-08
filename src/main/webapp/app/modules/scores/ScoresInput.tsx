@@ -1,8 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Input, Button } from 'reactstrap';
+import { Input, Button, Col, Row } from 'reactstrap';
 import { getEntity, updateEntity } from 'app/entities/scrabbledev/game/game.reducer';
 import './scores.scss';
+import { Link } from 'react-router-dom';
+import WordEntry from 'app/modules/word/word-entry';
 export interface IScoresInputProps extends StateProps, DispatchProps {}
 
 interface IScoresInputState {
@@ -94,6 +96,11 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
     return (
       <div>
         <h2>{game.name}</h2>
+        <Row>
+          <Link to="/game">
+            <Button>Back to Games</Button>
+          </Link>
+        </Row>
         <div className="col-5">
           <div className="player-score">
             <h3>{game.player1}</h3>
@@ -132,6 +139,13 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
             </Button>
           </div>
         </div>
+        <Row>
+          <Col md="9">
+            <Row className="pad">
+              <WordEntry />
+            </Row>
+          </Col>
+        </Row>
       </div>
     );
   }
