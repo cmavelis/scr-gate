@@ -171,7 +171,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
     const { word, usedAll } = this.state;
     return (
       <div>
-        <Container>
+        <Container className="word-entry-wrap">
           <Col>
             <Row className="justify-content-start no-gutters">
               <InputGroup word={Object.values(word)} onMouseDownCapture={e => this.handleMouseDown(e)}>
@@ -179,7 +179,7 @@ export class WordEntry extends React.Component<{}, IWordState> {
                   const disabled = index > 0 && !this.shouldInputActivate(index);
                   const indexBoundBonusChange = this.handleLetterBonusChange.bind(null, index);
                   return (
-                    <div key={`letter-box-${index}`}>
+                    <div className="letter-box" key={`letter-box-${index}`}>
                       <Input
                         innerRef={this.inputRefs[index]}
                         className="letter-input"
