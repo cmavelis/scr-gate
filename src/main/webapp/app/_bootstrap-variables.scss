@@ -29,4 +29,15 @@ $body-bg: #444444;
 $body-color: #ffffff;
 // Card
 
-$card-bg: #333333;
+$card-bg: #262626;
+
+// StartScreen
+
+.row-outer {
+    display: flex;
+}
+
+.col-wrap {
+    justify-content: center;
+    // background-color: red;
+}

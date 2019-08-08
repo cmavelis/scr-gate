@@ -18,8 +18,8 @@ export class StartScreen extends React.Component<IHomeProp> {
     const { games } = this.props;
 
     return (
-      <Row>
-        <Col md="9">
+      <Row className="row-outer">
+        <Col className="col-wrap" md="9">
           <h2>Available games</h2>
           <Row>
             <ul>

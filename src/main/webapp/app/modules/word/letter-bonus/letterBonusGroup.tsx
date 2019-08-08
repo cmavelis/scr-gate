@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
+import '../../scrabble/_scrabble.scss';
+
 interface ILetterBonusGroupProps {
   setLetterBonus: Function;
   bonus: number;
@@ -20,11 +22,11 @@ export default class LetterBonusGroup extends React.Component<ILetterBonusGroupP
     return (
       <div className="boxAndGroup">
         <div className="radioGroup">
+          <div className="small-toggles">
           <Button
             className="bonus-toggle-small"
             onClick={() => this.handleBonusChange(2)}
             active={this.props.bonus === 2}
-            size="sm"
             disabled={this.props.disabled}
           >
             2x
@@ -33,11 +35,11 @@ export default class LetterBonusGroup extends React.Component<ILetterBonusGroupP
             className="bonus-toggle-small"
             onClick={() => this.handleBonusChange(3)}
             active={this.props.bonus === 3}
-            size="sm"
             disabled={this.props.disabled}
           >
             3x
           </Button>
+          </div>
           <Button
             className="bonus-toggle-wide"
             onClick={() => this.handleBonusChange(0)}
@@ -47,7 +49,7 @@ export default class LetterBonusGroup extends React.Component<ILetterBonusGroupP
             Blank
           </Button>
         </div>
-        <div>Bonus: {this.props.bonus}</div>
+        {/* <div>Bonus: {this.props.bonus}</div> */}
       </div>
     );
   }
