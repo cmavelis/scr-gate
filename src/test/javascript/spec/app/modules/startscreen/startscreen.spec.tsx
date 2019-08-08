@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router';
 
-import { StartScreen } from 'app/modules/game/start-screen';
+import StartScreen from 'app/modules/game/start-screen';
 
 describe('StartScreen', () => {
   it('should render two buttons,<Button /> and <Button />', () => {
