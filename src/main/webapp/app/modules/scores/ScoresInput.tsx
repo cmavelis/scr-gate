@@ -5,7 +5,10 @@ import { getEntity, updateEntity } from 'app/entities/scrabbledev/game/game.redu
 import './scores.scss';
 import { Link } from 'react-router-dom';
 import WordEntry from 'app/modules/word/word-entry';
-export interface IScoresInputProps extends StateProps, DispatchProps {}
+
+export interface IScoresInputProps extends StateProps, DispatchProps {
+  match: any; // TODO: find real type
+}
 
 interface IScoresInputState {
   playerOneScoreToAdd: number;
@@ -27,7 +30,7 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
   }
 
   componentDidMount() {
-    this.props.getEntity(1);
+    this.props.getEntity(this.props.match.params.id);
   }
 
   handleChange = e => {

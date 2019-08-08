@@ -49,7 +49,7 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/game" exact component={StartScreen} />
       <ErrorBoundaryRoute path="/game/test" exact component={InGameScreen} />
       <ErrorBoundaryRoute path="/game/new" exact component={CreateGamePage} />
-      <ErrorBoundaryRoute path="/game/1" exact component={ScoresInput} />
+      <ErrorBoundaryRoute path="/game/:id" exact component={ScoresInput} />
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>

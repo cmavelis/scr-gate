@@ -10,7 +10,7 @@ export interface INameProps {
   };
   gameName: string;
   handlePlayerNameChange: Function;
-  handleGameNameChange: Function;
+  handleGameNameChange: (event) => void;
 }
 
 export class CreateGame extends React.Component<INameProps, {}> {
@@ -34,7 +34,7 @@ export class CreateGame extends React.Component<INameProps, {}> {
             <Col>
               <Input
                 value={gameName}
-                onChange={e => handleGameNameChange(e)}
+                onChange={handleGameNameChange}
               />
               <h5>Enter Player Names</h5>
               {[0, 1, 2, 3].map(n => (

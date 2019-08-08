@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
-
+import moment from 'moment';
 import CreateGame from 'app/modules/game/create-game/create-game';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +46,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
   }
 
   handleGameNameChange(event) {
-    const { value } = event;
+    const { value } = event.target;
     this.setState({
       gameName: value
     });
@@ -58,7 +58,8 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
       gameName
     } = this.state;
     this.props.createEntity({
-        name: 'Game name',
+        name: gameName,
+        game_start: moment(),
         player1: playerNames[0],
         player2: playerNames[1],
         player3: playerNames[2],
