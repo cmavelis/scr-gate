@@ -62,20 +62,23 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 4px;
-  width: 64px;
+  width: 54px;
 }
 
 .bonus-toggle-small {
-  opacity: 1;
-  font-size: 12px;
-  width: (50% - 2px);
-  height: 30px;
+  font-size: 10px;
+  font-weight: 700;
+  width: 25px;
+  height: 25px;
   padding: 0;
 }
 
 .bonus-toggle-wide {
-  font-size: 12px;
-  width: 64px;
+  font-size: 10px;
+  font-weight: 700;
+  width: 54px;
+  height: 25px;
+  padding: 0;
 }
 
 .modifierGroup {
