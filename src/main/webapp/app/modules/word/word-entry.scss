@@ -1,16 +1,16 @@
 .letter-input {
-  min-width: 40px;
-  max-width: 40px;
-  height: 40px;
+  width: 100%;
+  height: 64px;
 }
 
 .word-entry-wrap {
   padding: 16px;
   border-radius: 10px;
+  background-color: #333333;
 }
 
 .letter-box {
-  padding: 2px;
-  max-width: 80px;
+  margin: 2px;
+  max-width: 64px;
   width: 100%;
 }
