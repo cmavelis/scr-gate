@@ -14,6 +14,11 @@ export class InGameScreen extends React.Component<IInGameScreenProp> {
           <Row className="pad">
             <WordEntry />
           </Row>
+          <Row>
+            <Link to="/game">
+              <Button>Back to Games</Button>
+            </Link>
+          </Row>
         </Col>
       </Row>
     );

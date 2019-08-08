@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Button, Col, Container, Row } from 'reactstrap';
 
 import NameEntry from 'app/modules/game/create-game/name-entry';
+import { Link } from 'react-router-dom';
 
 export interface INameProps extends StateProps, DispatchProps {}
 export interface INameState {
@@ -65,9 +66,14 @@ export class CreateGame extends React.Component<INameProps, INameState> {
                   deactivated={n > 1 && !CreateGame.shouldInputActivate(n, playerNames)}
                 />
               ))}
-              <Button color="primary" onSubmit={this.handleSubmit}>
-                Create New Game
-              </Button>
+              <Link to="/game/1">
+                <Button color="primary" onSubmit={this.handleSubmit}>
+                  Start Game
+                </Button>
+              </Link>
+              <Link to="/game">
+                <Button>Back to Games</Button>
+              </Link>
             </Col>
           </Row>
         </Container>
