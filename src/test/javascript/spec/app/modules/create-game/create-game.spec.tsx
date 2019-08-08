@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
 
-import { NameEntry } from 'app/modules/create-game/name-entry';
-import { CreateGame } from 'app/modules/create-game/create-game';
+import { NameEntry } from 'app/modules/game/create-game/name-entry';
+import { CreateGame } from 'app/modules/game/create-game/create-game';
 
 describe('CreateGame component', () => {
   let wrapper;

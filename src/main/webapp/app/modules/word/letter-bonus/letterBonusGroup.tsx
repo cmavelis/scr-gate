@@ -1,5 +1,3 @@
-import '../../scrabble/scrabble.scss';
-
 import React from 'react';
 import { Button } from 'reactstrap';
 

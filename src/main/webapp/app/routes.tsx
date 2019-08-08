@@ -2,7 +2,6 @@ import React from 'react';
 import { Switch } from 'react-router-dom';
 import Loadable from 'react-loadable';
 
-import StartScreen from 'app/modules/startscreen/StartScreen';
 import Login from 'app/modules/login/login';
 import Register from 'app/modules/account/register/register';
 import Activate from 'app/modules/account/activate/activate';
@@ -10,8 +9,11 @@ import PasswordResetInit from 'app/modules/account/password-reset/init/password-
 import PasswordResetFinish from 'app/modules/account/password-reset/finish/password-reset-finish';
 import Logout from 'app/modules/login/logout';
 import Home from 'app/modules/home/home';
-import Scrabble from 'app/modules/scrabble/scrabble';
-import CreateGame from 'app/modules/create-game/create-game';
+
+import StartScreen from 'app/modules/game/start-screen';
+import InGameScreen from 'app/modules/game/play-game/play-game';
+import CreateGame from 'app/modules/game/create-game/create-game';
+
 import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
@@ -39,12 +41,12 @@ const Routes = () => (
       <ErrorBoundaryRoute path="/activate/:key?" component={Activate} />
       <ErrorBoundaryRoute path="/reset/request" component={PasswordResetInit} />
       <ErrorBoundaryRoute path="/reset/finish/:key?" component={PasswordResetFinish} />
-      <ErrorBoundaryRoute path="/startscreen" component={StartScreen} />
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
       <PrivateRoute path="/account" component={Account} hasAnyAuthorities={[AUTHORITIES.ADMIN, AUTHORITIES.USER]} />
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
-      <PrivateRoute path="/scrabble" component={Scrabble} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <ErrorBoundaryRoute path="/" exact component={Home} />
+      <ErrorBoundaryRoute path="/game" exact component={StartScreen} />
+      <ErrorBoundaryRoute path="/game/1" exact component={InGameScreen} />
       <ErrorBoundaryRoute path="/game/new" exact component={CreateGame} />
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>

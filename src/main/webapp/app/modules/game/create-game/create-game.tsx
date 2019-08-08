@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Col, Container, Row } from 'reactstrap';
 
-import NameEntry from 'app/modules/create-game/name-entry';
+import NameEntry from 'app/modules/game/create-game/name-entry';
 
 export interface INameProps extends StateProps, DispatchProps {}
 export interface INameState {

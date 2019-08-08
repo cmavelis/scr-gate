@@ -4,20 +4,13 @@ import { Button, Row, Col } from 'reactstrap';
 import WordEntry from 'app/modules/word/word-entry';
 import { Link } from 'react-router-dom';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+export interface IInGameScreenProp extends StateProps, DispatchProps {}
 
-export class StartScreen extends React.Component<IHomeProp> {
+export class InGameScreen extends React.Component<IInGameScreenProp> {
   render() {
     return (
       <Row>
         <Col md="9">
-          <h2>Scrabble Companion</h2>
-          <Row className="justify-content-md-center">
-            <Link to={'/game/new'}>
-              <Button color="primary">Create Game</Button>
-            </Link>
-            <Button color="secondary">Join Game</Button>
-          </Row>
           <Row className="pad">
             <WordEntry />
           </Row>
@@ -40,4 +33,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StartScreen);
+)(InGameScreen);
