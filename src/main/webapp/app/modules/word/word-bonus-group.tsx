@@ -28,7 +28,6 @@ export default class WordBonusGroup extends React.Component<IWordBonusGroupProps
     const { wordBonus, usedAll } = this.props;
     return (
       <div>
-        Enter your letters:
         <form>
           <div className="wordRow">
             <div className="wordMod">
