@@ -14,12 +14,11 @@ export class StartScreen extends React.Component<IHomeProp> {
           <h2>Scrabble Companion</h2>
           <Row className="justify-content-md-center">
             <Link to={'/game/new'}>
-              <Button color="primary">Create Game</Button>
+              <Button color="primary">New Game</Button>
             </Link>
-            <Button color="secondary">Join Game</Button>
-          </Row>
-          <Row className="pad">
-            <WordEntry />
+            <Link to={'/game/1'}>
+              <Button color="secondary">Open Game</Button>
+            </Link>
           </Row>
         </Col>
       </Row>
