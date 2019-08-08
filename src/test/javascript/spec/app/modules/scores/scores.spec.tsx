@@ -6,8 +6,7 @@ describe('ScoresInput', () => {
   let wrapper;
   wrapper = mount(<ScoresInput />);
 
-  it('it should render a <div />'),
-    () => {
+  it('it should render a <div />', () => {
       expect(wrapper.find('div').length).toEqual(5);
     };
 

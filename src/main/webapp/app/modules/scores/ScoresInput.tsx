@@ -34,24 +34,15 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
   };
 
   updateScore(num) {
-    const { updateEntity, game } = this.props;
+    const { game } = this.props;
     const { playerOneScoreToAdd, playerTwoScoreToAdd, playerThreeScoreToAdd, playerFourScoreToAdd } = this.state;
 
     switch (num) {
       case 1:
         if (Number.isInteger(Number(playerOneScoreToAdd))) {
-          updateEntity({
-            id: 1,
-            name: game.name,
-            game_start: game.game_start,
-            player1: game.player1,
-            player2: game.player2,
-            player3: game.player3,
-            player4: game.player4,
+          this.props.updateEntity({
+            ...game,
             score1: Number(game.score1) + Number(playerOneScoreToAdd),
-            score2: game.score2,
-            score3: game.score3,
-            score4: game.score4,
             nextPlayer: game.nextPlayer
           });
         } else {
@@ -60,18 +51,9 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
         break;
       case 2:
         if (Number.isInteger(Number(playerTwoScoreToAdd))) {
-          updateEntity({
-            id: 1,
-            name: game.name,
-            game_start: game.game_start,
-            player1: game.player1,
-            player2: game.player2,
-            player3: game.player3,
-            player4: game.player4,
-            score1: game.score1,
+          this.props.updateEntity({
+            ...game,
             score2: Number(game.score2) + Number(playerTwoScoreToAdd),
-            score3: game.score3,
-            score4: game.score4,
             nextPlayer: game.nextPlayer
           });
         } else {
@@ -81,18 +63,9 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
 
       case 3:
         if (Number.isInteger(Number(playerThreeScoreToAdd))) {
-          updateEntity({
-            id: 1,
-            name: game.name,
-            game_start: game.game_start,
-            player1: game.player1,
-            player2: game.player2,
-            player3: game.player3,
-            player4: game.player4,
-            score1: game.score1,
-            score2: game.score2,
+          this.props.updateEntity({
+            ...game,
             score3: Number(game.score3) + Number(playerThreeScoreToAdd),
-            score4: game.score4,
             nextPlayer: game.nextPlayer
           });
         } else {
@@ -101,17 +74,8 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
         break;
       case 4:
         if (Number.isInteger(Number(playerFourScoreToAdd))) {
-          updateEntity({
-            id: 1,
-            name: game.name,
-            game_start: game.game_start,
-            player1: game.player1,
-            player2: game.player2,
-            player3: game.player3,
-            player4: game.player4,
-            score1: game.score1,
-            score2: game.score2,
-            score3: game.score3,
+          this.props.updateEntity({
+            ...game,
             score4: Number(game.score4) + Number(playerFourScoreToAdd),
             nextPlayer: game.nextPlayer
           });
@@ -130,7 +94,7 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
     return (
       <div>
         <h2>{game.name}</h2>
-        <div className="display-row">
+        <div className="col-5">
           <div className="player-score">
             <h3>{game.player1}</h3>
             <h3 className="ps">{game.score1}</h3>

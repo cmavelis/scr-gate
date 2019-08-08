@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
 import WordEntry from 'app/modules/word/word-entry';
 import { Link } from 'react-router-dom';
+import { ScoresInput } from 'app/modules/scores/ScoresInput';
 
 export interface IInGameScreenProp extends StateProps, DispatchProps {}
 
@@ -11,13 +12,13 @@ export class InGameScreen extends React.Component<IInGameScreenProp> {
     return (
       <Row>
         <Col md="9">
-          <Row className="pad">
-            <WordEntry />
-          </Row>
           <Row>
             <Link to="/game">
               <Button>Back to Games</Button>
             </Link>
+          </Row>
+          <Row className="pad">
+            <WordEntry />
           </Row>
         </Col>
       </Row>

@@ -8,12 +8,13 @@ h2 {
 
 .player-score {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
+  text-wrap: avoid;
 }
 
-h3.ps {
-  margin-right: 1200px;
-}
+//h3.ps {
+//  margin-right: 1200px;
+//}
 
 .plus {
   // margin-bottom: 15px;
