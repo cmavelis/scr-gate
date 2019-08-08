@@ -9,8 +9,8 @@ export interface IHomeProp extends StateProps, DispatchProps {}
 export class StartScreen extends React.Component<IHomeProp> {
   render() {
     return (
-      <Row>
-        <Col md="9">
+      <Row className="row-outer">
+        <Col className="col-wrap" md="9">
           <h2>Scrabble Companion</h2>
           <Row className="justify-content-md-center">
             <Link to={'/game/new'}>
