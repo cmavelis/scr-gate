@@ -21,11 +21,18 @@ export class StartScreen extends React.Component<IHomeProp> {
       <Row className="row-outer">
         <Col className="col-wrap" md="9">
           <h2>Available games</h2>
+          <Row className="justify-content-md-center">
+            <Link to={'/game/new'}>
+              <Button color="info">New Game</Button>
+            </Link>
+          </Row>
           <Row>
             <ul>
               {Object.values(games).map(game => (
                 <li>
-                  <span>{game.name}</span>
+                  <Link to={`/game/${game.id}`}>
+                    <Button color="primary">{game.name}</Button>
+                  </Link>
                   <ul>
                     {Object.keys(game).map(key => (
                       <li>{`${key}: ${game[key]}`}</li>
@@ -34,14 +41,6 @@ export class StartScreen extends React.Component<IHomeProp> {
                 </li>
               ))}
             </ul>
-          </Row>
-          <Row className="justify-content-md-center">
-            <Link to={'/game/new'}>
-              <Button color="primary">New Game</Button>
-            </Link>
-            <Link to={'/game/1'}>
-              <Button color="secondary">Open Game</Button>
-            </Link>
           </Row>
         </Col>
       </Row>
