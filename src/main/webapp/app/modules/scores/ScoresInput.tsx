@@ -11,20 +11,24 @@ export interface IScoresInputProps extends StateProps, DispatchProps {
 }
 
 interface IScoresInputState {
-  playerOneScoreToAdd: number;
-  playerTwoScoreToAdd: number;
-  playerThreeScoreToAdd: number;
-  playerFourScoreToAdd: number;
+  scoreToAdd: {
+    0: number;
+    1: number;
+    2: number;
+    3: number;
+  };
 }
 
 export class ScoresInput extends React.Component<IScoresInputProps, IScoresInputState> {
   constructor(props) {
     super(props);
     this.state = {
-      playerOneScoreToAdd: 0,
-      playerTwoScoreToAdd: 0,
-      playerThreeScoreToAdd: 0,
-      playerFourScoreToAdd: 0
+      scoreToAdd: {
+        0: 0,
+        1: 0,
+        2: 0,
+        3: 0
+      }
     };
     this.updateScore = this.updateScore.bind(this);
   }
@@ -33,69 +37,35 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
     this.props.getEntity(this.props.match.params.id);
   }
 
-  handleChange = e => {
-    const target = e.target as HTMLTextAreaElement;
-    this.setState({ [target.name]: target.value } as any);
+  handleChange = (e, i) => {
+    const { value } = e.target;
+    this.setState(prevState => ({
+      scoreToAdd: {
+        ...prevState.scoreToAdd,
+        [i]: value
+      }
+    }));
   };
 
   updateScore(num) {
     const { game } = this.props;
-    const { playerOneScoreToAdd, playerTwoScoreToAdd, playerThreeScoreToAdd, playerFourScoreToAdd } = this.state;
+    const { scoreToAdd } = this.state;
+    const playerScore = scoreToAdd[num];
 
-    switch (num) {
-      case 1:
-        if (Number.isInteger(Number(playerOneScoreToAdd))) {
-          this.props.updateEntity({
-            ...game,
-            score1: Number(game.score1) + Number(playerOneScoreToAdd),
-            nextPlayer: game.nextPlayer
-          });
-        } else {
-          alert('Numbers only');
-        }
-        break;
-      case 2:
-        if (Number.isInteger(Number(playerTwoScoreToAdd))) {
-          this.props.updateEntity({
-            ...game,
-            score2: Number(game.score2) + Number(playerTwoScoreToAdd),
-            nextPlayer: game.nextPlayer
-          });
-        } else {
-          alert('Numbers only');
-        }
-        break;
-
-      case 3:
-        if (Number.isInteger(Number(playerThreeScoreToAdd))) {
-          this.props.updateEntity({
-            ...game,
-            score3: Number(game.score3) + Number(playerThreeScoreToAdd),
-            nextPlayer: game.nextPlayer
-          });
-        } else {
-          alert('Numbers only');
-        }
-        break;
-      case 4:
-        if (Number.isInteger(Number(playerFourScoreToAdd))) {
-          this.props.updateEntity({
-            ...game,
-            score4: Number(game.score4) + Number(playerFourScoreToAdd),
-            nextPlayer: game.nextPlayer
-          });
-        } else {
-          alert('Numbers only');
-        }
-        break;
-      default:
-        break;
+    if (Number.isInteger(Number(playerScore))) {
+      this.props.updateEntity({
+        ...game,
+        [`score${num + 1}`]: Number(game[`score${num + 1}`]) + Number(playerScore),
+        nextPlayer: game.nextPlayer
+      });
+    } else {
+      alert('Numbers only');
     }
   }
 
   render() {
     const { game } = this.props;
-    const { playerOneScoreToAdd, playerTwoScoreToAdd, playerThreeScoreToAdd, playerFourScoreToAdd } = this.state;
+    const { scoreToAdd } = this.state;
     return (
       <div>
         <h2>{game.name}</h2>
@@ -105,42 +75,25 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
           </Link>
         </Row>
         <div className="col-5">
-          <div className="player-score">
-            <h3>{game.player1}</h3>
-            <h3 className="ps">{game.score1}</h3>
-            <span className="plus">&#43;</span>
-            <Input className="input" type="text" name="playerOneScoreToAdd" value={playerOneScoreToAdd} onChange={this.handleChange} />
-            <Button className="button" color="primary" onClick={() => this.updateScore(1)}>
-              Submit Score
-            </Button>
-          </div>
-          <div className="player-score">
-            <h3>{game.player2}</h3>
-            <h3 className="ps">{game.score2}</h3>
-            <span className="plus">&#43;</span>
-            <Input className="input" type="text" name="playerTwoScoreToAdd" value={playerTwoScoreToAdd} onChange={this.handleChange} />
-            <Button className="button" color="primary" onClick={() => this.updateScore(2)}>
-              Submit Score
-            </Button>
-          </div>
-          <div className="player-score">
-            <h3>{game.player3}</h3>
-            <h3 className="ps">{game.score3}</h3>
-            <span className="plus">&#43;</span>
-            <Input className="input" type="text" name="playerThreeScoreToAdd" value={playerThreeScoreToAdd} onChange={this.handleChange} />
-            <Button className="button" color="primary" onClick={() => this.updateScore(3)}>
-              Submit Score
-            </Button>
-          </div>
-          <div className="player-score">
-            <h3>{game.player4}</h3>
-            <h3 className="ps">{game.score4}</h3>
-            <span className="plus">&#43;</span>
-            <Input className="input" type="text" name="playerFourScoreToAdd" value={playerFourScoreToAdd} onChange={this.handleChange} />
-            <Button className="button" color="primary" onClick={() => this.updateScore(4)}>
-              Submit Score
-            </Button>
-          </div>
+          {[0, 1, 2, 3].map(i => {
+            const playerName = game[`player${i + 1}`];
+            if (playerName !== '') {
+              return (
+                <div className="player-score" key={`player-score${i + 1}`}>
+                  <h3>{playerName}</h3>
+                  <h3 className="ps">{game[`score${i + 1}`]}</h3>
+                  <span className="plus">&#43;</span>
+                  <Input className="input" type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
+                  <Button className="button" color="primary" onClick={() => this.updateScore(i)}>
+                    Submit Score
+                  </Button>
+                </div>
+              );
+            } else {
+              return;
+            }
+          })
+            }
         </div>
         <Row>
           <Col md="9">
