@@ -21,8 +21,8 @@ export class Home extends React.Component<IHomeProp> {
         <Col md="9">
           <h2>Scrabble Companion</h2>
           <Row className="justify-content-md-center">
-            <Link to="/startscreen">
-              <Button color="warning">Start</Button>
+            <Link to="/game">
+              <Button color="warning">Play Scrabble</Button>
             </Link>
           </Row>
         </Col>

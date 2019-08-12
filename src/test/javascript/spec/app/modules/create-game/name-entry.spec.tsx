@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { NameEntry } from 'app/modules/create-game/name-entry';
+import { NameEntry } from 'app/modules/game/create-game/name-entry';
 
 const noop = () => {};
 
