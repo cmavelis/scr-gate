@@ -1,3 +1,8 @@
+// Variables
+
+$columns: 15;
+$rows: 15;
+
 /* ==========================================================================
 Main page styles
 ========================================================================== */
@@ -7,4 +12,31 @@ Main page styles
   height: 497px;
   background: url('../../../static/images/jhipster_family_member_0.svg') no-repeat center top;
   background-size: contain;
+}
+
+.board-wrap {
+  padding: 10px;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat($columns, 39px);
+  grid-template-rows: repeat($rows, 41px);
+  grid-column-gap: 1px;
+  grid-row-gap: 1px;
+}
+
+.board-spaces {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2px;
+  background: #444444;
+  border: 1px solid #666666;
+}
+
+.board-space-text {
+  text-align: center;
+  font-size: 7px;
+  font-weight: bold;
 }

@@ -18,10 +18,14 @@ export class Home extends React.Component<IHomeProp> {
   render() {
     const { account } = this.props;
     return (
-      <div>
-        <div>
+      <div className="board-wrap">
+        <div className="grid-container">
         {_.range(225).map(i => (
-          <div className={`board-space-${i}`}>{i}</div>
+          <div className={`board-space-${i} board-spaces`}>
+            <div className="board-space-text">
+              {i}
+            </div>
+          </div>
           )
           )
         }
