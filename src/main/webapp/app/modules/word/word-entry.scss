@@ -1,0 +1,47 @@
+.letter-input {
+  width: 100%;
+  height: 54px;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  color: #ffffff;
+  background: #444444;
+  border: 2px solid rgba(255,255,255,0.5);
+}
+
+.letter-input:focus {
+  background: #333333;
+  border-color: #1B73DD;
+}
+
+.letter-input:disabled {
+  background: #444444;
+  border-color: rgba(255,255,255,0.25)
+}
+
+.word-entry-wrap {
+  padding: 16px;
+  border-radius: 10px;
+  background-color: #333333;
+}
+
+.letter-box {
+  margin: 2px;
+  max-width: 54px;
+  width: 100%;
+}
+
+.word-display {
+  font-size: 24px;
+  text-align: right;
+  margin-right: 0;
+  margin-left: auto;
+}
+
+.point-display {
+  font-size: 24px;
+  font-weight: 700;
+  text-align: right;
+  margin-right: 0;
+  margin-left: auto;
+}

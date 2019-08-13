@@ -3,7 +3,7 @@ EXPOSE 8080
 EXPOSE 8081
 
 # Copy the YAML configuration file to /opt/conf
-COPY src/main/resources/application.yml /opt/conf/application.yml
+COPY src/main/resources/config/application.yml /opt/conf/application.yml
 ENV CONFIG_LOCATION /opt/conf/application.yml
 
 # Copy the fat jar file to /opt. This assumes that there are up to four jar files:
@@ -12,7 +12,7 @@ ENV CONFIG_LOCATION /opt/conf/application.yml
 #   app-1.0.0-sources.jar
 #   app-1.0.0-javadoc.jar
 #
-COPY target/[^original]*[^javadoc][^sources].jar /opt/app.jar
+COPY target/*.jar /opt/app.jar
 
 WORKDIR /opt
 

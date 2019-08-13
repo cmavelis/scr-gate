@@ -6,7 +6,7 @@ import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 export interface INameProps {
   playerNumber: number;
   playerName: string;
-  onChange: (event, playerNumber) => void;
+  onChange: Function;
   deactivated: boolean;
 }
 

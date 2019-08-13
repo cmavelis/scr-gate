@@ -1,22 +1,25 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
+import WordEntry from 'app/modules/word/word-entry';
+import { Link } from 'react-router-dom';
+import { ScoresInput } from 'app/modules/scores/ScoresInput';
 
-export interface IHomeProp extends StateProps, DispatchProps {}
+export interface IInGameScreenProp extends StateProps, DispatchProps {}
 
-export class StartScreen extends React.Component<IHomeProp> {
+export class InGameScreen extends React.Component<IInGameScreenProp> {
   render() {
     return (
       <Row>
         <Col md="9">
-          <h2>Scrabble Companion</h2>
-          <Row className="justify-content-md-center">
-            <Button color="primary">Create Game</Button>
-            <Button color="secondary">Join Game</Button>
+          <Row>
+            <Link to="/game">
+              <Button>Back to Games</Button>
+            </Link>
           </Row>
-        </Col>
-        <Col md="3" className="pad">
-          <span className="hipster rounded" />
+          <Row className="pad">
+            <WordEntry />
+          </Row>
         </Col>
       </Row>
     );
@@ -36,4 +39,4 @@ type DispatchProps = typeof mapDispatchToProps;
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(StartScreen);
+)(InGameScreen);

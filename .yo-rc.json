@@ -1,7 +1,8 @@
 {
   "generator-jhipster": {
     "promptValues": {
-      "packageName": "com.bookerdimaio.scrabble"
+      "packageName": "com.bookerdimaio.scrabble",
+      "microservicePath": "../scrabble-simple-dev-ms"
     },
     "jhipsterVersion": "6.1.2",
     "applicationType": "gateway",
