@@ -1,5 +1,6 @@
 import './home.scss';
 import React from 'react';
+import _ from 'lodash';
 
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -17,19 +18,15 @@ export class Home extends React.Component<IHomeProp> {
   render() {
     const { account } = this.props;
     return (
-      <Row>
-        <Col md="9">
-          <h2>Scrabble Companion</h2>
-          <Row className="justify-content-md-center">
-            <Link to="/game">
-              <Button color="warning">Play Scrabble</Button>
-            </Link>
-          </Row>
-        </Col>
-        <Col md="3" className="pad">
-          <span className="hipster rounded" />
-        </Col>
-      </Row>
+      <div>
+        <div>
+        {_.range(225).map(i => (
+          <div className={`board-space-${i}`}>{i}</div>
+          )
+          )
+        }
+        </div>
+      </div>
     );
   }
 }
