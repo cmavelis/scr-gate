@@ -8,14 +8,14 @@ import appConfig from 'app/config/constants';
 
 export const BrandIcon = props => (
   <div {...props} className="brand-icon">
-    <img src="content/images/logo-jhipster.png" alt="Logo" />
+    <img src="content/images/S-Tile.svg" alt="Logo" />
   </div>
 );
 
 export const Brand = props => (
   <NavbarBrand tag={Link} to="/" className="brand-logo">
     <BrandIcon />
-    <span className="brand-title">Scrabblecompanion</span>
+    <span className="brand-title">Scrabble Companion</span>
     <span className="navbar-version">{appConfig.VERSION}</span>
   </NavbarBrand>
 );
