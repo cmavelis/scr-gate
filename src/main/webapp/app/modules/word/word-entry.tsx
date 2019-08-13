@@ -195,8 +195,8 @@ export class WordEntry extends React.Component<{}, IWordState> {
                 })}
               </InputGroup>
             </Row>
-            <Row>Your word: {this.getFullWord()}</Row>
-            <Row>Your score: {this.getTotalScore()}</Row>
+            <Row className="word-display">Your word: {this.getFullWord()}</Row>
+            <Row className="point-display">Your score: {this.getTotalScore()}</Row>
             <WordBonusGroup
               wordBonus={word.bonus}
               setWordBonus={this.handleWordBonusChange}

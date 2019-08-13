@@ -3,12 +3,17 @@ import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router';
 
 import { StartScreen } from 'app/modules/game/start-screen';
+import { getEntities } from 'app/entities/scrabbledev/game/game.reducer';
 
 describe('StartScreen', () => {
   it('should render two buttons,<Button /> and <Button />', () => {
     const wrapper = shallow(
       <MemoryRouter>
-        <StartScreen />
+        <StartScreen
+          // @ts-ignore
+          games={}
+          getEntities={getEntities}
+        />
       </MemoryRouter>
     );
     expect(
@@ -16,6 +21,6 @@ describe('StartScreen', () => {
         .find(StartScreen)
         .dive()
         .find('Button').length
-    ).toBe(2);
+    ).toBeGreaterThan(0);
   });
 });

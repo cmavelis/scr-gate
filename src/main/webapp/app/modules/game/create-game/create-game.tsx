@@ -1,62 +1,48 @@
 import React from 'react';
 
-import { connect } from 'react-redux';
-import { Button, Col, Container, Row } from 'reactstrap';
+import { Col, Container, Input, Row } from 'reactstrap';
 
 import NameEntry from 'app/modules/game/create-game/name-entry';
-import { Link } from 'react-router-dom';
 
-export interface INameProps extends StateProps, DispatchProps {}
-export interface INameState {
+export interface INameProps {
   playerNames: {
     [key: number]: string;
   };
+  gameName: string;
+  handlePlayerNameChange: Function;
+  handleGameNameChange: (event) => void;
 }
 
-export class CreateGame extends React.Component<INameProps, INameState> {
+export class CreateGame extends React.Component<INameProps, {}> {
   static shouldInputActivate(index, object) {
     // returns true for the nth input if there are n-1 inputs activated (by object having entries)
     const inputsFilled = Object.values(object).filter((n: string) => n.length > 0);
     return inputsFilled.length >= index;
   }
-  constructor(props) {
-    super(props);
-    this.state = {
-      playerNames: {
-        0: '',
-        1: '',
-        2: '',
-        3: ''
-      }
-    };
-
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(value, index) {
-    this.setState(prevState => ({
-      playerNames: {
-        ...prevState.playerNames,
-        [index]: value.slice(0, 12) // TODO: look up more proper validation method
-      }
-    }));
-  }
 
   render() {
-    const { playerNames } = this.state;
+    const {
+      playerNames,
+      gameName,
+      handleGameNameChange,
+      handlePlayerNameChange
+    } = this.props;
     return (
       <div>
         <Container>
           <Row>
             <Col>
-              <h2>New Game</h2>
+              <Input
+                value={gameName}
+                onChange={handleGameNameChange}
+              />
               <h5>Enter Player Names</h5>
               {[0, 1, 2, 3].map(n => (
                 <NameEntry
                   key={`player-${n}`}
                   playerNumber={n}
                   playerName={playerNames[n]}
-                  onChange={this.handleChange}
+                  onChange={handlePlayerNameChange}
                   deactivated={n > 1 && !CreateGame.shouldInputActivate(n, playerNames)}
                 />
               ))}
@@ -68,14 +54,4 @@ export class CreateGame extends React.Component<INameProps, INameState> {
   }
 }
 
-const mapStateToProps = () => ({});
-
-const mapDispatchToProps = {};
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(CreateGame);
+export default CreateGame;

@@ -49,7 +49,6 @@ export default class LetterBonusGroup extends React.Component<ILetterBonusGroupP
             Blank
           </Button>
         </div>
-        {/* <div>Bonus: {this.props.bonus}</div> */}
       </div>
     );
   }

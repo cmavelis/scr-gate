@@ -13,6 +13,7 @@ import Home from 'app/modules/home/home';
 import StartScreen from 'app/modules/game/start-screen';
 import InGameScreen from 'app/modules/game/play-game/play-game';
 import CreateGamePage from 'app/modules/game/create-game/create-game-page';
+import ScoresInput from 'app/modules/scores/ScoresInput';
 
 import Entities from 'app/entities';
 import PrivateRoute from 'app/shared/auth/private-route';
@@ -46,8 +47,9 @@ const Routes = () => (
       <PrivateRoute path="/entity" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} />
       <ErrorBoundaryRoute path="/" exact component={Home} />
       <ErrorBoundaryRoute path="/game" exact component={StartScreen} />
-      <ErrorBoundaryRoute path="/game/1" exact component={InGameScreen} />
+      <ErrorBoundaryRoute path="/game/test" exact component={InGameScreen} />
       <ErrorBoundaryRoute path="/game/new" exact component={CreateGamePage} />
+      <ErrorBoundaryRoute path="/game/:id" exact component={ScoresInput} />
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>
