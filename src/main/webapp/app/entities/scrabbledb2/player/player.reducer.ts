@@ -8,6 +8,7 @@ import { IPlayer, defaultValue } from 'app/shared/model/scrabbledb2/player.model
 export const ACTION_TYPES = {
   FETCH_PLAYER_LIST: 'player/FETCH_PLAYER_LIST',
   FETCH_PLAYER: 'player/FETCH_PLAYER',
+  VALIDATE_PLAYER: 'player/VALIDATE_PLAYER',
   CREATE_PLAYER: 'player/CREATE_PLAYER',
   UPDATE_PLAYER: 'player/UPDATE_PLAYER',
   DELETE_PLAYER: 'player/DELETE_PLAYER',
@@ -31,6 +32,7 @@ export default (state: PlayerState = initialState, action): PlayerState => {
   switch (action.type) {
     case REQUEST(ACTION_TYPES.FETCH_PLAYER_LIST):
     case REQUEST(ACTION_TYPES.FETCH_PLAYER):
+    case REQUEST(ACTION_TYPES.VALIDATE_PLAYER):
       return {
         ...state,
         errorMessage: null,
@@ -58,6 +60,15 @@ export default (state: PlayerState = initialState, action): PlayerState => {
         updateSuccess: false,
         errorMessage: action.payload
       };
+    case FAILURE(ACTION_TYPES.VALIDATE_PLAYER):
+      return {
+        ...state,
+        loading: false,
+        updating: false,
+        updateSuccess: false,
+        errorMessage: null,
+        entity: { id: null }
+      };
     case SUCCESS(ACTION_TYPES.FETCH_PLAYER_LIST):
       return {
         ...state,
@@ -65,6 +76,7 @@ export default (state: PlayerState = initialState, action): PlayerState => {
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PLAYER):
+    case SUCCESS(ACTION_TYPES.VALIDATE_PLAYER):
       return {
         ...state,
         loading: false,
@@ -105,6 +117,14 @@ export const getEntities: ICrudGetAllAction<IPlayer> = (page, size, sort) => ({
 
 export const getEntity: ICrudGetAction<IPlayer> = id => {
   const requestUrl = `${apiUrl}/${id}`;
+  return {
+    type: ACTION_TYPES.FETCH_PLAYER,
+    payload: axios.get<IPlayer>(requestUrl)
+  };
+};
+
+export const getPlayerByName: ICrudGetAction<IPlayer> = (name: string) => {
+  const requestUrl = `${apiUrl}/name/${name}`;
   return {
     type: ACTION_TYPES.FETCH_PLAYER,
     payload: axios.get<IPlayer>(requestUrl)

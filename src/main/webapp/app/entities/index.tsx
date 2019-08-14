@@ -4,7 +4,6 @@ import { Switch } from 'react-router-dom';
 // tslint:disable-next-line:no-unused-variable
 import ErrorBoundaryRoute from 'app/shared/error/error-boundary-route';
 
-import GameOld from './scrabbledev/game'; // TODO: remove dev db
 import Game from './scrabbledb2/game';
 import GamePlayer from './scrabbledb2/game-player';
 import Player from './scrabbledb2/player';
