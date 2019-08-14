@@ -18,10 +18,10 @@ export class PlayerCard extends React.Component<{}> {
                             {player.name}
                     </div>
                     <div className="player-name">
-                            {player.name}
+                            {player.score}
                     </div>
                     <div className="player-name">
-                            {player.name}
+                            Points
                     </div>
             </div>
         </div>
