@@ -2,6 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
 import WordEntry from 'app/modules/word/word-entry';
+import { Board } from 'app/modules/game/play-game/board';
+import { PlayerCard } from 'app/modules/game/play-game/player-card';
 import { Link } from 'react-router-dom';
 import { ScoresInput } from 'app/modules/scores/ScoresInput';
 
@@ -19,6 +21,10 @@ export class InGameScreen extends React.Component<IInGameScreenProp> {
           </Row>
           <Row className="pad">
             <WordEntry />
+            <PlayerCard />
+          </Row>
+          <Row className="pad">
+            <Board />
           </Row>
         </Col>
       </Row>
