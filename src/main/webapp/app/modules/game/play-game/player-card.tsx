@@ -14,7 +14,13 @@ export class PlayerCard extends React.Component<{}> {
       return (
         <div className="player-card-wrap">
             <div className="player-info-header">
-                    <div>
+                    <div className="player-name">
+                            {player.name}
+                    </div>
+                    <div className="player-name">
+                            {player.name}
+                    </div>
+                    <div className="player-name">
                             {player.name}
                     </div>
             </div>
