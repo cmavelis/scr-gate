@@ -110,9 +110,6 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
         <Button color="primary" onClick={this.handleClick}>
           Start Game
         </Button>
-        <Button color="warning" onClick={() => this.checkPlayerExists(0)}>
-          Check Player 1
-        </Button>
         <Link to="/game">
           <Button>Back to Games</Button>
         </Link>

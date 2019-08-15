@@ -3,6 +3,7 @@ import './name-entry.scss'; // TODO: remove local import
 import React, { useEffect, useRef, useState } from 'react';
 
 import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export interface INameProps {
   playerNumber: number;
   playerName: string;
@@ -56,9 +57,9 @@ const NameEntry: React.FC<INameProps> = props => {
           <InputGroupText>Player {props.playerNumber + 1}</InputGroupText>
         </InputGroupAddon>
         <Input value={props.playerName} onChange={handleChange} placeholder="1-12 Characters" />
-        <span>{props.exists ? 'exists' : 'create new'}</span>
-        <br/>
-        <span>{paused ? '      paused' : '      unpaused'}</span>
+        {props.exists ? <FontAwesomeIcon icon="check" />
+          : <FontAwesomeIcon icon="user-plus" />
+        }
       </InputGroup>
     </fieldset>
   );
