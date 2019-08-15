@@ -5,8 +5,16 @@ import './player-card.scss';
 
 const player = {
     name: 'Player Name',
-    score: 123
-    turn: true;
+    score: 123,
+    turn: true
+};
+const word = {
+    word: 'telephone',
+    score: 14,
+    spelling: true
+};
+const turn = {
+    score: 20
 };
 
 export class PlayerCard extends React.Component<{}> {
@@ -41,7 +49,30 @@ export class PlayerCard extends React.Component<{}> {
                 <button>Reset tiles</button>
             </div>
             <div className="scoring-wrap">
-                <div className="column-labels">score</div>
+                <div className="column-labels">
+                    <div className="column-label-left">New words</div>
+                    <div className="column-label-right">Spelling</div>
+                </div>
+                <div className="word-scoring">
+                    <div className="new-word">
+                        {word.word}
+                    </div>
+                    <div className="new-word-score">
+                        + {word.score}
+                    </div>
+                    <div className="new-word-spellcheck">
+                        {word.spelling}
+                    </div>
+                </div>
+                <div className="submit-play">
+                    <div className="play-score">
+                        +{turn.score} Points
+                    </div>
+                    <button className="submit-play">Submit</button>
+                </div>
+                <div className="pass-redraw">
+                    <button className="pass-button">Pass/Redraw Tiles</button>
+                </div>
             </div>
         </div>
       );
