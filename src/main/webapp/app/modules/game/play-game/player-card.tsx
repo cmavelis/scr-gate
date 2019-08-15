@@ -2,6 +2,8 @@
 import React from 'react';
 import _ from 'lodash';
 import './player-card.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Button } from 'reactstrap';
 
 const player = {
     name: 'Player Name',
@@ -40,13 +42,13 @@ export class PlayerCard extends React.Component<{}> {
                 <div className="turn-message">It’s your turn!</div>
             </div>
             <div className="show-tiles-toggle">
-                <button className="show-tiles-button">Hide tiles</button>
+                <Button className="show-tiles-button">Hide tiles</Button>
             </div>
             <div className="tile-rack-wrap">
                 <div>(tile rack)</div>
             </div>
             <div className="reset-tiles">
-                <button>Reset tiles</button>
+                <Button>Reset tiles</Button>
             </div>
             <div className="scoring-wrap">
                 <div className="column-labels">
@@ -68,10 +70,12 @@ export class PlayerCard extends React.Component<{}> {
                     <div className="play-score">
                         +{turn.score} Points
                     </div>
-                    <button className="submit-play">Submit</button>
+                    <Button className="submit-play">Submit</Button>
                 </div>
                 <div className="pass-redraw">
-                    <button className="pass-button">Pass/Redraw Tiles</button>
+                    <Button className="pass-button">
+                        Pass/Redraw Tiles
+                    </Button>
                 </div>
             </div>
         </div>
