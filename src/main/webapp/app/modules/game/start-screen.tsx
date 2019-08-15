@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { IGame } from 'app/shared/model/scrabbledev/game.model';
-import { getEntities } from 'app/entities/scrabbledev/game/game.reducer';
+import { getEntities } from 'app/entities/scrabbledb2/game/game.reducer';
 
 export interface IHomeProp extends StateProps, DispatchProps {
   games: IGame;
@@ -34,9 +34,13 @@ export class StartScreen extends React.Component<IHomeProp> {
                     <Button color="primary">{game.name}</Button>
                   </Link>
                   <ul>
-                    {Object.keys(game).map(key => (
-                      <li>{`${key}: ${game[key]}`}</li>
-                    ))}
+                    {Object.keys(game).map(key => {
+                      if (key !== 'state') {
+                      return (
+                        <li>{`${key}: ${game[key]}`}</li>
+                      );
+                    }
+                    })}
                   </ul>
                 </li>
               ))}
