@@ -60,7 +60,8 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
           name: value.slice(0, 12)
         } // TODO: look up more proper validation method
       }
-    }));
+    }),
+      () => this.props.getPlayerByName(value));
   }
 
   handleGameNameChange(event) {
@@ -68,7 +69,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     this.setState({
       gameName: value
     },
-      () => this.props.getPlayerByName(value));
+      () => this.props.getPlayerByName(value)); // TODO: getGame
   }
 
   handleClick() {

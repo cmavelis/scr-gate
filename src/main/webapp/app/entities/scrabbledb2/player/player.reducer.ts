@@ -65,7 +65,7 @@ export default (state: PlayerState = initialState, action): PlayerState => {
         ...state,
         loading: false,
         updating: false,
-        updateSuccess: false,
+        updateSuccess: true,
         errorMessage: null,
         entity: { id: null }
       };
@@ -126,7 +126,7 @@ export const getEntity: ICrudGetAction<IPlayer> = id => {
 export const getPlayerByName: ICrudGetAction<IPlayer> = (name: string) => {
   const requestUrl = `${apiUrl}/name/${name}`;
   return {
-    type: ACTION_TYPES.FETCH_PLAYER,
+    type: ACTION_TYPES.VALIDATE_PLAYER,
     payload: axios.get<IPlayer>(requestUrl)
   };
 };
