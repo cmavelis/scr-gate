@@ -3,7 +3,7 @@ import { ICrudGetAction, ICrudGetAllAction, ICrudPutAction, ICrudDeleteAction } 
 
 import { cleanEntity } from 'app/shared/util/entity-utils';
 import { REQUEST, SUCCESS, FAILURE } from 'app/shared/reducers/action-type.util';
-import { IPlayer, defaultValue } from 'app/shared/model/scrabbledb2/player.model';
+import { IPlayer, defaultValue, IPlayerValidateAction } from 'app/shared/model/scrabbledb2/player.model';
 
 export const ACTION_TYPES = {
   FETCH_PLAYER_LIST: 'player/FETCH_PLAYER_LIST',
@@ -21,7 +21,8 @@ const initialState = {
   entities: [] as ReadonlyArray<IPlayer>,
   entity: defaultValue,
   updating: false,
-  updateSuccess: false
+  updateSuccess: false,
+  validation: { ...[0, 1, 2, 3].map(() => defaultValue) }
 };
 
 export type PlayerState = Readonly<typeof initialState>;
@@ -65,9 +66,14 @@ export default (state: PlayerState = initialState, action): PlayerState => {
         ...state,
         loading: false,
         updating: false,
-        updateSuccess: true,
+        updateSuccess: false,
         errorMessage: null,
-        entity: { id: null }
+        validation: {
+          ...state.validation,
+          [action.meta.index]: {
+            id: null
+          }
+        }
       };
     case SUCCESS(ACTION_TYPES.FETCH_PLAYER_LIST):
       return {
@@ -76,11 +82,19 @@ export default (state: PlayerState = initialState, action): PlayerState => {
         entities: action.payload.data
       };
     case SUCCESS(ACTION_TYPES.FETCH_PLAYER):
-    case SUCCESS(ACTION_TYPES.VALIDATE_PLAYER):
       return {
         ...state,
         loading: false,
         entity: action.payload.data
+      };
+    case SUCCESS(ACTION_TYPES.VALIDATE_PLAYER):
+      return {
+        ...state,
+        loading: false,
+        validation: {
+          ...state.validation,
+          [action.meta.index]: action.payload.data
+        }
       };
     case SUCCESS(ACTION_TYPES.CREATE_PLAYER):
     case SUCCESS(ACTION_TYPES.UPDATE_PLAYER):
@@ -123,11 +137,12 @@ export const getEntity: ICrudGetAction<IPlayer> = id => {
   };
 };
 
-export const getPlayerByName: ICrudGetAction<IPlayer> = (name: string) => {
+export const getPlayerByName: IPlayerValidateAction = (name, index) => {
   const requestUrl = `${apiUrl}/name/${name}`;
   return {
     type: ACTION_TYPES.VALIDATE_PLAYER,
-    payload: axios.get<IPlayer>(requestUrl)
+    payload: axios.get<IPlayer>(requestUrl),
+    meta: { index }
   };
 };
 

@@ -14,7 +14,7 @@ export interface ICreateGamePageState {
   playerNames: {
     [key: number]: {
       name: string,
-      id: number
+      exists: boolean
     };
   };
   gameName: string;
@@ -26,7 +26,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
 
     this.state = {
       playerNames: {
-        ...[0, 1, 2, 3].map(() => ({ name: '', id: null }))
+        ...[0, 1, 2, 3].map(() => ({ name: '', exists: false }))
       },
       gameName: 'New Game'
     };
@@ -34,20 +34,26 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     this.handleClick = this.handleClick.bind(this);
     this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
     this.handleGameNameChange = this.handleGameNameChange.bind(this);
+    this.checkPlayerExists = this.checkPlayerExists.bind(this);
+  }
+
+  componentDidUpdate(prevProps): void {
+    [0, 1, 2, 3].forEach(i => {
+      if (prevProps.validatedPlayers[i] !== this.props.validatedPlayers[i]) {
+        this.setState(prevState => ({
+          playerNames: {
+            ...prevState.playerNames,
+            [i]: {
+              ...prevState.playerNames[i],
+              exists: this.props.validatedPlayers[i].id && this.props.validatedPlayers[i].id !== null
+          }}}));
+        }
+      }
+    );
   }
 
   checkPlayerExists(i) {
-    const { validatedPlayer } = this.props;
-    if (this.state.playerNames[i].name === validatedPlayer.name) {
-      this.setState(prevState => ({
-        ...prevState,
-        playerNames: {
-          ...prevState.playerNames,
-          [i]: validatedPlayer
-        }
-      })
-      );
-    }
+    this.props.getPlayerByName(this.state.playerNames[i].name, i);
   }
 
   handlePlayerNameChange(value, index) {
@@ -60,16 +66,14 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
           name: value.slice(0, 12)
         } // TODO: look up more proper validation method
       }
-    }),
-      () => this.props.getPlayerByName(value));
+    }));
   }
 
   handleGameNameChange(event) {
     const { value } = event.target;
     this.setState({
       gameName: value
-    },
-      () => this.props.getPlayerByName(value)); // TODO: getGame
+    }); // TODO: getGame
   }
 
   handleClick() {
@@ -97,10 +101,11 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     return (
       <div>
         <CreateGame
-          playerNames={{ ...Object.values(playerNames).map(a => a.name) }}
+          playerNames={playerNames}
           gameName={gameName}
           handlePlayerNameChange={this.handlePlayerNameChange}
           handleGameNameChange={this.handleGameNameChange}
+          checkPlayerExists={this.checkPlayerExists}
         />
         <Button color="primary" onClick={this.handleClick}>
           Start Game
@@ -117,7 +122,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
 }
 
 const mapStateToProps = storeState => ({
-  validatedPlayer: storeState.player.entity
+  validatedPlayers: storeState.player.validation
 });
 
 const mapDispatchToProps = { createEntity, getPlayerByName };

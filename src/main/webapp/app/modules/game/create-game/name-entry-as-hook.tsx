@@ -2,26 +2,23 @@ import './name-entry.scss'; // TODO: remove local import
 
 import React, { useEffect, useRef, useState } from 'react';
 
-import { InputGroup, InputGroupAddon, InputGroupText, Input, Button } from 'reactstrap';
+import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
 export interface INameProps {
   playerNumber: number;
   playerName: string;
   onChange: Function;
   deactivated: boolean;
   exists: boolean;
-  // onTimeout: Function;
+  onTimeout: Function;
 }
 
 const NameEntry: React.FC<INameProps> = props => {
   const [timer, setTimer] = useState(0);
-  const [test, setTest] = useState(true);
+  const [paused, setPaused] = useState(true);
 
   useInterval(() => {
-    // Your custom logic here
-    if (timer === 2) { setTest(true); }
-    // if (timer === 2) { props.onTimeout(props.playerNumber); }
-
-    setTimer(timer + 1);
+    if (timer === 2) { setPaused(true); props.onTimeout(); }
+    if (!paused) { setTimer(timer + 1); }
     }, 1000);
 
   function useInterval(callback, delay) {
@@ -47,7 +44,7 @@ const NameEntry: React.FC<INameProps> = props => {
 
   function handleChange(event) {
     setTimer(0);
-    setTest(false);
+    setPaused(false);
     props.onChange(event.target.value, props.playerNumber);
   }
 
@@ -59,8 +56,9 @@ const NameEntry: React.FC<INameProps> = props => {
           <InputGroupText>Player {props.playerNumber + 1}</InputGroupText>
         </InputGroupAddon>
         <Input value={props.playerName} onChange={handleChange} placeholder="1-12 Characters" />
-        {/*<span>{props.exists ? 'exists' : 'create new'}</span>*/}
-        <span>{test ? 'test is true' : 'test is false'}</span>
+        <span>{props.exists ? 'exists' : 'create new'}</span>
+        <br/>
+        <span>{paused ? '      paused' : '      unpaused'}</span>
       </InputGroup>
     </fieldset>
   );

@@ -33,7 +33,8 @@ describe('Entities reducer tests', () => {
     entities: [] as ReadonlyArray<IPlayer>,
     entity: defaultValue,
     updating: false,
-    updateSuccess: false
+    updateSuccess: false,
+    validation: { ...[0, 1, 2, 3].map(() => ({ })) }
   };
 
   function testInitialState(state) {

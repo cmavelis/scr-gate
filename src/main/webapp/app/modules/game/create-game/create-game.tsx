@@ -1,59 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 
-import { Button, Col, Container, Input, Row } from 'reactstrap';
+import { Col, Container, Input, Row } from 'reactstrap';
 
 import NameEntry from 'app/modules/game/create-game/name-entry-as-hook';
 
 export interface INameProps {
   playerNames: {
-    [key: number]: string;
+    [key: number]: {
+      name: string,
+      exists: boolean
+    };
   };
   gameName: string;
   handlePlayerNameChange: Function;
   handleGameNameChange: (event) => void;
-}
-
-function Counter() {
-  const [count, setCount] = useState(0);
-
-  useInterval(() => {
-    // Your custom logic here
-    setCount(count + 1);
-  }, 1000);
-
-  function handleClick() {
-    setCount(0);
-  }
-
-  return (
-  <div>
-    <h1>
-      {count}
-    </h1>
-    <Button onClick={handleClick}/>
-  </div>
-  );
-}
-
-function useInterval(callback, delay) {
-  const savedCallback = useRef();
-
-  // Remember the latest function.
-  useEffect(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-
-  // Set up the interval.
-  useEffect(() => {
-    function tick() {
-      // @ts-ignore
-      savedCallback.current();
-    }
-    if (delay !== null) {
-      const id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-  }, [delay]);
+  checkPlayerExists: Function;
 }
 
 export class CreateGame extends React.Component<INameProps, {}> {
@@ -63,16 +24,13 @@ export class CreateGame extends React.Component<INameProps, {}> {
     return inputsFilled.length >= index;
   }
 
-  // handleChangeWithTimer(wrappedHandler) {
-  //
-  // }
-
   render() {
     const {
       playerNames,
       gameName,
       handleGameNameChange,
-      handlePlayerNameChange
+      handlePlayerNameChange,
+      checkPlayerExists
     } = this.props;
     return (
       <div>
@@ -88,15 +46,14 @@ export class CreateGame extends React.Component<INameProps, {}> {
                 <NameEntry
                   key={`player-${n}`}
                   playerNumber={n}
-                  playerName={playerNames[n]}
+                  playerName={playerNames[n].name}
                   onChange={handlePlayerNameChange}
                   deactivated={n > 1 && !CreateGame.shouldInputActivate(n, playerNames)}
-                  exists={false}
+                  exists={playerNames[n].exists}
+                  onTimeout={() => checkPlayerExists(n)}
                 />
               ))}
             </Col>
-            <Counter
-            />
           </Row>
         </Container>
       </div>

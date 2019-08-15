@@ -11,7 +11,7 @@ describe('CreateGamePage component', () => {
   wrapper = shallow(<CreateGamePage
     createEntity={createEntity}
     getPlayerByName={getPlayerByName}
-    validatedPlayer={''}
+    validatedPlayers={''}
   />);
 
   it('should render a <div />', () => {
@@ -24,7 +24,7 @@ describe('CreateGamePage component', () => {
         <CreateGamePage
           createEntity={createEntity}
           getPlayerByName={getPlayerByName}
-          validatedPlayer={''}
+          validatedPlayers={''}
         />
       </BrowserRouter>);
 
