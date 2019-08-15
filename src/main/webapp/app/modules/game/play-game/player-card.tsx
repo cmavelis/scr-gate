@@ -73,8 +73,10 @@ export class PlayerCard extends React.Component<{}> {
                     <Button className="submit-play">Submit</Button>
                 </div>
                 <div className="pass-redraw">
+                    {/* TODO: make text+icon button template */}
                     <Button className="pass-button">
                         Pass/Redraw Tiles
+                        <FontAwesomeIcon icon="undo"/>
                     </Button>
                 </div>
             </div>
