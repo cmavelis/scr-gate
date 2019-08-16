@@ -26,7 +26,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
 
     this.state = {
       playerNames: {
-        ...[0, 1, 2, 3].map(() => ({ name: '', exists: false }))
+        ...[0, 1, 2, 3].map(() => ({ name: '', exists: null }))
       },
       gameName: 'New Game'
     };
@@ -45,7 +45,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
             ...prevState.playerNames,
             [i]: {
               ...prevState.playerNames[i],
-              exists: this.props.validatedPlayers[i].id && this.props.validatedPlayers[i].id !== null
+              exists: this.props.validatedPlayers[i] !== '' && this.props.validatedPlayers[i].id && this.props.validatedPlayers[i].id !== null
           }}}));
         }
       }
@@ -53,7 +53,9 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
   }
 
   checkPlayerExists(i) {
-    this.props.getPlayerByName(this.state.playerNames[i].name, i);
+    if (this.state.playerNames[i].name) {
+      this.props.getPlayerByName(this.state.playerNames[i].name, i);
+    }
   }
 
   handlePlayerNameChange(value, index) {

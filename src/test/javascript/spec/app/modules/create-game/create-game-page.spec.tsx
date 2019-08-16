@@ -7,6 +7,7 @@ import { createEntity } from 'app/entities/scrabbledev/game/game.reducer';
 import { getPlayerByName } from 'app/entities/scrabbledb2/player/player.reducer';
 
 describe('CreateGamePage component', () => {
+  const dispatch = jest.fn();
   let wrapper;
   wrapper = shallow(<CreateGamePage
     createEntity={createEntity}

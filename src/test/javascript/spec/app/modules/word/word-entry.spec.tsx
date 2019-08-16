@@ -6,6 +6,7 @@ import { range } from 'lodash';
 
 describe('WordEntry component', () => {
   let wrapper;
+  const dispatch = jest.fn();
   wrapper = shallow(<WordEntry />);
 
   it('should render a <div />', () => {

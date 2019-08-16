@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Col, Container, Input, Row } from 'reactstrap';
 
-import NameEntry from 'app/modules/game/create-game/name-entry-as-hook';
+import NameEntry from 'app/modules/game/create-game/name-entry';
 
 export interface INameProps {
   playerNames: {
