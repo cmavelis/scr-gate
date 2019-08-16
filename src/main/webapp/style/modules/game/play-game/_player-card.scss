@@ -1,0 +1,29 @@
+// Variables
+
+$side-padding: 12px;
+
+@mixin outer-side-padding() {
+    padding: {
+        left: $side-padding;
+        right: $side-padding;
+    }
+}
+// Player card styles
+
+.player-card-wrap {
+    width: 100%;
+    border-radius: 10px;
+    background: #333333;
+    padding: 10px 0;
+    box-shadow: 0 1px 8px -2px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 16px -3px rgba(0, 0, 0, 0.4);
+}
+
+.player-info-header,
+.turn-info,
+.show-tiles-toggle,
+.tile-rack-wrap,
+.reset-tiles,
+.pass-redraw {
+    @include outer-side-padding();
+}

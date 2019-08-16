@@ -1,8 +1,6 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 
-import '../../scrabble/_scrabble.scss';
-
 interface ILetterBonusGroupProps {
   setLetterBonus: Function;
   bonus: number;
