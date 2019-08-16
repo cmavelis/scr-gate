@@ -1,7 +1,5 @@
-
 import React from 'react';
 import _ from 'lodash';
-import './board.scss';
 
 export class Board extends React.Component<{}> {
 

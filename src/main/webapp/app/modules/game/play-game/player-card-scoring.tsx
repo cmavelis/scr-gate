@@ -1,7 +1,5 @@
-
 import React from 'react';
 import _ from 'lodash';
-import './player-card-scoring.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Button } from 'reactstrap';
 

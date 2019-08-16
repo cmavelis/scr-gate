@@ -6,7 +6,6 @@ import { Board } from 'app/modules/game/play-game/board';
 import { PlayerCard } from 'app/modules/game/play-game/player-card';
 import { Link } from 'react-router-dom';
 import { ScoresInput } from 'app/modules/scores/ScoresInput';
-import './play-game.scss';
 
 export interface IInGameScreenProp extends StateProps, DispatchProps {}
 

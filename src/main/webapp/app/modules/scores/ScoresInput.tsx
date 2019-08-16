@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, Col, Row } from 'reactstrap';
-import { getEntity, updateEntity } from 'app/entities/scrabbledev/game/game.reducer';
-import './scores.scss';
 import { Link } from 'react-router-dom';
+
+import { getEntity, updateEntity } from 'app/entities/scrabbledev/game/game.reducer';
 import WordEntry from 'app/modules/word/word-entry';
 
 export interface IScoresInputProps extends StateProps, DispatchProps {
