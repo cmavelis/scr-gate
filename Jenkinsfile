@@ -12,13 +12,8 @@ pipeline {
     stage('frontend tests') {
         steps {
             sh 'mvn com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v10.16.0 -DnpmVersion=6.9.0'
-            try {
-                sh "mvn com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test-ci'"
-            } catch(err) {
-                throw err
-            } finally {
-                junit '**/target/test-results/TESTS-*.xml'
-            }
+            sh "mvn com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test-ci'"
+            junit '**/target/test-results/TESTS-*.xml'
         }
     }
     stage('CI Build and push snapshot') {
