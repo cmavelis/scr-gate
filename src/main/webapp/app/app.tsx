@@ -1,5 +1,5 @@
 import 'react-toastify/dist/ReactToastify.css';
-import './app.scss';
+import '../style/index.scss';
 
 import React from 'react';
 import { connect } from 'react-redux';
