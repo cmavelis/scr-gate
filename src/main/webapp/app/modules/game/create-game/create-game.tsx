@@ -20,7 +20,7 @@ export interface INameProps {
 export class CreateGame extends React.Component<INameProps, {}> {
   static shouldInputActivate(index, object) {
     // returns true for the nth input if there are n-1 inputs activated (by object having entries)
-    const inputsFilled = Object.values(object).filter((n: string) => n.length > 0);
+    const inputsFilled = Object.values(object).filter((n: { name: string }) => n.name.length > 0);
     return inputsFilled.length >= index;
   }
 
