@@ -1,5 +1,3 @@
-import './name-entry.scss'; // TODO: remove local import
-
 import React from 'react';
 
 import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
