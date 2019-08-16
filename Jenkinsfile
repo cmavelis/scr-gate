@@ -9,18 +9,15 @@ pipeline {
     DOCKER_REGISTRY_ORG = 'scrabblecompanion-248920'
   }
   stages {
-    stage('npm install and test') {
-        agent {
-            docker {
-                image 'node:8-alpine'
-            }
-        }
+    stage('frontend tests') {
         steps {
-            container('node') {
-                sh 'node --version'
-                sh 'npm --version'
-                sh 'npm install'
-                sh 'npm run test-ci'
+            sh 'mvn com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v10.16.0 -DnpmVersion=6.9.0'
+            try {
+                sh "mvn com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test-ci'"
+            } catch(err) {
+                throw err
+            } finally {
+                junit '**/target/test-results/TESTS-*.xml'
             }
         }
     }
