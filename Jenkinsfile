@@ -9,6 +9,21 @@ pipeline {
     DOCKER_REGISTRY_ORG = 'scrabblecompanion-248920'
   }
   stages {
+    stage('npm install and test') {
+        agent {
+            docker {
+                image 'node:8-alpine'
+            }
+        }
+        steps {
+            container('node') {
+                sh 'node --version'
+                sh 'npm --version'
+                sh 'npm install'
+                sh 'npm run test-ci'
+            }
+        }
+    }
     stage('CI Build and push snapshot') {
       when {
         branch 'PR-*'
