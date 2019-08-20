@@ -121,6 +121,16 @@ export const createEntity: ICrudPutAction<IGame> = entity => async dispatch => {
   return result;
 };
 
+export const createGameWithPlayers: ICrudPutAction<IGame> = entity => async dispatch => {
+  const requestUrl = `${apiUrl}/players`;
+  const result = await dispatch({
+    type: ACTION_TYPES.CREATE_GAME,
+    payload: axios.post(requestUrl, cleanEntity(entity))
+  });
+  dispatch(getEntities());
+  return result;
+};
+
 export const updateEntity: ICrudPutAction<IGame> = entity => async dispatch => {
   const result = await dispatch({
     type: ACTION_TYPES.UPDATE_GAME,

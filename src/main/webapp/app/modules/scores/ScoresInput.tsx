@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, Col, Row } from 'reactstrap';
-import { getEntity, updateEntity } from 'app/entities/scrabbledev/game/game.reducer';
+import { getEntity, updateEntity } from 'app/entities/scrabbledb2/game/game.reducer';
 import './scores.scss';
 import { Link } from 'react-router-dom';
 import WordEntry from 'app/modules/word/word-entry';
@@ -75,9 +75,9 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
           </Link>
         </Row>
         <div className="col-5">
-          {[0, 1, 2, 3].map(i => {
-            const playerName = game[`player${i + 1}`];
-            if (playerName !== '') {
+          {game.gamePlayers && [0, 1, 2, 3].map(i => {
+            if (typeof game.gamePlayers[i] !== 'undefined') {
+            const playerName = game.gamePlayers[i].player.name;
               return (
                 <div className="player-score" key={`player-score${i + 1}`}>
                   <h3>{playerName}</h3>

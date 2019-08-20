@@ -6,7 +6,7 @@ import moment from 'moment';
 import CreateGame from 'app/modules/game/create-game/create-game';
 import { Link } from 'react-router-dom';
 
-import { createEntity } from 'app/entities/scrabbledev/game/game.reducer';
+import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
 import { getPlayerByName } from 'app/entities/scrabbledb2/player/player.reducer';
 
 export interface ICreateGamePageProps extends StateProps, DispatchProps {}
@@ -79,22 +79,12 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
   }
 
   handleClick() {
-    const {
-      playerNames,
-      gameName
-    } = this.state;
-    this.props.createEntity({
+    const { gameName } = this.state;
+    const { validatedPlayers } = this.props;
+    this.props.createGameWithPlayers({
         name: gameName,
-        game_start: moment(),
-        player1: playerNames[0].name,
-        player2: playerNames[1].name,
-        player3: playerNames[2].name,
-        player4: playerNames[3].name,
-        score1: 0,
-        score2: 0,
-        score3: 0,
-        score4: 0,
-        nextPlayer: 1
+        start_time: moment(),
+        playersToAdd: [validatedPlayers]
     });
   }
 
@@ -124,7 +114,7 @@ const mapStateToProps = storeState => ({
   validatedPlayers: storeState.player.validation
 });
 
-const mapDispatchToProps = { createEntity, getPlayerByName };
+const mapDispatchToProps = { createEntity, getPlayerByName, createGameWithPlayers };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
