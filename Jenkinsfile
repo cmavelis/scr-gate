@@ -9,6 +9,16 @@ pipeline {
     DOCKER_REGISTRY_ORG = 'scrabblecompanion-248920'
   }
   stages {
+    stage('frontend tests') {
+        steps {
+            container('maven') {
+                sh 'mvn com.github.eirslett:frontend-maven-plugin:install-node-and-npm -DnodeVersion=v10.16.0 -DnpmVersion=6.9.0'
+                sh "mvn com.github.eirslett:frontend-maven-plugin:npm"
+                sh "mvn com.github.eirslett:frontend-maven-plugin:npm -Dfrontend.npm.arguments='run test-ci'"
+                junit '**/target/test-results/TESTS-*.xml'
+            }
+        }
+    }
     stage('CI Build and push snapshot') {
       when {
         branch 'PR-*'
@@ -21,7 +31,7 @@ pipeline {
       steps {
         container('maven') {
           sh "mvn versions:set -DnewVersion=$PREVIEW_VERSION"
-          sh "mvn install -DskipTests"
+          sh "mvn install"
           sh "skaffold version"
           sh "export VERSION=$PREVIEW_VERSION && skaffold build -f skaffold.yaml"
           sh "jx step post build --image $DOCKER_REGISTRY/$ORG/$APP_NAME:$PREVIEW_VERSION"

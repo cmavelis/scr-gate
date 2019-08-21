@@ -1,5 +1,3 @@
-import './word-entry.scss'; // TODO: remove local stylesheet
-
 import React from 'react';
 import { range } from 'lodash';
 

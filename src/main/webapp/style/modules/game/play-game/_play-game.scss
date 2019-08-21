@@ -1,0 +1,17 @@
+// Game styles
+
+.play-area {
+    display: flex;
+    flex-direction: row;
+    margin: 60px 0;
+}
+
+.player-cards {
+    margin: 0 10px;
+    flex-grow: 1;
+    max-width: 300px;
+}
+
+.board {
+    float: right;
+}
