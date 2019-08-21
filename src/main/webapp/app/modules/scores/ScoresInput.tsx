@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { Input, Button, Col, Row } from 'reactstrap';
 import { getEntity } from 'app/entities/scrabbledb2/game/game.reducer';
 import { updateEntity } from 'app/entities/scrabbledb2/game-player/game-player.reducer';
-import './scores.scss';
 import { Link } from 'react-router-dom';
 import WordEntry from 'app/modules/word/word-entry';
 import { IGamePlayer } from 'app/shared/model/scrabbledb2/game-player.model';
