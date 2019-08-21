@@ -31,7 +31,7 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
         3: 0
       }
     };
-    this.updateScore = this.updateScore.bind(this);
+    this.handleScoreSubmitClick = this.handleScoreSubmitClick.bind(this);
   }
 
   componentDidMount() {
@@ -53,6 +53,16 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
       }
     }));
   };
+
+  handleScoreSubmitClick(i) {
+    this.updateScore(i);
+    this.setState(prevState => ({
+      scoreToAdd: {
+        ...prevState.scoreToAdd,
+        [i]: 0
+      }
+    }));
+  }
 
   updateScore(i: number) {
     const { gamePlayers } = this.props.game;
@@ -92,7 +102,7 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
                     <h3 className="ps">{gamePlayer.score}</h3>
                     <span className="plus">&#43;</span>
                     <Input className="input" type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
-                    <Button className="button" color="primary" onClick={() => this.updateScore(i)}>
+                    <Button className="button" color="primary" onClick={() => this.handleScoreSubmitClick(i)}>
                       Submit Score
                     </Button>
                   </div>
