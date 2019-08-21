@@ -1,33 +1,7 @@
-h2 {
-  padding-bottom: 30px;
-}
-// p {
-//   padding-right: 125px;
-//   font-size: 10px;
-// }
-
-.player-score {
-  display: flex;
-  justify-content: space-around;
-  text-wrap: avoid;
-}
-
-//h3.ps {
-//  margin-right: 1200px;
-//}
-
-.plus {
-  // margin-bottom: 15px;
-  // margin-right: 5px;
-  // margin-left: -80px;
-  align-items: flex-start;
-}
-
-.input {
-  width: 50px;
-}
-.button {
-  height: 40px;
-  margin-bottom: 10px;
-  margin-left: 3px;
+.scores-input-table {
+  &-row {
+    display: grid;
+    grid-template-columns: 200px 100px 40px 50px 120px;
+    align-items: center;
+  }
 }

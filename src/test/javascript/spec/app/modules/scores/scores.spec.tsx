@@ -22,6 +22,7 @@ describe('ScoresInput', () => {
             }
           }
         }}
+        gamePlayerUpdate={false}
         getEntity={getEntity}
         updateEntity={createEntity}
       />

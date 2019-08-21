@@ -5,6 +5,8 @@ export interface IGamePlayer {
   rack?: string;
   gameId?: number;
   playerId?: number;
+  player?: object;
+  game?: object;
 }
 
 export const defaultValue: Readonly<IGamePlayer> = {};

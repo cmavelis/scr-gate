@@ -91,19 +91,19 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
             <Button>Back to Games</Button>
           </Link>
         </Row>
-        <div className="col-5">
+        <div className="scores-input-table">
           {game.gamePlayers && [0, 1, 2, 3].map(i => {
             if (typeof game.gamePlayers[i] !== 'undefined' && game.gamePlayers[i].player) {
               const gamePlayer = game.gamePlayers[i];
               const playerName = gamePlayer.player.name;
                 return (
-                  <div className="player-score" key={`player-score${i + 1}`}>
+                  <div className="scores-input-table-row" key={`player-score${i + 1}`}>
                     <h3>{playerName}</h3>
-                    <h3 className="ps">{gamePlayer.score}</h3>
-                    <span className="plus">&#43;</span>
-                    <Input className="input" type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
-                    <Button className="button" color="primary" onClick={() => this.handleScoreSubmitClick(i)}>
-                      Submit Score
+                    <h3>{gamePlayer.score}</h3>
+                    <h3>&#43;</h3>
+                    <Input type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
+                    <Button color="primary" onClick={() => this.handleScoreSubmitClick(i)}>
+                      Submit
                     </Button>
                   </div>
                 );
