@@ -38,6 +38,12 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
     this.props.getEntity(this.props.match.params.id);
   }
 
+  componentDidUpdate(prevProps): void {
+    if (prevProps.gamePlayerUpdate !== this.props.gamePlayerUpdate) {
+      this.props.getEntity(this.props.game.id);
+    }
+  }
+
   handleChange = (e, i) => {
     const { value } = e.target;
     this.setState(prevState => ({
@@ -109,7 +115,8 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
   }
 }
 const mapStateToProps = storeState => ({
-  game: storeState.game.entity
+  game: storeState.game.entity,
+  gamePlayerUpdate: storeState.gamePlayer.updateSuccess
 });
 
 const mapDispatchToProps = { getEntity, updateEntity };
