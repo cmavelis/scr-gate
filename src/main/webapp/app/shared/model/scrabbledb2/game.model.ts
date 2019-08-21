@@ -8,7 +8,7 @@ export interface IGame {
   state?: string;
   start_time?: Moment;
   gamePlayers?: IGamePlayer[];
-  playersToAdd?: IPlayer[];
+  playersToAdd?: number[];
 }
 
 export const defaultValue: Readonly<IGame> = {};

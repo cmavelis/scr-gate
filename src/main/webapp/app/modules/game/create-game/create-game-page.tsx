@@ -9,7 +9,14 @@ import { Link } from 'react-router-dom';
 import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
 import { getPlayerByName } from 'app/entities/scrabbledb2/player/player.reducer';
 
-export interface ICreateGamePageProps extends StateProps, DispatchProps {}
+export interface ICreateGamePageProps extends StateProps, DispatchProps {
+  validatedPlayers: {
+    [key: number]: {
+      id: number;
+      name: string;
+    };
+  };
+}
 export interface ICreateGamePageState {
   playerNames: {
     [key: number]: {
@@ -45,7 +52,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
             ...prevState.playerNames,
             [i]: {
               ...prevState.playerNames[i],
-              exists: this.props.validatedPlayers[i] !== '' && this.props.validatedPlayers[i].id && this.props.validatedPlayers[i].id !== null
+              exists: this.props.validatedPlayers[i].id && this.props.validatedPlayers[i].id !== null
           }}}));
         }
       }
@@ -79,12 +86,14 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
   }
 
   handleClick() {
-    const { gameName } = this.state;
+    const { gameName, playerNames } = this.state;
     const { validatedPlayers } = this.props;
     this.props.createGameWithPlayers({
         name: gameName,
         start_time: moment(),
-        playersToAdd: [validatedPlayers]
+        playersToAdd: Object.values(validatedPlayers).map((player, i) =>
+          player.name === playerNames[i].name ? player.id : null
+        )
     });
   }
 

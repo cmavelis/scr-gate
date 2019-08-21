@@ -2,8 +2,9 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, Row, Col } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import { IGame } from 'app/shared/model/scrabbledev/game.model';
+import { IGame } from 'app/shared/model/scrabbledb2/game.model';
 import { getEntities } from 'app/entities/scrabbledb2/game/game.reducer';
+import { IGamePlayer } from 'app/shared/model/scrabbledb2/game-player.model';
 
 export interface IHomeProp extends StateProps, DispatchProps {
   games: IGame;
@@ -35,6 +36,11 @@ export class StartScreen extends React.Component<IHomeProp> {
                   </Link>
                   <ul>
                     {Object.keys(game).map(key => {
+                      if (key === 'gamePlayers') {
+                        return (
+                          <li>{`Players: ${Object.values(game[key]).map((gamePlayer: IGamePlayer) => gamePlayer.player && gamePlayer.player.name).join(', ')}`}</li>
+                        );
+                      }
                       if (key !== 'state') {
                       return (
                         <li>{`${key}: ${game[key]}`}</li>

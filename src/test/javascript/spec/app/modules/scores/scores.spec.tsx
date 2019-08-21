@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { ScoresInput } from 'app/modules/scores/ScoresInput';
 import { BrowserRouter } from 'react-router-dom';
 
-import { getEntity, createEntity } from 'app/entities/scrabbledev/game/game.reducer';
+import { getEntity, createEntity } from 'app/entities/scrabbledb2/game/game.reducer';
 
 describe('ScoresInput', () => {
   let wrapper;
@@ -11,7 +11,17 @@ describe('ScoresInput', () => {
     <BrowserRouter>
       <ScoresInput
         match={{ params: { id: 0 } }}
-        game={{ id: 0 }}
+        game={{
+            id: 0,
+            gamePlayers: {
+              0: {
+                player: {
+                  id: 1,
+                  name: 'Albert'
+              }
+            }
+          }
+        }}
         getEntity={getEntity}
         updateEntity={createEntity}
       />

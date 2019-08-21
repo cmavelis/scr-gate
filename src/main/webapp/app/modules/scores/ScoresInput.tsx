@@ -1,10 +1,12 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, Col, Row } from 'reactstrap';
-import { getEntity, updateEntity } from 'app/entities/scrabbledb2/game/game.reducer';
+import { getEntity } from 'app/entities/scrabbledb2/game/game.reducer';
+import { updateEntity } from 'app/entities/scrabbledb2/game-player/game-player.reducer';
 import './scores.scss';
 import { Link } from 'react-router-dom';
 import WordEntry from 'app/modules/word/word-entry';
+import { IGamePlayer } from 'app/shared/model/scrabbledb2/game-player.model';
 
 export interface IScoresInputProps extends StateProps, DispatchProps {
   match: any; // TODO: find real type
@@ -47,16 +49,16 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
     }));
   };
 
-  updateScore(num) {
-    const { game } = this.props;
+  updateScore(i: number) {
+    const { gamePlayers } = this.props.game;
+    const gamePlayer: IGamePlayer = gamePlayers[i];
     const { scoreToAdd } = this.state;
-    const playerScore = scoreToAdd[num];
+    const playerScore = scoreToAdd[i];
 
     if (Number.isInteger(Number(playerScore))) {
       this.props.updateEntity({
-        ...game,
-        [`score${num + 1}`]: Number(game[`score${num + 1}`]) + Number(playerScore),
-        nextPlayer: game.nextPlayer
+        ...gamePlayer,
+        score: gamePlayer.score + Number(playerScore)
       });
     } else {
       alert('Numbers only');
@@ -76,19 +78,20 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
         </Row>
         <div className="col-5">
           {game.gamePlayers && [0, 1, 2, 3].map(i => {
-            if (typeof game.gamePlayers[i] !== 'undefined') {
-            const playerName = game.gamePlayers[i].player.name;
-              return (
-                <div className="player-score" key={`player-score${i + 1}`}>
-                  <h3>{playerName}</h3>
-                  <h3 className="ps">{game[`score${i + 1}`]}</h3>
-                  <span className="plus">&#43;</span>
-                  <Input className="input" type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
-                  <Button className="button" color="primary" onClick={() => this.updateScore(i)}>
-                    Submit Score
-                  </Button>
-                </div>
-              );
+            if (typeof game.gamePlayers[i] !== 'undefined' && game.gamePlayers[i].player) {
+              const gamePlayer = game.gamePlayers[i];
+              const playerName = gamePlayer.player.name;
+                return (
+                  <div className="player-score" key={`player-score${i + 1}`}>
+                    <h3>{playerName}</h3>
+                    <h3 className="ps">{gamePlayer.score}</h3>
+                    <span className="plus">&#43;</span>
+                    <Input className="input" type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
+                    <Button className="button" color="primary" onClick={() => this.updateScore(i)}>
+                      Submit Score
+                    </Button>
+                  </div>
+                );
             } else {
               return;
             }
