@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Input, Button, Col, Row } from 'reactstrap';
+import { getEntity } from 'app/entities/scrabbledb2/game/game.reducer';
+import { updateEntity } from 'app/entities/scrabbledb2/game-player/game-player.reducer';
 import { Link } from 'react-router-dom';
-
-import { getEntity, updateEntity } from 'app/entities/scrabbledev/game/game.reducer';
 import WordEntry from 'app/modules/word/word-entry';
+import { IGamePlayer } from 'app/shared/model/scrabbledb2/game-player.model';
 
 export interface IScoresInputProps extends StateProps, DispatchProps {
   match: any; // TODO: find real type
@@ -30,11 +31,17 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
         3: 0
       }
     };
-    this.updateScore = this.updateScore.bind(this);
+    this.handleScoreSubmitClick = this.handleScoreSubmitClick.bind(this);
   }
 
   componentDidMount() {
     this.props.getEntity(this.props.match.params.id);
+  }
+
+  componentDidUpdate(prevProps): void {
+    if (prevProps.gamePlayerUpdate !== this.props.gamePlayerUpdate) {
+      this.props.getEntity(this.props.game.id);
+    }
   }
 
   handleChange = (e, i) => {
@@ -47,16 +54,26 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
     }));
   };
 
-  updateScore(num) {
-    const { game } = this.props;
+  handleScoreSubmitClick(i) {
+    this.updateScore(i);
+    this.setState(prevState => ({
+      scoreToAdd: {
+        ...prevState.scoreToAdd,
+        [i]: 0
+      }
+    }));
+  }
+
+  updateScore(i: number) {
+    const { gamePlayers } = this.props.game;
+    const gamePlayer: IGamePlayer = gamePlayers[i];
     const { scoreToAdd } = this.state;
-    const playerScore = scoreToAdd[num];
+    const playerScore = scoreToAdd[i];
 
     if (Number.isInteger(Number(playerScore))) {
       this.props.updateEntity({
-        ...game,
-        [`score${num + 1}`]: Number(game[`score${num + 1}`]) + Number(playerScore),
-        nextPlayer: game.nextPlayer
+        ...gamePlayer,
+        score: gamePlayer.score + Number(playerScore)
       });
     } else {
       alert('Numbers only');
@@ -74,21 +91,22 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
             <Button>Back to Games</Button>
           </Link>
         </Row>
-        <div className="col-5">
-          {[0, 1, 2, 3].map(i => {
-            const playerName = game[`player${i + 1}`];
-            if (playerName !== '') {
-              return (
-                <div className="player-score" key={`player-score${i + 1}`}>
-                  <h3>{playerName}</h3>
-                  <h3 className="ps">{game[`score${i + 1}`]}</h3>
-                  <span className="plus">&#43;</span>
-                  <Input className="input" type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
-                  <Button className="button" color="primary" onClick={() => this.updateScore(i)}>
-                    Submit Score
-                  </Button>
-                </div>
-              );
+        <div className="scores-input-table">
+          {game.gamePlayers && [0, 1, 2, 3].map(i => {
+            if (typeof game.gamePlayers[i] !== 'undefined' && game.gamePlayers[i].player) {
+              const gamePlayer = game.gamePlayers[i];
+              const playerName = gamePlayer.player.name;
+                return (
+                  <div className="scores-input-table-row" key={`player-score${i + 1}`}>
+                    <h3>{playerName}</h3>
+                    <h3>{gamePlayer.score}</h3>
+                    <h3>&#43;</h3>
+                    <Input type="text" value={scoreToAdd[i]} onChange={e => this.handleChange(e, i)}/>
+                    <Button color="primary" onClick={() => this.handleScoreSubmitClick(i)}>
+                      Submit
+                    </Button>
+                  </div>
+                );
             } else {
               return;
             }
@@ -107,7 +125,8 @@ export class ScoresInput extends React.Component<IScoresInputProps, IScoresInput
   }
 }
 const mapStateToProps = storeState => ({
-  game: storeState.game.entity
+  game: storeState.game.entity,
+  gamePlayerUpdate: storeState.gamePlayer.updateSuccess
 });
 
 const mapDispatchToProps = { getEntity, updateEntity };

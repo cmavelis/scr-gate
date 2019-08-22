@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import { MemoryRouter } from 'react-router';
 
 import { StartScreen } from 'app/modules/game/start-screen';
-import { getEntities } from 'app/entities/scrabbledev/game/game.reducer';
+import { getEntities } from 'app/entities/scrabbledb2/game/game.reducer';
 
 describe('StartScreen', () => {
   it('should render two buttons,<Button /> and <Button />', () => {

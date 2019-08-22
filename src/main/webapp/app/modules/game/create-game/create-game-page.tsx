@@ -6,12 +6,23 @@ import moment from 'moment';
 import CreateGame from 'app/modules/game/create-game/create-game';
 import { Link } from 'react-router-dom';
 
-import { createEntity } from 'app/entities/scrabbledev/game/game.reducer';
+import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
+import { getPlayerByName, resetValidation } from 'app/entities/scrabbledb2/player/player.reducer';
 
-export interface ICreateGamePageProps extends StateProps, DispatchProps {}
+export interface ICreateGamePageProps extends StateProps, DispatchProps {
+  validatedPlayers: {
+    [key: number]: {
+      id: number;
+      name: string;
+    };
+  };
+}
 export interface ICreateGamePageState {
   playerNames: {
-    [key: number]: string;
+    [key: number]: {
+      name: string,
+      exists: boolean
+    };
   };
   gameName: string;
 }
@@ -22,10 +33,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
 
     this.state = {
       playerNames: {
-        0: '',
-        1: '',
-        2: '',
-        3: ''
+        ...[0, 1, 2, 3].map(() => ({ name: '', exists: null }))
       },
       gameName: 'New Game'
     };
@@ -33,6 +41,32 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     this.handleClick = this.handleClick.bind(this);
     this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
     this.handleGameNameChange = this.handleGameNameChange.bind(this);
+    this.checkPlayerExists = this.checkPlayerExists.bind(this);
+  }
+
+  componentDidMount(): void {
+    this.props.resetValidation();
+  }
+
+  componentDidUpdate(prevProps): void {
+    [0, 1, 2, 3].forEach(i => {
+      if (prevProps.validatedPlayers[i] !== this.props.validatedPlayers[i]) {
+        this.setState(prevState => ({
+          playerNames: {
+            ...prevState.playerNames,
+            [i]: {
+              ...prevState.playerNames[i],
+              exists: (this.props.validatedPlayers[i].id !== undefined && this.props.validatedPlayers[i].id !== null)
+          }}}));
+        }
+      }
+    );
+  }
+
+  checkPlayerExists(i) {
+    if (this.state.playerNames[i].name) {
+      this.props.getPlayerByName(this.state.playerNames[i].name, i);
+    }
   }
 
   handlePlayerNameChange(value, index) {
@@ -40,7 +74,10 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
       ...prevState,
       playerNames: {
         ...prevState.playerNames,
-        [index]: value.slice(0, 12) // TODO: look up more proper validation method
+        [index]: {
+          ...prevState.playerNames[index],
+          name: value.slice(0, 12)
+        } // TODO: look up more proper validation method
       }
     }));
   }
@@ -49,26 +86,18 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     const { value } = event.target;
     this.setState({
       gameName: value
-    });
+    }); // TODO: getGame
   }
 
   handleClick() {
-    const {
-      playerNames,
-      gameName
-    } = this.state;
-    this.props.createEntity({
+    const { gameName, playerNames } = this.state;
+    const { validatedPlayers } = this.props;
+    this.props.createGameWithPlayers({
         name: gameName,
-        game_start: moment(),
-        player1: playerNames[0],
-        player2: playerNames[1],
-        player3: playerNames[2],
-        player4: playerNames[3],
-        score1: 0,
-        score2: 0,
-        score3: 0,
-        score4: 0,
-        nextPlayer: 1
+        start_time: moment(),
+        playersToAdd: Object.values(validatedPlayers).map((player, i) =>
+          player.name === playerNames[i].name ? player.id : null
+        )
     });
   }
 
@@ -81,10 +110,11 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
           gameName={gameName}
           handlePlayerNameChange={this.handlePlayerNameChange}
           handleGameNameChange={this.handleGameNameChange}
+          checkPlayerExists={this.checkPlayerExists}
         />
-          <Button color="primary" onClick={this.handleClick}>
-            Start Game
-          </Button>
+        <Button color="primary" onClick={this.handleClick}>
+          Start Game
+        </Button>
         <Link to="/game">
           <Button>Back to Games</Button>
         </Link>
@@ -93,9 +123,11 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
   }
 }
 
-const mapStateToProps = () => ({});
+const mapStateToProps = storeState => ({
+  validatedPlayers: storeState.player.validation
+});
 
-const mapDispatchToProps = { createEntity };
+const mapDispatchToProps = { createEntity, getPlayerByName, createGameWithPlayers, resetValidation };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

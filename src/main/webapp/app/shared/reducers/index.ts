@@ -12,13 +12,17 @@ import password, { PasswordState } from 'app/modules/account/password/password.r
 import settings, { SettingsState } from 'app/modules/account/settings/settings.reducer';
 import passwordReset, { PasswordResetState } from 'app/modules/account/password-reset/password-reset.reducer';
 // prettier-ignore
-import player, {
-  PlayerState
-} from 'app/entities/game/player/player.reducer';
-// prettier-ignore
 import game, {
   GameState
-} from 'app/entities/scrabbledev/game/game.reducer';
+} from 'app/entities/scrabbledb2/game/game.reducer';
+// prettier-ignore
+import gamePlayer, {
+  GamePlayerState
+} from 'app/entities/scrabbledb2/game-player/game-player.reducer';
+// prettier-ignore
+import player, {
+  PlayerState
+} from 'app/entities/scrabbledb2/player/player.reducer';
 /* jhipster-needle-add-reducer-import - JHipster will add reducer here */
 
 export interface IRootState {
@@ -33,6 +37,7 @@ export interface IRootState {
   readonly settings: SettingsState;
   readonly game: GameState;
   readonly player: PlayerState;
+  readonly gamePlayer: GamePlayerState;
   /* jhipster-needle-add-reducer-type - JHipster will add reducer type here */
   readonly loadingBar: any;
 }
@@ -49,6 +54,7 @@ const rootReducer = combineReducers<IRootState>({
   settings,
   game,
   player,
+  gamePlayer,
   /* jhipster-needle-add-reducer-combine - JHipster will add reducer here */
   loadingBar
 });
