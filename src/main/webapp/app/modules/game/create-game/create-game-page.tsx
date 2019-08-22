@@ -7,7 +7,7 @@ import CreateGame from 'app/modules/game/create-game/create-game';
 import { Link } from 'react-router-dom';
 
 import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
-import { getPlayerByName, resetValidation } from 'app/entities/scrabbledb2/player/player.reducer';
+import { getPlayerByName, resetValidation, createEntity as createPlayer } from 'app/entities/scrabbledb2/player/player.reducer';
 
 export interface ICreateGamePageProps extends StateProps, DispatchProps {
   validatedPlayers: {
@@ -127,7 +127,13 @@ const mapStateToProps = storeState => ({
   validatedPlayers: storeState.player.validation
 });
 
-const mapDispatchToProps = { createEntity, getPlayerByName, createGameWithPlayers, resetValidation };
+const mapDispatchToProps = {
+  createEntity,
+  getPlayerByName,
+  createGameWithPlayers,
+  resetValidation,
+  createPlayer
+};
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;

@@ -1,9 +1,25 @@
-.deactivated {
-  opacity: 0.5;
-}
-
-.input-hack {
-  padding: 5px 0;
-  width: 100%;
-  max-width: 20rem;
+.name-input {
+  &-group {
+    &:disabled {
+      opacity: 0.5;
+    }
+    display: grid;
+    grid-template-columns: 6rem 13rem 2rem;
+    place-items: center;
+  }
+  &-prepend {
+    justify-self: end;
+    width: 100%;
+    &-text {
+      width: 100%;
+    }
+  }
+  &-field {
+    width: 100% !important;
+    border-bottom-right-radius: $border-radius !important;
+    border-top-right-radius: $border-radius !important;
+  }
+  &-icon {
+    //grid-column-start: 3;
+  }
 }

@@ -47,24 +47,30 @@ export const NameEntry: React.FC<INameProps> = props => {
     props.onChange(event.target.value, props.playerNumber);
   }
 
-  let icon;
+  let iconProp;
   if (props.exists) {
-    icon = <FontAwesomeIcon icon="check" />;
+    iconProp = 'check';
   } else if (props.playerName && props.exists === false) {
-    icon = <FontAwesomeIcon icon="user-plus" />;
+    iconProp = 'user-plus';
   }
+  const icon = <FontAwesomeIcon className="name-input-icon" icon={iconProp} />;
 
-  const classes = `input-hack ${props.deactivated ? 'deactivated' : ''}`;
+  const classes = `name-input-group`; // ${props.deactivated ? 'deactivated' : ''}`;
   return (
-    <fieldset className={classes} disabled={props.deactivated}>
-      <InputGroup>
-        <InputGroupAddon addonType="prepend">
-          <InputGroupText>Player {props.playerNumber + 1}</InputGroupText>
+    // <fieldset className={classes} disabled={props.deactivated}>
+      <InputGroup className={classes} disabled={props.deactivated}>
+        <InputGroupAddon className="name-input-prepend" addonType="prepend">
+          <InputGroupText className="name-input-prepend-text">Player {props.playerNumber + 1}</InputGroupText>
         </InputGroupAddon>
-        <Input value={props.playerName} onChange={handleChange} placeholder="1-12 Characters" />
+        <Input
+          className="name-input-field"
+          value={props.playerName}
+          onChange={handleChange}
+          placeholder="1-12 Characters"
+        />
         {icon}
       </InputGroup>
-    </fieldset>
+    // </fieldset>
   );
 };
 
