@@ -9,6 +9,7 @@ export const ACTION_TYPES = {
   FETCH_PLAYER_LIST: 'player/FETCH_PLAYER_LIST',
   FETCH_PLAYER: 'player/FETCH_PLAYER',
   VALIDATE_PLAYER: 'player/VALIDATE_PLAYER',
+  VALIDATE_RESET: 'player/VALIDATE_RESET',
   CREATE_PLAYER: 'player/CREATE_PLAYER',
   UPDATE_PLAYER: 'player/UPDATE_PLAYER',
   DELETE_PLAYER: 'player/DELETE_PLAYER',
@@ -111,6 +112,11 @@ export default (state: PlayerState = initialState, action): PlayerState => {
         updateSuccess: true,
         entity: {}
       };
+    case ACTION_TYPES.VALIDATE_RESET:
+      return {
+        ...state,
+        validation: initialState.validation
+      };
     case ACTION_TYPES.RESET:
       return {
         ...initialState
@@ -173,6 +179,10 @@ export const deleteEntity: ICrudDeleteAction<IPlayer> = id => async dispatch => 
   dispatch(getEntities());
   return result;
 };
+
+export const resetValidation = () => ({
+  type: ACTION_TYPES.VALIDATE_RESET
+});
 
 export const reset = () => ({
   type: ACTION_TYPES.RESET

@@ -4,17 +4,19 @@ import { mount, shallow } from 'enzyme';
 import { CreateGamePage } from 'app/modules/game/create-game/create-game-page';
 import { BrowserRouter } from 'react-router-dom';
 import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
-import { getPlayerByName } from 'app/entities/scrabbledb2/player/player.reducer';
+import { getPlayerByName, resetValidation } from 'app/entities/scrabbledb2/player/player.reducer';
 
 describe('CreateGamePage component', () => {
   const dispatch = jest.fn();
   let wrapper;
-  wrapper = shallow(<CreateGamePage
-    createEntity={createEntity}
-    getPlayerByName={getPlayerByName}
-    createGameWithPlayers={createGameWithPlayers}
-    validatedPlayers={ { 0: { name: '', id: 1 } } }
-  />);
+  const props = {
+    createEntity,
+    getPlayerByName,
+    createGameWithPlayers,
+    resetValidation,
+    validatedPlayers: { 0: { name: '', id: 1 } }
+  };
+  wrapper = shallow(<CreateGamePage {...props}/>);
 
   it('should render a <div />', () => {
     expect(wrapper.find('div').length).toEqual(1);
@@ -23,12 +25,7 @@ describe('CreateGamePage component', () => {
   it('should not allow more than 12 characters in a name', () => {
     wrapper = mount(
       <BrowserRouter>
-        <CreateGamePage
-          createEntity={createEntity}
-          getPlayerByName={getPlayerByName}
-          createGameWithPlayers={createGameWithPlayers}
-          validatedPlayers={ { 0: { name: '', id: 1 } } }
-        />
+        <CreateGamePage {...props}/>
       </BrowserRouter>);
 
     wrapper.find('CreateGamePage').setState({

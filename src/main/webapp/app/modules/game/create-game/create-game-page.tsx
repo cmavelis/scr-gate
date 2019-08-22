@@ -7,7 +7,7 @@ import CreateGame from 'app/modules/game/create-game/create-game';
 import { Link } from 'react-router-dom';
 
 import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
-import { getPlayerByName } from 'app/entities/scrabbledb2/player/player.reducer';
+import { getPlayerByName, resetValidation } from 'app/entities/scrabbledb2/player/player.reducer';
 
 export interface ICreateGamePageProps extends StateProps, DispatchProps {
   validatedPlayers: {
@@ -44,6 +44,10 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     this.checkPlayerExists = this.checkPlayerExists.bind(this);
   }
 
+  componentDidMount(): void {
+    this.props.resetValidation();
+  }
+
   componentDidUpdate(prevProps): void {
     [0, 1, 2, 3].forEach(i => {
       if (prevProps.validatedPlayers[i] !== this.props.validatedPlayers[i]) {
@@ -52,7 +56,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
             ...prevState.playerNames,
             [i]: {
               ...prevState.playerNames[i],
-              exists: this.props.validatedPlayers[i].id && this.props.validatedPlayers[i].id !== null
+              exists: (this.props.validatedPlayers[i].id !== undefined && this.props.validatedPlayers[i].id !== null)
           }}}));
         }
       }
@@ -123,7 +127,7 @@ const mapStateToProps = storeState => ({
   validatedPlayers: storeState.player.validation
 });
 
-const mapDispatchToProps = { createEntity, getPlayerByName, createGameWithPlayers };
+const mapDispatchToProps = { createEntity, getPlayerByName, createGameWithPlayers, resetValidation };
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
