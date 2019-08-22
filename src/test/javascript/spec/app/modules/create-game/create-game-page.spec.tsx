@@ -3,7 +3,7 @@ import { mount, shallow } from 'enzyme';
 
 import { CreateGamePage } from 'app/modules/game/create-game/create-game-page';
 import { BrowserRouter } from 'react-router-dom';
-import { createEntity } from 'app/entities/scrabbledev/game/game.reducer';
+import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
 import { getPlayerByName } from 'app/entities/scrabbledb2/player/player.reducer';
 
 describe('CreateGamePage component', () => {
@@ -12,7 +12,8 @@ describe('CreateGamePage component', () => {
   wrapper = shallow(<CreateGamePage
     createEntity={createEntity}
     getPlayerByName={getPlayerByName}
-    validatedPlayers={''}
+    createGameWithPlayers={createGameWithPlayers}
+    validatedPlayers={ { 0: { name: '', id: 1 } } }
   />);
 
   it('should render a <div />', () => {
@@ -25,7 +26,8 @@ describe('CreateGamePage component', () => {
         <CreateGamePage
           createEntity={createEntity}
           getPlayerByName={getPlayerByName}
-          validatedPlayers={''}
+          createGameWithPlayers={createGameWithPlayers}
+          validatedPlayers={ { 0: { name: '', id: 1 } } }
         />
       </BrowserRouter>);
 

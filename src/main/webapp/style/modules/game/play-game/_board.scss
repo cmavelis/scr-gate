@@ -3,7 +3,7 @@
 $columns: 15;
 $rows: 15;
 
-// Board syles
+// Board styles
 
 .board-wrap {
   padding: 10px;
@@ -32,4 +32,19 @@ $rows: 15;
   text-align: center;
   font-size: 7px;
   font-weight: bold;
+}
+
+.board-preview {
+  display: inline-block;
+  &-grid {
+    display: grid;
+    padding: 4px 8px 8px 8px;
+    border: 1px solid $secondary;
+    border-radius: 2px;
+    font-size: 8px;
+    justify-items: center;
+    align-items: center;
+    grid-template-columns: repeat($columns, 8px);
+    grid-template-rows: repeat($rows, 8px);
+  }
 }

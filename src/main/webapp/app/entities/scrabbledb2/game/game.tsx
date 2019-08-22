@@ -11,6 +11,7 @@ import { getEntities } from './game.reducer';
 import { IGame } from 'app/shared/model/scrabbledb2/game.model';
 // tslint:disable-next-line:no-unused-variable
 import { APP_DATE_FORMAT, APP_LOCAL_DATE_FORMAT } from 'app/config/constants';
+import BoardPreview from 'app/modules/game/board-preview';
 
 export interface IGameProps extends StateProps, DispatchProps, RouteComponentProps<{ url: string }> {}
 
@@ -43,7 +44,7 @@ export class Game extends React.Component<IGameProps> {
                 </tr>
               </thead>
               <tbody>
-                {gameList.map((game, i) => (
+                {gameList.map((game: IGame, i) => (
                   <tr key={`entity-${i}`}>
                     <td>
                       <Button tag={Link} to={`${match.url}/${game.id}`} color="link" size="sm">
@@ -51,7 +52,9 @@ export class Game extends React.Component<IGameProps> {
                       </Button>
                     </td>
                     <td>{game.name}</td>
-                    <td>{game.state}</td>
+                    <td>
+                      <BoardPreview boardState={game.state} />
+                    </td>
                     <td>
                       <TextFormat type="date" value={game.start_time} format={APP_DATE_FORMAT} />
                     </td>

@@ -1,3 +1,6 @@
+import { IPlayer } from 'app/shared/model/scrabbledb2/player.model';
+import { IGame } from 'app/shared/model/scrabbledb2/game.model';
+
 export interface IGamePlayer {
   id?: number;
   turnOrder?: number;
@@ -5,8 +8,8 @@ export interface IGamePlayer {
   rack?: string;
   gameId?: number;
   playerId?: number;
-  player?: object;
-  game?: object;
+  player?: IPlayer;
+  game?: IGame;
 }
 
 export const defaultValue: Readonly<IGamePlayer> = {};

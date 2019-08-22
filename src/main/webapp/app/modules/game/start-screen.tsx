@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { IGame } from 'app/shared/model/scrabbledb2/game.model';
 import { getEntities } from 'app/entities/scrabbledb2/game/game.reducer';
 import { IGamePlayer } from 'app/shared/model/scrabbledb2/game-player.model';
+import BoardPreview from 'app/modules/game/board-preview';
 
 export interface IHomeProp extends StateProps, DispatchProps {
   games: IGame;
@@ -41,7 +42,14 @@ export class StartScreen extends React.Component<IHomeProp> {
                           <li>{`Players: ${Object.values(game[key]).map((gamePlayer: IGamePlayer) => gamePlayer.player && gamePlayer.player.name).join(', ')}`}</li>
                         );
                       }
-                      if (key !== 'state') {
+                      if (key === 'state') {
+                        return (
+                          <li>
+                            <BoardPreview boardState={game.state}/>
+                          </li>
+                        );
+                      }
+                      if (!['state', 'id', 'name'].includes(key)) {
                       return (
                         <li>{`${key}: ${game[key]}`}</li>
                       );
