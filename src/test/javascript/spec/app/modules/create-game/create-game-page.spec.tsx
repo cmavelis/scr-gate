@@ -4,7 +4,7 @@ import { mount, shallow } from 'enzyme';
 import { CreateGamePage } from 'app/modules/game/create-game/create-game-page';
 import { BrowserRouter } from 'react-router-dom';
 import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/game/game.reducer';
-import { getPlayerByName, resetValidation } from 'app/entities/scrabbledb2/player/player.reducer';
+import { getPlayerByName, resetValidation, createEntity as createPlayer } from 'app/entities/scrabbledb2/player/player.reducer';
 
 describe('CreateGamePage component', () => {
   const dispatch = jest.fn();
@@ -14,6 +14,7 @@ describe('CreateGamePage component', () => {
     getPlayerByName,
     createGameWithPlayers,
     resetValidation,
+    createPlayer,
     validatedPlayers: { 0: { name: '', id: 1 } }
   };
   wrapper = shallow(<CreateGamePage {...props}/>);

@@ -42,6 +42,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     this.handlePlayerNameChange = this.handlePlayerNameChange.bind(this);
     this.handleGameNameChange = this.handleGameNameChange.bind(this);
     this.checkPlayerExists = this.checkPlayerExists.bind(this);
+    this.handleCreatePlayer = this.handleCreatePlayer.bind(this);
   }
 
   componentDidMount(): void {
@@ -67,6 +68,14 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
     if (this.state.playerNames[i].name) {
       this.props.getPlayerByName(this.state.playerNames[i].name, i);
     }
+  }
+
+  handleCreatePlayer(i) {
+    this.props.createPlayer(
+      {
+        name: this.state.playerNames[i].name
+      }
+    );
   }
 
   handlePlayerNameChange(value, index) {
@@ -108,6 +117,7 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
         <CreateGame
           playerNames={playerNames}
           gameName={gameName}
+          handleCreatePlayer={this.handleCreatePlayer}
           handlePlayerNameChange={this.handlePlayerNameChange}
           handleGameNameChange={this.handleGameNameChange}
           checkPlayerExists={this.checkPlayerExists}

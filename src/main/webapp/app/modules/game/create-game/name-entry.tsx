@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 
-import { InputGroup, InputGroupAddon, InputGroupText, Input } from 'reactstrap';
+import { InputGroup, InputGroupAddon, InputGroupText, Input, Button } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 export interface INameProps {
   playerNumber: number;
@@ -9,6 +9,7 @@ export interface INameProps {
   deactivated: boolean;
   exists: boolean;
   onTimeout: Function;
+  onIconClick: Function;
 }
 
 export const NameEntry: React.FC<INameProps> = props => {
@@ -47,30 +48,37 @@ export const NameEntry: React.FC<INameProps> = props => {
     props.onChange(event.target.value, props.playerNumber);
   }
 
-  let iconProp;
+  let iconName;
+  const buttonProps = {
+    disabled: true,
+    color: 'info',
+    onClick: () => props.onIconClick()
+  };
   if (props.exists) {
-    iconProp = 'check';
+    iconName = 'check';
   } else if (props.playerName && props.exists === false) {
-    iconProp = 'user-plus';
+    iconName = 'user-plus';
+    buttonProps.disabled = false;
   }
-  const icon = <FontAwesomeIcon className="name-input-icon" icon={iconProp} />;
+  const iconButton =
+    <Button {...buttonProps}>
+      <FontAwesomeIcon className="name-input-icon" icon={iconName} />
+    </Button>;
 
   const classes = `name-input-group`; // ${props.deactivated ? 'deactivated' : ''}`;
   return (
-    // <fieldset className={classes} disabled={props.deactivated}>
-      <InputGroup className={classes} disabled={props.deactivated}>
-        <InputGroupAddon className="name-input-prepend" addonType="prepend">
-          <InputGroupText className="name-input-prepend-text">Player {props.playerNumber + 1}</InputGroupText>
-        </InputGroupAddon>
-        <Input
-          className="name-input-field"
-          value={props.playerName}
-          onChange={handleChange}
-          placeholder="1-12 Characters"
-        />
-        {icon}
-      </InputGroup>
-    // </fieldset>
+    <InputGroup className={classes} disabled={props.deactivated}>
+      <InputGroupAddon className="name-input-prepend" addonType="prepend">
+        <InputGroupText className="name-input-prepend-text">Player {props.playerNumber + 1}</InputGroupText>
+      </InputGroupAddon>
+      <Input
+        className="name-input-field"
+        value={props.playerName}
+        onChange={handleChange}
+        placeholder="1-12 Characters"
+      />
+      {iconName && iconButton}
+    </InputGroup>
   );
 };
 

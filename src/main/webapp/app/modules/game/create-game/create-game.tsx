@@ -12,6 +12,7 @@ export interface INameProps {
     };
   };
   gameName: string;
+  handleCreatePlayer: Function;
   handlePlayerNameChange: Function;
   handleGameNameChange: (event) => void;
   checkPlayerExists: Function;
@@ -28,6 +29,7 @@ export class CreateGame extends React.Component<INameProps, {}> {
     const {
       playerNames,
       gameName,
+      handleCreatePlayer,
       handleGameNameChange,
       handlePlayerNameChange,
       checkPlayerExists
@@ -51,6 +53,7 @@ export class CreateGame extends React.Component<INameProps, {}> {
                   deactivated={n > 1 && !CreateGame.shouldInputActivate(n, playerNames)}
                   exists={playerNames[n].exists}
                   onTimeout={() => checkPlayerExists(n)}
+                  onIconClick={() => handleCreatePlayer(n)}
                 />
               ))}
             </Col>

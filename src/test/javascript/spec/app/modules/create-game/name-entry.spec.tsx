@@ -15,9 +15,10 @@ describe('NameEntry component', () => {
       deactivated={false}
       exists={false}
       onTimeout={noop}
+      onIconClick={noop}
     />);
 
-  it('should render a <fieldset />', () => {
-    expect(wrapper.find('fieldset').length).toEqual(1);
+  it('should render an <InputGroup />', () => {
+    expect(wrapper.find('InputGroup').length).toEqual(1);
   });
 });
