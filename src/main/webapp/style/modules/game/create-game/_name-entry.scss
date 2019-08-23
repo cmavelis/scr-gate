@@ -1,8 +1,5 @@
 .name-input {
   &-group {
-    &:disabled {
-      opacity: 0.5;
-    }
     display: grid;
     grid-template-columns: 6rem 13rem 5rem;
     place-items: center;
@@ -19,7 +16,10 @@
     border-bottom-right-radius: $border-radius !important;
     border-top-right-radius: $border-radius !important;
   }
-  &-icon {
-    //grid-column-start: 3;
+  &-icon.fa-check {
+    color: $green-machine;
   }
+  //&-button {
+  //  width: 50px;
+  //}
 }

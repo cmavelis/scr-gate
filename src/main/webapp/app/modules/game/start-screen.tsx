@@ -37,23 +37,26 @@ export class StartScreen extends React.Component<IHomeProp> {
                   </Link>
                   <ul>
                     {Object.keys(game).map(key => {
-                      if (key === 'gamePlayers') {
-                        return (
-                          <li>{`Players: ${Object.values(game[key]).map((gamePlayer: IGamePlayer) => gamePlayer.player && gamePlayer.player.name).join(', ')}`}</li>
-                        );
+                      switch (key) {
+                        case 'gamePlayers':
+                          return <li>{`Players: ${Object.values(game[key])
+                            .map((gamePlayer: IGamePlayer) =>
+                              gamePlayer.player && gamePlayer.player.name).join(', ')}`}</li>;
+                        case 'state':
+                          return (
+                            <li>
+                              <BoardPreview boardState={game[key]}/>
+                            </li>
+                          );
+                        case 'start_time':
+                          return (
+                            <li>
+                              Started on {new Date(Date.parse(game[key])).toLocaleDateString('en-US')}
+                            </li>
+                          );
+                        default:
+                          return;
                       }
-                      if (key === 'state') {
-                        return (
-                          <li>
-                            <BoardPreview boardState={game.state}/>
-                          </li>
-                        );
-                      }
-                      if (!['state', 'id', 'name'].includes(key)) {
-                      return (
-                        <li>{`${key}: ${game[key]}`}</li>
-                      );
-                    }
                     })}
                   </ul>
                 </li>

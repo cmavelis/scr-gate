@@ -48,22 +48,19 @@ export const NameEntry: React.FC<INameProps> = props => {
     props.onChange(event.target.value, props.playerNumber);
   }
 
-  let iconName;
+  let icon;
   const buttonProps = {
-    disabled: true,
+    className: 'name-input-button',
     color: 'info',
     onClick: () => props.onIconClick()
   };
   if (props.exists) {
-    iconName = 'check';
+    icon = <FontAwesomeIcon className="name-input-icon" icon="check" />;
   } else if (props.playerName && props.exists === false) {
-    iconName = 'user-plus';
-    buttonProps.disabled = false;
-  }
-  const iconButton =
-    <Button {...buttonProps}>
-      <FontAwesomeIcon className="name-input-icon" icon={iconName} />
+    icon = <Button {...buttonProps}>
+      <FontAwesomeIcon className="name-input-icon" icon="user-plus"/>
     </Button>;
+  }
 
   const classes = `name-input-group`;
   return (
@@ -78,7 +75,7 @@ export const NameEntry: React.FC<INameProps> = props => {
           onChange={handleChange}
           placeholder="1-12 Characters"
         />
-        {iconName && iconButton}
+        {icon}
       </InputGroup>
     </fieldset>
   );
