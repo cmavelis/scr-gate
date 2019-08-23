@@ -65,20 +65,22 @@ export const NameEntry: React.FC<INameProps> = props => {
       <FontAwesomeIcon className="name-input-icon" icon={iconName} />
     </Button>;
 
-  const classes = `name-input-group`; // ${props.deactivated ? 'deactivated' : ''}`;
+  const classes = `name-input-group`;
   return (
-    <InputGroup className={classes} disabled={props.deactivated}>
-      <InputGroupAddon className="name-input-prepend" addonType="prepend">
-        <InputGroupText className="name-input-prepend-text">Player {props.playerNumber + 1}</InputGroupText>
-      </InputGroupAddon>
-      <Input
-        className="name-input-field"
-        value={props.playerName}
-        onChange={handleChange}
-        placeholder="1-12 Characters"
-      />
-      {iconName && iconButton}
-    </InputGroup>
+    <fieldset disabled={props.deactivated}>
+      <InputGroup className={classes}>
+        <InputGroupAddon className="name-input-prepend" addonType="prepend">
+          <InputGroupText className="name-input-prepend-text">Player {props.playerNumber + 1}</InputGroupText>
+        </InputGroupAddon>
+        <Input
+          className="name-input-field"
+          value={props.playerName}
+          onChange={handleChange}
+          placeholder="1-12 Characters"
+        />
+        {iconName && iconButton}
+      </InputGroup>
+    </fieldset>
   );
 };
 

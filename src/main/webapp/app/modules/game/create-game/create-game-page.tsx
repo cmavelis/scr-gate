@@ -50,6 +50,9 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
   }
 
   componentDidUpdate(prevProps): void {
+    if (prevProps.playerUpdate !== this.props.playerUpdate) {
+      [0, 1, 2, 3].forEach(i => this.checkPlayerExists(i));
+    }
     [0, 1, 2, 3].forEach(i => {
       if (prevProps.validatedPlayers[i] !== this.props.validatedPlayers[i]) {
         this.setState(prevState => ({
@@ -134,7 +137,8 @@ export class CreateGamePage extends React.Component<ICreateGamePageProps, ICreat
 }
 
 const mapStateToProps = storeState => ({
-  validatedPlayers: storeState.player.validation
+  validatedPlayers: storeState.player.validation,
+  playerUpdate: storeState.player.updateSuccess
 });
 
 const mapDispatchToProps = {

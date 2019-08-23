@@ -17,6 +17,7 @@ describe('CreateGame component', () => {
     gameName="testGame"
     handlePlayerNameChange={noop}
     handleGameNameChange={noop}
+    handleCreatePlayer={noop}
     checkPlayerExists={noop}
   />);
 
