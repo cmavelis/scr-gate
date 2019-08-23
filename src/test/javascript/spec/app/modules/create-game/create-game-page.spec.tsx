@@ -7,7 +7,7 @@ import { createEntity, createGameWithPlayers } from 'app/entities/scrabbledb2/ga
 import { getPlayerByName, resetValidation, createEntity as createPlayer } from 'app/entities/scrabbledb2/player/player.reducer';
 
 describe('CreateGamePage component', () => {
-  const dispatch = jest.fn();
+  // const dispatch = jest.fn();
   let wrapper;
   const props = {
     createEntity,
@@ -15,6 +15,7 @@ describe('CreateGamePage component', () => {
     createGameWithPlayers,
     resetValidation,
     createPlayer,
+    playerUpdate: true,
     validatedPlayers: { 0: { name: '', id: 1 } }
   };
   wrapper = shallow(<CreateGamePage {...props}/>);

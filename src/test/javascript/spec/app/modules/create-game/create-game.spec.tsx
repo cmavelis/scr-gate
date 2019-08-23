@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { NameEntry } from 'app/modules/game/create-game/name-entry';
 import { CreateGame } from 'app/modules/game/create-game/create-game';
@@ -38,8 +38,8 @@ describe('CreateGame component', () => {
         3: { name: '', exists: false }
       }
     });
-    expect(wrapper.find({ playerNumber: 2 }).prop('deactivated')).toBeFalsy();
-    expect(wrapper.find({ playerNumber: 3 }).prop('deactivated')).toBeTruthy();
+    expect(wrapper.find({ playerNumber: 2 }).dive().find('fieldset').prop('disabled')).toBeFalsy();
+    expect(wrapper.find({ playerNumber: 3 }).dive().find('fieldset').prop('disabled')).toBeTruthy();
   });
 });
 
